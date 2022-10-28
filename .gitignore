@@ -1,0 +1,7 @@
+node_modules
+*.log
+dist
+.DS_Store
+.vscode
+/scripts
+.npmrc
