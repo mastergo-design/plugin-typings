@@ -20,8 +20,13 @@
     "plugin",
     "typings"
   ],
+  
   "author": "MasterGo",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mastergo-design/plugin-typings"
+  },
   "directories": {
     "lib": "lib"
   },

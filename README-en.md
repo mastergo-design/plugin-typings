@@ -1,18 +1,18 @@
-**中文** | [English](./README-en.md)
+**English** | [中文](./README.md)
 
-# MasterGo插件API声明文件
-本项目为MasterGo插件API的ts声明文件。
+# MasterGo Plugin Typings
+This project is the ts declaration file of the MasterGo plugin API.
 
 ## 安装
 
-1. 通过npm安装
+1. npm install
     ```sh
     npm i --save-dev @mastergo/plugin-typings
-    # 或者使用yarn
+    # or yarn
     yarn add -D @mastergo/plugin-typings
     ```
 
-2. 配置 `tsconfig.json`
+2. configure `tsconfig.json`
     ```js
     {
         "compilerOptions": {
