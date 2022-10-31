@@ -3,7 +3,7 @@
 # MasterGo Plugin Typings
 This project is the ts declaration file of the MasterGo plugin API.
 
-## 安装
+## Install
 
 1. npm install
     ```sh
