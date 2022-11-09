@@ -148,6 +148,8 @@ declare global {
     center: Vector
     zoom: number
     readonly bound: Rect
+    rulerVisible: boolean
+    layoutGridVisible: boolean
     scrollAndZoomIntoView(nodes: ReadonlyArray<BaseNode>): void
   }
 
@@ -238,6 +240,13 @@ declare global {
       textCase: TextCase
     }
     fills: Paint[]
+  }
+
+  interface ListStyle {
+    start: number
+    end: number
+    level: number
+    type: 'ORDERED' | 'BULLETED' | 'NONE'
   }
 
   interface EffectStyle extends BaseStyle {
@@ -715,6 +724,7 @@ declare global {
   interface FrameNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
     readonly type: 'FRAME'
     clone(): FrameNode
+    resizeToFit(): void
   }
 
   interface GroupNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin {
@@ -821,6 +831,7 @@ declare global {
     textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT'
     paragraphSpacing: number
     readonly textStyles: ReadonlyArray<TextSegStyle>
+    readonly listStyles: ReadonlyArray<ListStyle>
     clone(): TextNode
 
     insertCharacters(start: number, characters: string): void
@@ -847,6 +858,7 @@ declare global {
     setRangeSuperLink(start: number, end: number, link: string | null): void
     setRangeHyperLink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
+    setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
   }
 
   interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
@@ -856,6 +868,7 @@ declare global {
     setVariantPropertyValues(property: Record<string, string>): void
     clone(): ComponentNode
     createInstance(): InstanceNode
+    resizeToFit(): void
   }
 
   interface ComponentSetNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
@@ -867,6 +880,7 @@ declare global {
     editVariantProperties(properties: Record<string, string>): void
     editVariantPropertyValues(properties: Record<string, { oldValue: string, newValue: string }>): void
     deleteVariantProperty(property: string): void
+    resizeToFit(): void
   }
 
   interface InstanceNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
