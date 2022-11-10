@@ -1,11 +1,20 @@
+# 1.6.1 (2022-11-09)
+
+
+### Features
+
+* viewport增加rulerVisible控制标识显示和layoutGridVisible控制布局网格展示
+  增加resizeToFit()让容器图层缩放到和内容尺寸一致
+  增加文字列表样式listStyle ([2d22357](https://github.com/mastergo-design/plugin-typings/commit/2d22357015b51c5f80efc33c8dcfbd32d1504cf2))
+
+
+
 # [1.5.0] (2022-10-18)
 
 
 ### Features
 
 * 添加command、run 
-
-
 
 # [1.4.0] (2022-10-13)
 
