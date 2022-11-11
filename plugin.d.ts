@@ -140,6 +140,8 @@ declare global {
     width?: number
     height?: number
     visible?: boolean
+    x?: number | string
+    y?: number | string
   }
 
   interface ExportSettingsConstraints {
@@ -157,7 +159,7 @@ declare global {
 
   interface ExportMixin {
     exportSettings: ReadonlyArray<ExportSettings>
-    export(settings?: ExportSettings): Promise<Uint8Array | string> // Defaults to PNG format
+    export(settings?: ExportSettings): Uint8Array | string // Defaults to PNG format
   }
 
   interface NotifyOptions {
