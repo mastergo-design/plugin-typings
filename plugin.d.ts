@@ -677,8 +677,8 @@ declare global {
 
     readonly children: ReadonlyArray<PageNode>
     
-    findAll(callback?: (node: PageNode) => boolean): ReadonlyArray<PageNode>
-    findOne(callback: (node: PageNode) => boolean): PageNode | null
+    findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
+    findOne(callback: (node: SceneNode) => boolean): SceneNode | null
   }
 
   interface PageNode
