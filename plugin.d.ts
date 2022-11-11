@@ -429,7 +429,7 @@ declare global {
   interface BaseNodeMixin {
     readonly id: string
     readonly parent: (BaseNode & ChildrenMixin) | void
-    name: string // Note: setting this also sets \`autoRename\` to false on TextNodes
+    name: string
     removed: boolean
     remove(): void
     getPluginData(key: string): string
@@ -671,16 +671,28 @@ declare global {
   /// /////////////////////////////////////////////////////////////////////////////
   // Nodes
 
-  interface DocumentNode extends ChildrenMixin<PageNode> {
+  interface DocumentNode {
     readonly type: 'DOCUMENT'
-    currentPage: PageNode
     name: string
+
+    currentPage: PageNode
+
+    readonly children: ReadonlyArray<PageNode>
+    
+    findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
+    findOne(callback: (node: SceneNode) => boolean): SceneNode | null
   }
 
   interface PageNode
-    extends BaseNodeMixin,
+    extends
     ChildrenMixin<SceneNode> {
     readonly type: 'PAGE'
+
+    readonly id: string
+    readonly parent: DocumentNode
+    name: string
+    removed: boolean
+    remove(): void
 
     selection: ReadonlyArray<SceneNode>
     clone(): PageNode
