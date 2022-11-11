@@ -140,6 +140,8 @@ declare global {
     width?: number
     height?: number
     visible?: boolean
+    x?: number | string
+    y?: number | string
   }
 
   interface ExportSettingsConstraints {
