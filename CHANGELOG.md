@@ -1,3 +1,21 @@
+# [1.7.0](https://github.com/mastergo-design/plugin-typings/compare/v1.6.1...v1.7.0) (2022-11-11)
+
+
+### Bug Fixes
+
+* 删除PageNode不存在的pluginData相关接口 ([6bf26d0](https://github.com/mastergo-design/plugin-typings/commit/6bf26d0957859516e02b3a49b4ebae42fe2810f8))
+* 修复Document findAll和findOne入参出参类型错误问题 ([4576d99](https://github.com/mastergo-design/plugin-typings/commit/4576d998fa9f2c65cd37587ec3f2ef11e1c23654))
+* 修复DocumentNode类型错误问题 ([b34511e](https://github.com/mastergo-design/plugin-typings/commit/b34511ed489d9e20b78b6bc25de9d14f126b5ea6))
+* 修复export接口返回类型错误问题 ([8760817](https://github.com/mastergo-design/plugin-typings/commit/87608176944225bc69e27587772b42bbde2ca246))
+
+
+### Features
+
+* 添加ShowUIOptions.x, ShowUIOption.y ([298e252](https://github.com/mastergo-design/plugin-typings/commit/298e252bfc655245d6829d7598dd54f8d52e92dd))
+* 新增teamLibrary, importComponentByKeyAsync, importComponentSetByKeyAsync, importStyleByKeyAsync等团队库接口 ([8a59a5c](https://github.com/mastergo-design/plugin-typings/commit/8a59a5cc5991fe6b2e0a7b4626d355fc90070135))
+
+
+
 # 1.6.1 (2022-11-09)
 
 

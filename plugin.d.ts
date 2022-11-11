@@ -25,36 +25,6 @@ declare global {
     getBytesAsync(): Promise<Uint8Array>
   }
 
-  enum LinkFlagEnum {
-    CURRPAGE = 'currPage',
-    OTHERPAGE = 'otherPage',
-    PROTOTYPE = 'prototype',
-    OUTFILE = 'outFile',
-    OWNWEBSITE = 'ownWebsite',
-    OTHERLINK = 'otherLink',
-  }
-
-  interface Superlink {
-    start: number
-    end: number
-    superlink: {
-      layerId?: string
-      link: string
-      linkFlag: LinkFlagEnum 
-      pageId: string
-    }
-  }
-
-  interface Hyperlink {
-    type: 'PAGE' | 'NODE' | 'URL',
-    value: string
-  }
-  interface HyperlinkWithRange {
-    start: number
-    end: number
-    hyperlink: Hyperlink
-  }
-
   type PluginEventType = 'selectionchange' | 'currentpagechange' | 'close' | 'themechange' | 'drop' | 'run'
   type ThemeColor = 'dark' | 'light'
 
@@ -133,6 +103,14 @@ declare global {
     createImage(imageData: Uint8Array): Promise<Image>
     getImageByHref(href: string): Image
 
+    /**
+     * 订阅团队库数据
+     */
+    teamLibrary: TeamLibrary,
+    importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
+    importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
+    importStyleByKeyAsync(ukey: string): Promise<BaseStyle>,
+
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
   }
@@ -162,6 +140,8 @@ declare global {
     width?: number
     height?: number
     visible?: boolean
+    x?: number | string
+    y?: number | string
   }
 
   interface ExportSettingsConstraints {
@@ -179,7 +159,7 @@ declare global {
 
   interface ExportMixin {
     exportSettings: ReadonlyArray<ExportSettings>
-    export(settings?: ExportSettings): Promise<Uint8Array | string> // Defaults to PNG format
+    export(settings?: ExportSettings): Uint8Array | string // Defaults to PNG format
   }
 
   interface NotifyOptions {
@@ -196,17 +176,19 @@ declare global {
     postMessage(pluginMessage: any, origin?: string): void
     onmessage: ((pluginMessage: any, origin: string) => void) | undefined
   }
-
-  /// /////////////////////////////////////////////////////////////////////////////
-  // Styles
+  type PublishStatus = 'UNPUBLISHED' | 'CURRENT' | 'CHANGED'
   interface PublishableMixin {
     description: string
     /**
-     * 是否为团队库样式
+     * 是否为团队库组件/样式
     */
     readonly isExternal: boolean
     readonly ukey: string
+    readonly publishStatus: PublishStatus
   }
+
+  /// /////////////////////////////////////////////////////////////////////////////
+  // Styles
 
   type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID'
 
@@ -257,12 +239,11 @@ declare global {
   interface TextStyle extends BaseStyle {
     type: 'TEXT'
     decoration: TextDecoration
-    description: string
     fontSize: number
-    isExternal: boolean
     letterSpacing: number
     letterSpacingUnit: NumValue['unit']
     textCase: TextCase
+    lineHeight: LineHeight
   }
 
   interface FontAlias {
@@ -448,7 +429,7 @@ declare global {
   interface BaseNodeMixin {
     readonly id: string
     readonly parent: (BaseNode & ChildrenMixin) | void
-    name: string // Note: setting this also sets \`autoRename\` to false on TextNodes
+    name: string
     removed: boolean
     remove(): void
     getPluginData(key: string): string
@@ -690,16 +671,28 @@ declare global {
   /// /////////////////////////////////////////////////////////////////////////////
   // Nodes
 
-  interface DocumentNode extends ChildrenMixin<PageNode> {
+  interface DocumentNode {
     readonly type: 'DOCUMENT'
-    currentPage: PageNode
     name: string
+
+    currentPage: PageNode
+
+    readonly children: ReadonlyArray<PageNode>
+    
+    findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
+    findOne(callback: (node: SceneNode) => boolean): SceneNode | null
   }
 
   interface PageNode
-    extends BaseNodeMixin,
+    extends
     ChildrenMixin<SceneNode> {
     readonly type: 'PAGE'
+
+    readonly id: string
+    readonly parent: DocumentNode
+    name: string
+    removed: boolean
+    remove(): void
 
     selection: ReadonlyArray<SceneNode>
     clone(): PageNode
@@ -816,6 +809,36 @@ declare global {
     letterSpacing: LetterSpacing
   }
 
+  enum LinkFlagEnum {
+    CURRPAGE = 'currPage',
+    OTHERPAGE = 'otherPage',
+    PROTOTYPE = 'prototype',
+    OUTFILE = 'outFile',
+    OWNWEBSITE = 'ownWebsite',
+    OTHERLINK = 'otherLink',
+  }
+
+  interface Superlink {
+    start: number
+    end: number
+    superlink: {
+      layerId?: string
+      link: string
+      linkFlag: LinkFlagEnum 
+      pageId: string
+    }
+  }
+
+  interface Hyperlink {
+    type: 'PAGE' | 'NODE' | 'URL',
+    value: string
+  }
+  interface HyperlinkWithRange {
+    start: number
+    end: number
+    hyperlink: Hyperlink
+  }
+
   interface TextNode extends DefaultShapeMixin, ConstraintMixin {
     readonly type: 'TEXT'
     characters: string
@@ -861,17 +884,16 @@ declare global {
     setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
   }
 
-  interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
+  interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT'
     readonly variantProperties: Array<Record<string, string>>
-    description: string
     setVariantPropertyValues(property: Record<string, string>): void
     clone(): ComponentNode
     createInstance(): InstanceNode
     resizeToFit(): void
   }
 
-  interface ComponentSetNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
+  interface ComponentSetNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT_SET'
     readonly componentPropertyDefinitions: Array<Record<string, Array<string> | string>>
     clone(): ComponentSetNode
@@ -1038,6 +1060,34 @@ declare global {
     absoluteY: number 
     dropMetadata?: any
   }
+
+  interface TeamLibraryComponent {
+    readonly id: string;
+    readonly name: string;
+    readonly ukey: string;
+    readonly description: string;
+    readonly type: "COMPONENT" | 'COMPONENT_SET'
+  }
+
+  interface TeamLibraryStyle {
+    readonly id: string;
+    readonly name: string;
+    readonly ukey: string;
+    readonly description: string;
+    readonly type: StyleType;
+  }
+
+  type TeamLibrary = ReadonlyArray<{
+    readonly name: string;
+    readonly id: string;
+    readonly componentList: TeamLibraryComponent[]
+    readonly style: {
+      paints: ReadonlyArray<TeamLibraryStyle>
+      effects: ReadonlyArray<TeamLibraryStyle>
+      texts: ReadonlyArray<TeamLibraryStyle>
+      grids: ReadonlyArray<TeamLibraryStyle>
+    }
+  }>
 
   type BaseNode = DocumentNode | PageNode | SceneNode
 
