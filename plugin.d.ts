@@ -669,10 +669,16 @@ declare global {
   /// /////////////////////////////////////////////////////////////////////////////
   // Nodes
 
-  interface DocumentNode extends ChildrenMixin<PageNode> {
+  interface DocumentNode {
     readonly type: 'DOCUMENT'
-    currentPage: PageNode
     name: string
+
+    currentPage: PageNode
+
+    readonly children: ReadonlyArray<PageNode>
+    
+    findAll(callback?: (node: PageNode) => boolean): ReadonlyArray<PageNode>
+    findOne(callback: (node: PageNode) => boolean): PageNode | null
   }
 
   interface PageNode
