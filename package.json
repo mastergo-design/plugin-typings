@@ -1,6 +1,6 @@
 {
   "name": "@mastergo/plugin-typings",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "MasterGo插件API声明文件",
   "main": "",
   "types": "dist/index.d.ts",
@@ -20,7 +20,6 @@
     "plugin",
     "typings"
   ],
-  
   "author": "MasterGo",
   "license": "MIT",
   "repository": {
