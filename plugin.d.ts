@@ -134,6 +134,8 @@ declare global {
   interface ClientStorageAPI {
     getAsync(key: string): Promise<any | undefined>
     setAsync(key: string, value: any): Promise<void>
+    deleteAsync(key: string): Promise<void>
+    keysAsync(): Promise<string[]>
   }
 
   type ShowUIOptions = {
