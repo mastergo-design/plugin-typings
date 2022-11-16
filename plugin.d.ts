@@ -876,10 +876,10 @@ declare global {
     setRangeFills(start: number, end: number, paints: Paint[]): void
     /**
      * @deprecated
-     * This function is deprecared, please use setRangeHyperLink instead.
+     * This function is deprecared, please use setRangeHyperlink instead.
      */
     setRangeSuperLink(start: number, end: number, link: string | null): void
-    setRangeHyperLink(start: number, end: number, hyperlink: Hyperlink | null): void
+    setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
     setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
   }
@@ -967,7 +967,7 @@ declare global {
     ): void
     setRangeLineHeight(start: number, end: number, value: LineHeight): void
     setRangeFills(start: number, end: number, paints: Paint[]): void
-    setRangeHyperLink(start: number, end: number, hyperlink: Hyperlink | null): void
+    setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
   }
 
