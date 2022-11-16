@@ -1,6 +1,6 @@
 {
   "name": "@mastergo/plugin-typings",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "MasterGo插件API声明文件",
   "main": "",
   "types": "dist/index.d.ts",
@@ -13,7 +13,9 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "files": [
-    "dist"
+    "dist",
+    "README-en.md",
+    "README.md"
   ],
   "keywords": [
     "mastergo",
