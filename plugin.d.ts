@@ -295,7 +295,6 @@ declare global {
     readonly color: RGBA
     // Effect的 x, y;
     readonly offset: Vector
-    // spread和radius待确定
     readonly spread: number
     readonly radius: number
     readonly isVisible: boolean
