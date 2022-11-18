@@ -1,3 +1,12 @@
+# [1.8.0](https://github.com/mastergo-design/plugin-typings/compare/v1.7.1...v1.8.0) (2022-11-18)
+
+
+### Features
+
+* 添加clientStorage的deleteAsync和keysAsync方法 ([481d020](https://github.com/mastergo-design/plugin-typings/commit/481d020c0d7816ebab85290b5b36437474f30761))
+
+
+
 ## [1.7.1](https://github.com/mastergo-design/plugin-typings/compare/v1.7.0...v1.7.1) (2022-11-16)
 
 
