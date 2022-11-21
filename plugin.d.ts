@@ -64,8 +64,8 @@ declare global {
     createStar(): StarNode
     createPen(): PenNode
     createText(): TextNode
-    createFrame(): FrameNode
-    createComponent(): ComponentNode
+    createFrame(children?: SceneNode[]): FrameNode
+    createComponent(children?: SceneNode[]): ComponentNode
     createPage(): PageNode
     createSlice(): SliceNode
     createConnector(): ConnectorNode
@@ -73,13 +73,17 @@ declare global {
 
     getHoverLayer(): PageNode | SceneNode
 
+    /**
+     * @deprecated
+     * This function is deprecated, please use viewport.layoutGridVisible instead.
+     */
     showGrid(show: boolean): void
 
-    group(children: ReadonlyArray<SceneNode>): GroupNode
-    union(children: ReadonlyArray<SceneNode>): BooleanOperationNode
-    subtract(children: ReadonlyArray<SceneNode>): BooleanOperationNode
-    intersect(children: ReadonlyArray<SceneNode>): BooleanOperationNode
-    exclude(children: ReadonlyArray<SceneNode>): BooleanOperationNode
+    group(children: SceneNode[]): GroupNode
+    union(children: SceneNode[]): BooleanOperationNode
+    subtract(children: SceneNode[]): BooleanOperationNode
+    intersect(children: SceneNode[]): BooleanOperationNode
+    exclude(children: SceneNode[]): BooleanOperationNode
 
     saveVersionHistoryAsync(desc: string): Promise<void>
 
@@ -128,7 +132,7 @@ declare global {
     readonly bound: Rect
     rulerVisible: boolean
     layoutGridVisible: boolean
-    scrollAndZoomIntoView(nodes: ReadonlyArray<BaseNode>): void
+    scrollAndZoomIntoView(nodes: SceneNode[]): void
   }
 
   interface ClientStorageAPI {
@@ -462,6 +466,7 @@ declare global {
 
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
+    findAllWithCriteria<T extends NodeType[]>(criteria: { types: T }): Array<{ type: T[number] } & SceneNode>
   }
 
   interface ConstraintMixin {
@@ -488,6 +493,7 @@ declare global {
     layoutPositioning: 'AUTO' | 'ABSOLUTE' // applicable only inside auto-layout frames
     alignSelf: 'STRETCH' | 'INHERIT' // applicable only inside auto-layout frames
     flexGrow: 0 | 1 // applicable only inside auto-layout frames
+    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface BlendMixin {
@@ -682,6 +688,7 @@ declare global {
     
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
+    findAllWithCriteria<T extends NodeType[]>(criteria: { types: T }): Array<{ type: T[number] } & SceneNode>
   }
 
   interface PageNode
@@ -846,7 +853,7 @@ declare global {
     readonly hasMissingFont: boolean
     /**
      * @deprecated
-     * This attribute is deprecared, please use hyperlinks instead.
+     * This attribute is deprecated, please use hyperlinks instead.
      */
     readonly superlinks: Array<Superlink>
     readonly hyperlinks: Array<HyperlinkWithRange>
@@ -877,7 +884,7 @@ declare global {
     setRangeFills(start: number, end: number, paints: Paint[]): void
     /**
      * @deprecated
-     * This function is deprecared, please use setRangeHyperlink instead.
+     * This function is deprecated, please use setRangeHyperlink instead.
      */
     setRangeSuperLink(start: number, end: number, link: string | null): void
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
