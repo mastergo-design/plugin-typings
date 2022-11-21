@@ -884,6 +884,7 @@ declare global {
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
     setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
 
+    setRangeFillStyleId(start: number, end: number, fillStyleId: string): void
     setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
@@ -984,6 +985,7 @@ declare global {
 
     setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
 
+    setRangeFillStyleId(start: number, end: number, fillStyleId: string): void
     setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
