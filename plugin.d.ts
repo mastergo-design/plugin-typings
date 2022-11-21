@@ -890,7 +890,7 @@ declare global {
 
   interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT'
-    readonly variantProperties: Array<Record<string, string>>
+    readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
     clone(): ComponentNode
     createInstance(): InstanceNode
@@ -902,6 +902,11 @@ declare global {
     property: string
     type: 'variant'
     values: string[]
+  }
+
+  interface VariantProperty {
+    property: string
+    value: string
   }
 
   type ComponentPropertyDefinitions = Array<VariantMixin>
@@ -920,7 +925,7 @@ declare global {
 
   interface InstanceNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
     readonly type: 'INSTANCE'
-    readonly variantProperties: Array<Record<string, string>>
+    readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
     clone(): InstanceNode
     /**
