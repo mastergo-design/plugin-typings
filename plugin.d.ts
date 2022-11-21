@@ -109,7 +109,7 @@ declare global {
     teamLibrary: TeamLibrary,
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
-    importStyleByKeyAsync(ukey: string): Promise<BaseStyle>,
+    importStyleByKeyAsync(ukey: string): Promise<Style>,
 
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
@@ -883,6 +883,8 @@ declare global {
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
     setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
+
+    setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
   interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
@@ -970,6 +972,10 @@ declare global {
     setRangeFills(start: number, end: number, paints: Paint[]): void
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
+
+    setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
+
+    setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
 
