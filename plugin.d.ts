@@ -80,7 +80,7 @@ declare global {
     subtract(children: ReadonlyArray<SceneNode>): BooleanOperationNode
     intersect(children: ReadonlyArray<SceneNode>): BooleanOperationNode
     exclude(children: ReadonlyArray<SceneNode>): BooleanOperationNode
-    flatten(nodes: Array<SceneNode>): PenNode
+    flatten(nodes: SceneNode[]): PenNode
 
     saveVersionHistoryAsync(desc: string): Promise<void>
 
