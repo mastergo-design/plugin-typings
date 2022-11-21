@@ -75,7 +75,7 @@ declare global {
 
     /**
      * @deprecated
-     * This function is deprecared, please use viewport.layoutGridVisible instead.
+     * This function is deprecated, please use viewport.layoutGridVisible instead.
      */
     showGrid(show: boolean): void
 
@@ -853,7 +853,7 @@ declare global {
     readonly hasMissingFont: boolean
     /**
      * @deprecated
-     * This attribute is deprecared, please use hyperlinks instead.
+     * This attribute is deprecated, please use hyperlinks instead.
      */
     readonly superlinks: Array<Superlink>
     readonly hyperlinks: Array<HyperlinkWithRange>
@@ -884,7 +884,7 @@ declare global {
     setRangeFills(start: number, end: number, paints: Paint[]): void
     /**
      * @deprecated
-     * This function is deprecared, please use setRangeHyperlink instead.
+     * This function is deprecated, please use setRangeHyperlink instead.
      */
     setRangeSuperLink(start: number, end: number, link: string | null): void
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
