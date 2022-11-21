@@ -128,7 +128,7 @@ declare global {
     readonly bound: Rect
     rulerVisible: boolean
     layoutGridVisible: boolean
-    scrollAndZoomIntoView(nodes: ReadonlyArray<BaseNode>): void
+    scrollAndZoomIntoView(nodes: SceneNode[]): void
   }
 
   interface ClientStorageAPI {
