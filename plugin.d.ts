@@ -488,6 +488,7 @@ declare global {
     layoutPositioning: 'AUTO' | 'ABSOLUTE' // applicable only inside auto-layout frames
     alignSelf: 'STRETCH' | 'INHERIT' // applicable only inside auto-layout frames
     flexGrow: 0 | 1 // applicable only inside auto-layout frames
+    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface BlendMixin {
@@ -725,7 +726,6 @@ declare global {
   interface GroupNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin {
     readonly type: 'GROUP'
     clone(): GroupNode
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface RectangleNode
@@ -736,7 +736,6 @@ declare global {
     RectangleCornerMixin {
     readonly type: 'RECTANGLE'
     clone(): RectangleNode
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface LineNode extends DefaultShapeMixin, ConstraintMixin {
@@ -745,21 +744,18 @@ declare global {
     readonly height: number
     leftStrokeCap: StrokeCap
     rightStrokeCap: StrokeCap
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface EllipseNode extends DefaultShapeMixin, ConstraintMixin {
     readonly type: 'ELLIPSE'
     clone(): EllipseNode
     arcData: ArcData
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface PolygonNode extends DefaultShapeMixin, ConstraintMixin, CornerMixin {
     readonly type: 'POLYGON'
     pointCount: number
     clone(): PolygonNode
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface StarNode extends DefaultShapeMixin, ConstraintMixin, CornerMixin {
@@ -767,7 +763,6 @@ declare global {
     pointCount: number
     innerRadius: number
     clone(): StarNode
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   // interface VectorPath {
@@ -797,7 +792,6 @@ declare global {
     //@ts-ignore
     get penPaths(): PenPaths
     clone(): PenNode
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface BooleanOperationNode
@@ -808,7 +802,6 @@ declare global {
     readonly type: 'BOOLEAN_OPERATION'
     booleanOperation: 'UNION' | 'INTERSECT' | 'SUBTRACT' | 'EXCLUDE'
     clone(): BooleanOperationNode
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface TextRangeStyle {
@@ -892,7 +885,6 @@ declare global {
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
     setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
@@ -902,7 +894,6 @@ declare global {
     clone(): ComponentNode
     createInstance(): InstanceNode
     resizeToFit(): void
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface ComponentSetNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
@@ -915,7 +906,6 @@ declare global {
     editVariantPropertyValues(properties: Record<string, { oldValue: string, newValue: string }>): void
     deleteVariantProperty(property: string): void
     resizeToFit(): void
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface InstanceNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
@@ -929,7 +919,6 @@ declare global {
     swapComponent(): void
     detachInstance(): InstanceNode
     mainComponent: ComponentNode | null
-    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface SliceNode extends BaseNodeMixin, LayoutMixin, ConstraintMixin, SceneNodeMixin, ExportMixin {
