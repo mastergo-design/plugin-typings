@@ -894,9 +894,18 @@ declare global {
     resizeToFit(): void
   }
 
+
+  type VariantMixin = {
+    property: string
+    type: 'variant'
+    values: string[]
+  }
+
+  type ComponentPropertyDefinitions = Array<VariantMixin>
+
   interface ComponentSetNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT_SET'
-    readonly componentPropertyDefinitions: Array<Record<string, Array<string> | string>>
+    readonly componentPropertyDefinitions: ComponentPropertyDefinitions
     clone(): ComponentSetNode
     createVariantComponent(): void
     createVariantProperties(properties: Array<string>): void
