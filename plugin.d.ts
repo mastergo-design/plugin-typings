@@ -73,6 +73,10 @@ declare global {
 
     getHoverLayer(): PageNode | SceneNode
 
+    /**
+     * @deprecated
+     * This function is deprecared, please use viewport.layoutGridVisible instead.
+     */
     showGrid(show: boolean): void
 
     group(children: SceneNode[]): GroupNode
