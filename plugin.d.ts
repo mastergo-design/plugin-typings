@@ -113,7 +113,7 @@ declare global {
     teamLibrary: TeamLibrary,
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
-    importStyleByKeyAsync(ukey: string): Promise<BaseStyle>,
+    importStyleByKeyAsync(ukey: string): Promise<Style>,
 
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
@@ -890,20 +890,37 @@ declare global {
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
     setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
+
+    setRangeFillStyleId(start: number, end: number, fillStyleId: string): void
+    setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
   interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT'
-    readonly variantProperties: Array<Record<string, string>> | undefined
+    readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
     clone(): ComponentNode
     createInstance(): InstanceNode
     resizeToFit(): void
   }
 
+
+  type VariantMixin = {
+    property: string
+    type: 'variant'
+    values: string[]
+  }
+
+  interface VariantProperty {
+    property: string
+    value: string
+  }
+
+  type ComponentPropertyDefinitions = Array<VariantMixin>
+
   interface ComponentSetNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT_SET'
-    readonly componentPropertyDefinitions: Array<Record<string, Array<string> | string>>
+    readonly componentPropertyDefinitions: ComponentPropertyDefinitions
     clone(): ComponentSetNode
     createVariantComponent(): void
     createVariantProperties(properties: Array<string>): void
@@ -915,7 +932,7 @@ declare global {
 
   interface InstanceNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
     readonly type: 'INSTANCE'
-    readonly variantProperties: Array<Record<string, string>> | undefined
+    readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
     clone(): InstanceNode
     /**
@@ -977,6 +994,11 @@ declare global {
     setRangeFills(start: number, end: number, paints: Paint[]): void
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
+
+    setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
+
+    setRangeFillStyleId(start: number, end: number, fillStyleId: string): void
+    setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
 
