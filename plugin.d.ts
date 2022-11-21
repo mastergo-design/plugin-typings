@@ -80,6 +80,7 @@ declare global {
     subtract(children: ReadonlyArray<SceneNode>): BooleanOperationNode
     intersect(children: ReadonlyArray<SceneNode>): BooleanOperationNode
     exclude(children: ReadonlyArray<SceneNode>): BooleanOperationNode
+    flatten(nodes: Array<SceneNode>): PenNode
 
     saveVersionHistoryAsync(desc: string): Promise<void>
 
@@ -475,6 +476,12 @@ declare global {
     height: number
   }
 
+  type ScaleCenter = 'TOPLEFT' | 'TOP' | 'TOPRIGHT' | 'LEFT' | 'CENTER' | 'RIGHT' | 'BOTTOMLEFT' | 'BOTTOM' | 'BOTTOMRIGHT'
+
+  interface ScaleOption {
+    scaleCenter?: ScaleCenter
+  }
+
   interface LayoutMixin {
     absoluteTransform: Transform
     relativeTransform: Transform
@@ -488,6 +495,7 @@ declare global {
     layoutPositioning: 'AUTO' | 'ABSOLUTE' // applicable only inside auto-layout frames
     alignSelf: 'STRETCH' | 'INHERIT' // applicable only inside auto-layout frames
     flexGrow: 0 | 1 // applicable only inside auto-layout frames
+    rescale(scale: number, scaleOption?: ScaleOption): void
   }
 
   interface BlendMixin {
