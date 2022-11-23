@@ -227,6 +227,7 @@ declare global {
       lineHeight: LineHeight
       textDecoration: TextDecoration
       textCase: TextCase
+      fontWeight: number
     }
     fills: Paint[]
   }
