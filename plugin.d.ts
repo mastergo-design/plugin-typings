@@ -810,7 +810,7 @@ declare global {
   interface BooleanOperationNode
     extends DefaultShapeMixin,
     FrameContainerMixin,
-    ChildrenMixin,
+    Omit<ChildrenMixin, 'appendChild' | 'insertChild'>,
     CornerMixin {
     readonly type: 'BOOLEAN_OPERATION'
     booleanOperation: 'UNION' | 'INTERSECT' | 'SUBTRACT' | 'EXCLUDE'
@@ -926,7 +926,7 @@ declare global {
 
   type ComponentPropertyDefinitions = Array<VariantMixin>
 
-  interface ComponentSetNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
+  interface ComponentSetNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT_SET'
     readonly componentPropertyDefinitions: ComponentPropertyDefinitions
     clone(): ComponentSetNode
@@ -938,7 +938,7 @@ declare global {
     resizeToFit(): void
   }
 
-  interface InstanceNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
+  interface InstanceNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
     readonly type: 'INSTANCE'
     readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
