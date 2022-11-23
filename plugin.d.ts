@@ -64,8 +64,8 @@ declare global {
     createStar(): StarNode
     createPen(): PenNode
     createText(): TextNode
-    createFrame(): FrameNode
-    createComponent(): ComponentNode
+    createFrame(children?: SceneNode[]): FrameNode
+    createComponent(children?: SceneNode[]): ComponentNode
     createPage(): PageNode
     createSlice(): SliceNode
     createConnector(): ConnectorNode
@@ -73,13 +73,17 @@ declare global {
 
     getHoverLayer(): PageNode | SceneNode
 
+    /**
+     * @deprecated
+     * This function is deprecated, please use viewport.layoutGridVisible instead.
+     */
     showGrid(show: boolean): void
 
-    group(children: ReadonlyArray<SceneNode>): GroupNode
-    union(children: ReadonlyArray<SceneNode>): BooleanOperationNode
-    subtract(children: ReadonlyArray<SceneNode>): BooleanOperationNode
-    intersect(children: ReadonlyArray<SceneNode>): BooleanOperationNode
-    exclude(children: ReadonlyArray<SceneNode>): BooleanOperationNode
+    group(children: SceneNode[]): GroupNode
+    union(children: SceneNode[]): BooleanOperationNode
+    subtract(children: SceneNode[]): BooleanOperationNode
+    intersect(children: SceneNode[]): BooleanOperationNode
+    exclude(children: SceneNode[]): BooleanOperationNode
     flatten(nodes: SceneNode[]): PenNode
 
     saveVersionHistoryAsync(desc: string): Promise<void>
@@ -110,7 +114,7 @@ declare global {
     teamLibrary: TeamLibrary,
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
-    importStyleByKeyAsync(ukey: string): Promise<BaseStyle>,
+    importStyleByKeyAsync(ukey: string): Promise<Style>,
 
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
@@ -129,7 +133,7 @@ declare global {
     readonly bound: Rect
     rulerVisible: boolean
     layoutGridVisible: boolean
-    scrollAndZoomIntoView(nodes: ReadonlyArray<BaseNode>): void
+    scrollAndZoomIntoView(nodes: SceneNode[]): void
   }
 
   interface ClientStorageAPI {
@@ -463,6 +467,7 @@ declare global {
 
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
+    findAllWithCriteria<T extends NodeType[]>(criteria: { types: T }): Array<{ type: T[number] } & SceneNode>
   }
 
   interface ConstraintMixin {
@@ -496,6 +501,7 @@ declare global {
     alignSelf: 'STRETCH' | 'INHERIT' // applicable only inside auto-layout frames
     flexGrow: 0 | 1 // applicable only inside auto-layout frames
     rescale(scale: number, scaleOption?: ScaleOption): void
+    flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
   interface BlendMixin {
@@ -690,6 +696,7 @@ declare global {
     
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
+    findAllWithCriteria<T extends NodeType[]>(criteria: { types: T }): Array<{ type: T[number] } & SceneNode>
   }
 
   interface PageNode
@@ -854,7 +861,7 @@ declare global {
     readonly hasMissingFont: boolean
     /**
      * @deprecated
-     * This attribute is deprecared, please use hyperlinks instead.
+     * This attribute is deprecated, please use hyperlinks instead.
      */
     readonly superlinks: Array<Superlink>
     readonly hyperlinks: Array<HyperlinkWithRange>
@@ -885,26 +892,43 @@ declare global {
     setRangeFills(start: number, end: number, paints: Paint[]): void
     /**
      * @deprecated
-     * This function is deprecared, please use setRangeHyperlink instead.
+     * This function is deprecated, please use setRangeHyperlink instead.
      */
     setRangeSuperLink(start: number, end: number, link: string | null): void
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
     setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
+
+    setRangeFillStyleId(start: number, end: number, fillStyleId: string): void
+    setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
   interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT'
-    readonly variantProperties: Array<Record<string, string>>
+    readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
     clone(): ComponentNode
     createInstance(): InstanceNode
     resizeToFit(): void
   }
 
+
+  type VariantMixin = {
+    property: string
+    type: 'variant'
+    values: string[]
+  }
+
+  interface VariantProperty {
+    property: string
+    value: string
+  }
+
+  type ComponentPropertyDefinitions = Array<VariantMixin>
+
   interface ComponentSetNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
     readonly type: 'COMPONENT_SET'
-    readonly componentPropertyDefinitions: Array<Record<string, Array<string> | string>>
+    readonly componentPropertyDefinitions: ComponentPropertyDefinitions
     clone(): ComponentSetNode
     createVariantComponent(): void
     createVariantProperties(properties: Array<string>): void
@@ -916,7 +940,7 @@ declare global {
 
   interface InstanceNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
     readonly type: 'INSTANCE'
-    readonly variantProperties: Array<Record<string, string>>
+    readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
     clone(): InstanceNode
     /**
@@ -978,6 +1002,11 @@ declare global {
     setRangeFills(start: number, end: number, paints: Paint[]): void
     setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
+
+    setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
+
+    setRangeFillStyleId(start: number, end: number, fillStyleId: string): void
+    setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
 
