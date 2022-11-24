@@ -1,3 +1,23 @@
+# [1.9.0](https://github.com/mastergo-design/plugin-typings/compare/v1.8.0...v1.9.0) (2022-11-24)
+
+
+### Bug Fixes
+
+* 修复ComponentPropertyDefinitions类型不清晰的问题 ([dd8ad00](https://github.com/mastergo-design/plugin-typings/commit/dd8ad0049e2edfe48c18118991f15f0f97b90f87))
+* 修复variantProperties类型不清晰问题 ([1da5b1d](https://github.com/mastergo-design/plugin-typings/commit/1da5b1dc57f3ad8b2116523e03e62165084d0453))
+* 移除BooleanOperationNode, ComponentSetNode, InstanceNode无效的appendChild, insertChild方法 ([c3da0cd](https://github.com/mastergo-design/plugin-typings/commit/c3da0cdc00eb37728f816a05dbcd81fb4dd256b6))
+
+
+### Features
+
+* 添加flatten和rescale接口 ([dc87721](https://github.com/mastergo-design/plugin-typings/commit/dc87721478c725285e3e903beab045c6f175360c))
+* 图层新增翻转接口/新增findAllWithCriteria接口/全局创建组件和创建容器方法新增可选参数 ([a318458](https://github.com/mastergo-design/plugin-typings/commit/a318458714cadf0e1c16613c73b3d77f866a3b70))
+* 新增setRangeTextStyleId设置分段文字样式 ([7cd5e9c](https://github.com/mastergo-design/plugin-typings/commit/7cd5e9c59cc54a63f2c0a22cf992dcce5b2184ea))
+* 与group等接口统一类型 ([4107784](https://github.com/mastergo-design/plugin-typings/commit/410778431defb243d3cc3a191d5fb9790f5ea26e))
+* textNode增加setRangeFillStyleId ([f03314b](https://github.com/mastergo-design/plugin-typings/commit/f03314b1e32eb9c327b31ac487dbcb3148781da4))
+
+
+
 # [1.8.0](https://github.com/mastergo-design/plugin-typings/compare/v1.7.1...v1.8.0) (2022-11-18)
 
 
