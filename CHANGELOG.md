@@ -1,3 +1,13 @@
+# [1.10.0](https://github.com/mastergo-design/plugin-typings/compare/v1.9.0...v1.10.0) (2022-12-01)
+
+
+### Features
+
+* 文字分段样式增加fontWeight字重字段 ([3619b51](https://github.com/mastergo-design/plugin-typings/commit/3619b518fcd8cbd137df5fa0387bc8162fb53940))
+* 文字新增百分比行高 ([a560491](https://github.com/mastergo-design/plugin-typings/commit/a560491b9fb146184fdce13d48b6eb58be4b6949))
+
+
+
 # [1.9.0](https://github.com/mastergo-design/plugin-typings/compare/v1.8.0...v1.9.0) (2022-11-24)
 
 
