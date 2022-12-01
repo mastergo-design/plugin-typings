@@ -227,6 +227,7 @@ declare global {
       lineHeight: LineHeight
       textDecoration: TextDecoration
       textCase: TextCase
+      fontWeight: number
     }
     fills: Paint[]
   }
@@ -399,10 +400,14 @@ declare global {
     readonly unit: 'PIXELS' | 'PERCENT'
   }
 
-  type LineHeight = {
-    readonly value: number
-    readonly unit: 'PIXELS'
-  }
+  type LineHeight =
+  | {
+      readonly value: number
+      readonly unit: 'PIXELS' | 'PERCENT'
+    }
+  | {
+      readonly unit: 'AUTO'
+    }
 
   type BlendMode =
     | 'NORMAL'
