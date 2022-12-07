@@ -109,9 +109,12 @@ declare global {
     getImageByHref(href: string): Image
 
     /**
-     * 订阅团队库数据
+     * @deprecated
+     * 
+     * This attribute is deprecated, please use getTeamLibraryAsync instead.
      */
     teamLibrary: TeamLibrary,
+    getTeamLibraryAsync(): Promise<TeamLibrary>,
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
     importStyleByKeyAsync(ukey: string): Promise<Style>,
