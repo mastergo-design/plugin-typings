@@ -41,6 +41,8 @@ declare global {
 
     readonly command: string
 
+    readonly mixed: string | symbol
+
     readonly clientStorage: ClientStorageAPI
 
     readonly viewport: ViewportAPI
@@ -568,7 +570,7 @@ declare global {
   interface CornerMixin {
     // 待确认
     cornerSmooth: number
-    cornerRadius: number | symbol
+    cornerRadius: number | PluginAPI['mixed']
   }
 
   interface DefaultShapeMixin
