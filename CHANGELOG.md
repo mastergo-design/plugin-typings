@@ -1,4 +1,9 @@
-## [1.10.1](https://github.com/mastergo-design/plugin-typings/compare/v1.10.0...v1.10.1) (2022-12-13)
+## [1.10.2](https://github.com/mastergo-design/plugin-typings/compare/v1.10.0...v1.10.2) (2022-12-13)
+
+
+### Features
+
+* 添加mg.mixed ([8196894](https://github.com/mastergo-design/plugin-typings/commit/8196894b5ad35214319dc311a52e1c441e36bc35))
 
 
 
