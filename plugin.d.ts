@@ -41,6 +41,8 @@ declare global {
 
     readonly command: string
 
+    readonly mixed: string | symbol
+
     readonly clientStorage: ClientStorageAPI
 
     readonly viewport: ViewportAPI
@@ -109,9 +111,12 @@ declare global {
     getImageByHref(href: string): Image
 
     /**
-     * 订阅团队库数据
+     * @deprecated
+     * 
+     * This attribute is deprecated, please use getTeamLibraryAsync instead.
      */
     teamLibrary: TeamLibrary,
+    getTeamLibraryAsync(): Promise<TeamLibrary>,
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
     importStyleByKeyAsync(ukey: string): Promise<Style>,
@@ -568,7 +573,7 @@ declare global {
   interface CornerMixin {
     // 待确认
     cornerSmooth: number
-    cornerRadius: number | symbol
+    cornerRadius: number | PluginAPI['mixed']
   }
 
   interface DefaultShapeMixin
