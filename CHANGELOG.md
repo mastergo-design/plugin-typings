@@ -4,7 +4,7 @@
 ### Features
 
 * 添加mg.mixed ([8196894](https://github.com/mastergo-design/plugin-typings/commit/8196894b5ad35214319dc311a52e1c441e36bc35))
-
+* 废弃teamLibrary, 换成getTeamLibraryAsync([ffecaa](https://github.com/mastergo-design/plugin-typings/commit/ffecaaf8fae47530e75b818a7918716b4170a984))
 
 
 # [1.10.0](https://github.com/mastergo-design/plugin-typings/compare/v1.9.0...v1.10.0) (2022-12-01)
