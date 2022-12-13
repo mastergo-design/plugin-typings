@@ -110,16 +110,17 @@ declare global {
     createImage(imageData: Uint8Array): Promise<Image>
     getImageByHref(href: string): Image
 
+
+    getTeamLibraryAsync(): Promise<TeamLibrary>,
+    importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
+    importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
+    importStyleByKeyAsync(ukey: string): Promise<Style>,
     /**
      * @deprecated
      * 
      * This attribute is deprecated, please use getTeamLibraryAsync instead.
      */
     teamLibrary: TeamLibrary,
-    getTeamLibraryAsync(): Promise<TeamLibrary>,
-    importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
-    importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
-    importStyleByKeyAsync(ukey: string): Promise<Style>,
 
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
