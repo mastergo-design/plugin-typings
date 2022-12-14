@@ -59,6 +59,7 @@ declare global {
     showUI(html: string, options?: ShowUIOptions): void
 
     getNodeById(id: string): SceneNode | null
+    getNodeByPosition(position: {x: number, y: number}): SceneNode | null
     createRectangle(): RectangleNode
     createLine(): LineNode
     createEllipse(): EllipseNode
@@ -74,7 +75,6 @@ declare global {
     createNodeFromSvgAsync(svg: string): Promise<FrameNode>
 
     getHoverLayer(): PageNode | SceneNode
-    getNodeByPosition(position: {x: number, y: number}): PageNode | SceneNode
 
     /**
      * @deprecated
