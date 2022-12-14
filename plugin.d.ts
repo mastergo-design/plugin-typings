@@ -232,6 +232,7 @@ declare global {
       fontSize: number
       letterSpacing: LetterSpacing
       lineHeight: LineHeight
+      lineHeightByPx: number
       textDecoration: TextDecoration
       textCase: TextCase
       fontWeight: number
