@@ -74,6 +74,7 @@ declare global {
     createNodeFromSvgAsync(svg: string): Promise<FrameNode>
 
     getHoverLayer(): PageNode | SceneNode
+    getNodeByPosition(position: {x: number, y: number}): PageNode | SceneNode
 
     /**
      * @deprecated
