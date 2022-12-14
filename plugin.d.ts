@@ -447,7 +447,7 @@ declare global {
 
   interface BaseNodeMixin {
     readonly id: string
-    readonly parent: (BaseNode & ChildrenMixin) | void
+    readonly parent: (BaseNode & ChildrenMixin) | null
     name: string
     removed: boolean
     remove(): void
