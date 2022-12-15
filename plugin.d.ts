@@ -59,6 +59,7 @@ declare global {
     showUI(html: string, options?: ShowUIOptions): void
 
     getNodeById(id: string): SceneNode | null
+    getNodeByPosition(position: {x: number, y: number}): SceneNode | null
     createRectangle(): RectangleNode
     createLine(): LineNode
     createEllipse(): EllipseNode
@@ -231,6 +232,7 @@ declare global {
       fontSize: number
       letterSpacing: LetterSpacing
       lineHeight: LineHeight
+      lineHeightByPx: number
       textDecoration: TextDecoration
       textCase: TextCase
       fontWeight: number
@@ -445,7 +447,7 @@ declare global {
 
   interface BaseNodeMixin {
     readonly id: string
-    readonly parent: (BaseNode & ChildrenMixin) | void
+    readonly parent: (BaseNode & ChildrenMixin) | null
     name: string
     removed: boolean
     remove(): void
