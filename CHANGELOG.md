@@ -1,3 +1,19 @@
+# [1.11.0](https://github.com/mastergo-design/plugin-typings/compare/v1.10.2...v1.11.0) (2022-12-15)
+
+
+### Bug Fixes
+
+* 修复错误的parent类型 ([b92257d](https://github.com/mastergo-design/plugin-typings/commit/b92257db0b34b8689328a82f523183161cef71c2))
+
+
+### Features
+
+* 添加getNodeByPosition接口 ([9cda766](https://github.com/mastergo-design/plugin-typings/commit/9cda7668c19e07f2f4755c81464efa11a25a5ab9))
+* 文字分段样式增加lineHeightByPx描述实际px行高字段 ([0cd8111](https://github.com/mastergo-design/plugin-typings/commit/0cd81114b45304f0363f6f05a4a0a84ea8a9208f))
+* 修改返回值类型 ([eb71a36](https://github.com/mastergo-design/plugin-typings/commit/eb71a36444ff1c2f714d686ac7476579a4fe0a23))
+
+
+
 ## [1.10.2](https://github.com/mastergo-design/plugin-typings/compare/v1.10.0...v1.10.2) (2022-12-13)
 
 

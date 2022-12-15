@@ -1,6 +1,6 @@
 {
   "name": "@mastergo/plugin-typings",
-  "version": "1.10.2",
+  "version": "1.11.0",
   "description": "MasterGo插件API声明文件",
   "main": "",
   "types": "dist/index.d.ts",
