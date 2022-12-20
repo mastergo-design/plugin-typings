@@ -1,3 +1,13 @@
+# [1.12.0](https://github.com/mastergo-design/plugin-typings/compare/v1.11.0...v1.12.0) (2022-12-20)
+
+
+### Features
+
+* 类型优化，添加ui.viewport和ui.moveTo ([8fc66ea](https://github.com/mastergo-design/plugin-typings/commit/8fc66eaa0da1992256b90cc8ce9ad93f5fe53766))
+* 修改ui可视属性字段名 ([6cd233d](https://github.com/mastergo-design/plugin-typings/commit/6cd233dc6fb3e8b310bfd4cfb3bdfee5a0c1142c))
+
+
+
 # [1.11.0](https://github.com/mastergo-design/plugin-typings/compare/v1.10.2...v1.11.0) (2022-12-15)
 
 
