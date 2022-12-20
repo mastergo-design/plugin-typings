@@ -127,12 +127,7 @@ declare global {
     RGBAToHex(rgba: RGBA): string
   }
 
-  interface Rect {
-    readonly x: number
-    readonly y: number
-    readonly width: number
-    readonly height: number
-  }
+  interface Rect extends Readonly<Bound> {}
 
   interface ViewportAPI {
     center: Vector
@@ -181,12 +176,18 @@ declare global {
     type?: 'normal' | 'highlight' | 'error' | 'warning' | 'success'
   }
 
+  interface UIViewport extends Bound {
+    headerHeight: number
+    visible: boolean
+  }
+  
   interface UIAPI {
     show(): void
     hide(): void
     close(): void
     resize(width: number, height: number): void
-
+    moveTo(x: number, y: number): void
+    viewport: UIViewport
     postMessage(pluginMessage: any, origin?: string): void
     onmessage: ((pluginMessage: any, origin: string) => void) | undefined
   }
