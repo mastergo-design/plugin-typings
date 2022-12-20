@@ -178,7 +178,7 @@ declare global {
 
   interface UIViewport extends Bound {
     headerHeight: number
-    showed: boolean
+    visible: boolean
   }
   
   interface UIAPI {
