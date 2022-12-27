@@ -467,7 +467,7 @@ declare global {
   interface SceneNodeMixin {
     isVisible: boolean
     isLocked: boolean
-    props:     
+    componentPropertyReferences:     
     | {
       [nodeProperty in 'visible' | 'characters' | 'mainComponent']: string
     }
