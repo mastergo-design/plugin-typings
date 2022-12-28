@@ -963,7 +963,6 @@ declare global {
     defaultValue: string | boolean
     propertyId?: string
     variantOptions?: string[]
-    preferredValues?: unknown
   }
 
   type ComponentPropertyType = 'BOOLEAN' | 'TEXT' | 'INSTANCE_SWAP' | 'VARIANT'
