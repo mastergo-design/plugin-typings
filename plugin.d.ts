@@ -469,7 +469,7 @@ declare global {
     isLocked: boolean
     componentPropertyReferences:     
     | {
-      [nodeProperty in 'visible' | 'characters' | 'mainComponent']: string
+      [nodeProperty in 'isVisible' | 'characters' | 'mainComponent']: string
     }
     | null
   }
