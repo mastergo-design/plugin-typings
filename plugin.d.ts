@@ -959,15 +959,18 @@ declare global {
   }
 
   type ComponentPropertyValue = {
+    name: string
     type: ComponentPropertyType
     defaultValue: string | boolean
-    propertyId?: string
+    id?: string
     variantOptions?: string[]
   }
 
   type ComponentPropertyType = 'BOOLEAN' | 'TEXT' | 'INSTANCE_SWAP' | 'VARIANT'
 
   type ComponentProperties = {
+    name: string
+    id?: string
     type: ComponentPropertyType
     value: boolean | string
   }
