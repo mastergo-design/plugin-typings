@@ -939,10 +939,8 @@ declare global {
    */
   type ComponentPropertyDefinitions = Array<VariantMixin>
 
-  type ComponentPropertyValues = Array<ComponentPropertyValue>
-
   interface ComponentPropertiesMixin {
-    readonly ComponentPropertyValues: ComponentPropertyValues
+    readonly componentPropertyValues: ComponentPropertyValues
     addComponentProperty(
       propertyName: string,
       type: Exclude<ComponentPropertyType, 'VARIANT'>,
@@ -957,6 +955,8 @@ declare global {
     ): string
     deleteComponentProperty(propertyId: string): void
   }
+
+  type ComponentPropertyValues = Array<ComponentPropertyValue>
 
   type ComponentPropertyValue = {
     name: string
