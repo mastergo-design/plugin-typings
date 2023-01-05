@@ -467,11 +467,11 @@ declare global {
   interface SceneNodeMixin {
     isVisible: boolean
     isLocked: boolean
-    componentPropertyReferences:     
-    | {
-      [nodeProperty in 'isVisible' | 'characters' | 'mainComponent']: string
-    }
-    | null
+    componentPropertyReferences: {
+      isVisible?: string,
+      characters?: string,
+      mainComponent?: string
+    } | null   
   }
 
   interface ChildrenMixin<ChildrenNode = SceneNode> {
