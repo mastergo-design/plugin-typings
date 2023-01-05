@@ -467,6 +467,11 @@ declare global {
   interface SceneNodeMixin {
     isVisible: boolean
     isLocked: boolean
+    componentPropertyReferences: {
+      isVisible?: string,
+      characters?: string,
+      mainComponent?: string
+    } | null   
   }
 
   interface ChildrenMixin<ChildrenNode = SceneNode> {
@@ -917,16 +922,6 @@ declare global {
     setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
-  interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
-    readonly type: 'COMPONENT'
-    readonly variantProperties: Array<VariantProperty> | undefined
-    setVariantPropertyValues(property: Record<string, string>): void
-    clone(): ComponentNode
-    createInstance(): InstanceNode
-    resizeToFit(): void
-  }
-
-
   type VariantMixin = {
     property: string
     type: 'variant'
@@ -938,10 +933,62 @@ declare global {
     value: string
   }
 
+  /**
+   * @deprecated
+   * 
+   */
   type ComponentPropertyDefinitions = Array<VariantMixin>
 
-  interface ComponentSetNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin {
+  interface ComponentPropertiesMixin {
+    readonly componentPropertyValues: ComponentPropertyValues
+    addComponentProperty(
+      propertyName: string,
+      type: Exclude<ComponentPropertyType, 'VARIANT'>,
+      defaultValue: string | boolean,
+    ): string
+    editComponentProperty(
+      propertyId: string,
+      newValue: {
+        name?: string
+        defaultValue?: string | boolean
+      },
+    ): string
+    deleteComponentProperty(propertyId: string): void
+  }
+
+  type ComponentPropertyValues = Array<ComponentPropertyValue>
+
+  type ComponentPropertyValue = {
+    name: string
+    type: ComponentPropertyType
+    defaultValue: string | boolean
+    id?: string
+    variantOptions?: string[]
+  }
+
+  type ComponentPropertyType = 'BOOLEAN' | 'TEXT' | 'INSTANCE_SWAP' | 'VARIANT'
+
+  type ComponentProperties = {
+    name: string
+    id?: string
+    type: ComponentPropertyType
+    value: boolean | string
+  }
+
+  interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin, ComponentPropertiesMixin {
+    readonly type: 'COMPONENT'
+    readonly variantProperties: Array<VariantProperty> | undefined
+    setVariantPropertyValues(property: Record<string, string>): void
+    clone(): ComponentNode
+    createInstance(): InstanceNode
+    resizeToFit(): void
+  }
+
+  interface ComponentSetNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin, ComponentPropertiesMixin {
     readonly type: 'COMPONENT_SET'
+    /**
+     * @deprecated
+     */
     readonly componentPropertyDefinitions: ComponentPropertyDefinitions
     clone(): ComponentSetNode
     createVariantComponent(): void
@@ -956,6 +1003,10 @@ declare global {
     readonly type: 'INSTANCE'
     readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
+
+    readonly componentProperties: Array<ComponentProperties>
+    setProperties(properties: { [propertyId: string]: string | boolean }): void
+
     clone(): InstanceNode
     /**
      * this is an async func
