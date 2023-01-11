@@ -510,7 +510,7 @@ declare global {
     absoluteTransform: Transform
     relativeTransform: Transform
     readonly absoluteRenderBounds: Bound | null
-    readonly absoluteBoundingBox: Bound | null
+    readonly absoluteBoundingBox: Bound
     bound: Bound
     x: number
     y: number
@@ -676,7 +676,7 @@ declare global {
     readonly absoluteTransform: Transform
     relativeTransform: Transform
     readonly absoluteRenderBounds: Bound | null
-    readonly absoluteBoundingBox: Bound | null
+    readonly absoluteBoundingBox: Bound
     x: number
     y: number
     readonly width: number
