@@ -979,7 +979,7 @@ declare global {
     readonly type: 'COMPONENT'
     readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
-    clone(): ComponentNode
+    clone(): InstanceNode
     createInstance(): InstanceNode
     resizeToFit(): void
   }
