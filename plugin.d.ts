@@ -157,14 +157,31 @@ declare global {
     type: 'SCALE' | 'WIDTH' | 'HEIGHT'
     value: number
   }
-  type ExportFileFormat = 'PNG' | 'JPG' | 'SVG' | 'PDF' | 'WEBP'
-  type ExportSettings = {
-    format: ExportFileFormat
-    constraint?: ExportSettingsConstraints
-    isSuffix?: boolean
-    fileName?: string
-    readonly useAbsoluteBounds?: boolean
+
+  interface ExportSettingsImage {
+    readonly format: 'JPG' | 'PNG' | 'WEBP'
+    readonly isSuffix?: boolean
+    readonly fileName?: string
+    readonly constraint?: ExportSettingsConstraints
+    readonly useAbsoluteBounds?: boolean  // defaults to false
+    readonly useRenderBounds?: boolean // default to true
   }
+  interface ExportSettingsSVG {
+    readonly format: 'SVG'
+    readonly isSuffix?: boolean
+    readonly fileName?: string
+  }
+  
+  interface ExportSettingsPDF {
+    readonly format: 'PDF'
+    readonly isSuffix?: string
+    readonly fileName?: string
+    readonly useAbsoluteBounds?: boolean // defaults to false
+    readonly useRenderBounds?: boolean // default to true
+  }
+  
+  type ExportSettings = ExportSettingsImage | ExportSettingsSVG | ExportSettingsPDF
+
 
   interface ExportMixin {
     exportSettings: ReadonlyArray<ExportSettings>
