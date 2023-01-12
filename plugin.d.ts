@@ -180,7 +180,7 @@ declare global {
     readonly useRenderBounds?: boolean // default to true
   }
   
-  type ExportSettings = ExportSettingsImage | ExportSettingsSVG | ExportSettingsPDF | ExportSettingsWebp
+  type ExportSettings = ExportSettingsImage | ExportSettingsSVG | ExportSettingsPDF
 
 
   interface ExportMixin {
