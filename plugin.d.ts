@@ -278,6 +278,7 @@ declare global {
     letterSpacingUnit: NumValue['unit']
     textCase: TextCase
     lineHeight: LineHeight
+    fontName: FontName
   }
 
   interface FontAlias {
