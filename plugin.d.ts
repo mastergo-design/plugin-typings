@@ -509,6 +509,8 @@ declare global {
   interface LayoutMixin {
     absoluteTransform: Transform
     relativeTransform: Transform
+    readonly absoluteRenderBounds: Bound | null
+    readonly absoluteBoundingBox: Bound
     bound: Bound
     x: number
     y: number
@@ -673,6 +675,8 @@ declare global {
   interface OpaqueNodeMixin extends BaseNodeMixin, SceneNodeMixin, ExportMixin {
     readonly absoluteTransform: Transform
     relativeTransform: Transform
+    readonly absoluteRenderBounds: Bound | null
+    readonly absoluteBoundingBox: Bound
     x: number
     y: number
     readonly width: number
