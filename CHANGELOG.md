@@ -1,3 +1,28 @@
+# [1.13.0](https://github.com/mastergo-design/plugin-typings/compare/v1.12.0...v1.13.0) (2023-01-12)
+
+
+### Bug Fixes
+
+* 修复组件图层clone方法返回值类型错误问题 ([3558202](https://github.com/mastergo-design/plugin-typings/commit/35582022c3f5d201559efbbeb1e452d5838eef15))
+* 修改错误componentPropertyReferences类型 ([dcdb0b8](https://github.com/mastergo-design/plugin-typings/commit/dcdb0b8a1fc22785c8bbf9add75b1a7b46215178))
+
+
+### Features
+
+* 补充组件属性类型 ([a58b2da](https://github.com/mastergo-design/plugin-typings/commit/a58b2da55d45c202ab4a593aa0aeb6d7e7feb844))
+* 导出设置增加useRenderBounds, 增加不同类型区分导出数据 ([852044d](https://github.com/mastergo-design/plugin-typings/commit/852044dfd9047cec5f9e2414b0bf2455728b439f))
+* 更改componentPropertyReferences类型 ([3e67ca1](https://github.com/mastergo-design/plugin-typings/commit/3e67ca1214cfee6838ab7188d40729d1154dbc46))
+* 更换子组件props命名 ([76a1b75](https://github.com/mastergo-design/plugin-typings/commit/76a1b75469cb769fe86638f7d412442f23423849))
+* 合并webp为image ([e4d1c13](https://github.com/mastergo-design/plugin-typings/commit/e4d1c133c566a2481799802cfb6991481e639cfa))
+* 合并webp为image ([627bfa0](https://github.com/mastergo-design/plugin-typings/commit/627bfa04da410b661936c115b210a6431528cd77))
+* 添加absoluteRenderBounds和absoluteBoundingBox接口 ([924b83a](https://github.com/mastergo-design/plugin-typings/commit/924b83a0d84896c05046bc83386570c039e502cc))
+* 文字样式增加fontName ([8d72a18](https://github.com/mastergo-design/plugin-typings/commit/8d72a1849ef6666622a6efb403f4648ccaaa8c2a))
+* 新增组件属性相关types ([a7f4e67](https://github.com/mastergo-design/plugin-typings/commit/a7f4e676f04f504d172402d74ccc8d5111867142))
+* 修改absoluteRenderBounds和absoluteBoundingBox返回类型 ([b90dd96](https://github.com/mastergo-design/plugin-typings/commit/b90dd96c99e392ba9bbdb54260c13573dd02ba28))
+* absoluteBoundingBox去除null返回值 ([7e903ef](https://github.com/mastergo-design/plugin-typings/commit/7e903ef72d059d0822ac6f1a6ad035e84392327d))
+
+
+
 # [1.12.0](https://github.com/mastergo-design/plugin-typings/compare/v1.11.0...v1.12.0) (2022-12-20)
 
 
