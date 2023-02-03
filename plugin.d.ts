@@ -186,6 +186,7 @@ declare global {
   interface ExportMixin {
     exportSettings: ReadonlyArray<ExportSettings>
     export(settings?: ExportSettings): Uint8Array | string // Defaults to PNG format
+    exportAsync(settings?: ExportSettings): Promise<Uint8Array | string>
   }
 
   interface NotifyOptions {
@@ -194,8 +195,8 @@ declare global {
   }
 
   interface UIViewport extends Bound {
-    headerHeight: number
-    visible: boolean
+    readonly headerHeight: number
+    readonly visible: boolean
   }
   
   interface UIAPI {
