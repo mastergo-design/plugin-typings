@@ -1,3 +1,12 @@
+# [1.14.0](https://github.com/mastergo-design/plugin-typings/compare/v1.13.0...v1.14.0) (2023-02-07)
+
+
+### Features
+
+* 增加异步导出接口exportAsync ([5327398](https://github.com/mastergo-design/plugin-typings/commit/532739851e5e0cc82ac0acbdc7195f7a780b354e))
+
+
+
 # [1.13.0](https://github.com/mastergo-design/plugin-typings/compare/v1.12.0...v1.13.0) (2023-01-12)
 
 
