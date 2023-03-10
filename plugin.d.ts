@@ -486,6 +486,7 @@ declare global {
   interface SceneNodeMixin {
     isVisible: boolean
     isLocked: boolean
+    readonly attachedConnectors: ConnectorNode[]
     componentPropertyReferences: {
       isVisible?: string,
       characters?: string,
