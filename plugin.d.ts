@@ -91,7 +91,7 @@ declare global {
 
     saveVersionHistoryAsync(desc: string): Promise<void>
 
-    notify(message: string, options?: NotifyOptions): void
+    notify(message: string, options?: NotifyOptions): NotificationHandler
 
     getStyleById(id: string): Style | null
     getTitleByFontFamilyAndStyle(fontFamily: string, fontStyle: string) : FontAlias | null
@@ -127,7 +127,20 @@ declare global {
     RGBAToHex(rgba: RGBA): string
   }
 
+<<<<<<< Updated upstream
   interface Rect extends Readonly<Bound> {}
+=======
+  interface NotificationHandler {
+    cancel: () => void
+  }
+
+  interface Rect {
+    readonly x: number
+    readonly y: number
+    readonly width: number
+    readonly height: number
+  }
+>>>>>>> Stashed changes
 
   interface ViewportAPI {
     center: Vector
@@ -192,6 +205,8 @@ declare global {
   interface NotifyOptions {
     position?: 'top' | 'bottom'
     type?: 'normal' | 'highlight' | 'error' | 'warning' | 'success'
+    timeout?: number
+    isLoading?: boolean
   }
 
   interface UIViewport extends Bound {
