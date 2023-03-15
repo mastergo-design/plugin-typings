@@ -1,3 +1,13 @@
+# [1.15.0](https://github.com/mastergo-design/plugin-typings/compare/v1.14.0...v1.15.0) (2023-03-15)
+
+
+### Features
+
+* 添加notify方法参数, 以及关闭方法 ([ae12bba](https://github.com/mastergo-design/plugin-typings/commit/ae12bbafb0a00dc042911859b18fbdb2934ddbf4))
+* SceneNodeMixin增加attachedConnectors ([62af223](https://github.com/mastergo-design/plugin-typings/commit/62af223ca0d88d16976c29a7516e7cb0244015ce))
+
+
+
 # [1.14.0](https://github.com/mastergo-design/plugin-typings/compare/v1.13.0...v1.14.0) (2023-02-07)
 
 
