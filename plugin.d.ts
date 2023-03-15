@@ -127,9 +127,7 @@ declare global {
     RGBAToHex(rgba: RGBA): string
   }
 
-<<<<<<< Updated upstream
   interface Rect extends Readonly<Bound> {}
-=======
   interface NotificationHandler {
     cancel: () => void
   }
@@ -140,7 +138,6 @@ declare global {
     readonly width: number
     readonly height: number
   }
->>>>>>> Stashed changes
 
   interface ViewportAPI {
     center: Vector
