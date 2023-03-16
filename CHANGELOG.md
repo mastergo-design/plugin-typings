@@ -1,3 +1,12 @@
+## [1.15.1](https://github.com/mastergo-design/plugin-typings/compare/v1.15.0...v1.15.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* 修复penNetwork错误类型 ([ea28765](https://github.com/mastergo-design/plugin-typings/commit/ea2876522eb76661e0cee898e97acee732081041))
+
+
+
 # [1.15.0](https://github.com/mastergo-design/plugin-typings/compare/v1.14.0...v1.15.0) (2023-03-15)
 
 
