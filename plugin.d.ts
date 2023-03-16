@@ -406,20 +406,16 @@ declare global {
 
   // 待确定
   interface VectorVertex {
-    readonly id: number
     readonly x: number
     readonly y: number
-    readonly type: 'PATH_NODE' | 'CONTROL_NODE' // 0 路径端点  1 控制节点
     readonly strokeCap?: StrokeCap
-    readonly strokeJoin?: StrokeJoin
     readonly cornerRadius?: number
   }
 
   // 待确定
   interface VectorRegion {
-    readonly id: number
     readonly windingRule: WindingRule
-    readonly pathIds?: ReadonlyArray<number>
+    readonly loops: ReadonlyArray<VectorPaths>
   }
 
   interface VectorCtrl {
@@ -825,18 +821,13 @@ declare global {
     clone(): StarNode
   }
 
-  // interface VectorPath {
-  //   readonly id: number
-  //   readonly nodeIds: ReadonlyArray<number>
-  // }
-  type VectorPath = number[]
-
-  type VectorPaths = ReadonlyArray<VectorPath>
+  type VectorPaths = ReadonlyArray<number>
+  type VectorPath = [number, number, number, number]
 
   interface PenNetwork {
-    paths: ReadonlyArray<VectorPaths>
+    paths: ReadonlyArray<VectorPath>
     nodes: ReadonlyArray<VectorVertex>
-    regions: ReadonlyArray<VectorRegion> | []
+    regions: ReadonlyArray<VectorRegion>
     ctrlNodes: ReadonlyArray<VectorCtrl>
   }
 
