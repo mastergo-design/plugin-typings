@@ -74,6 +74,8 @@ declare global {
     createConnector(): ConnectorNode
     createNodeFromSvgAsync(svg: string): Promise<FrameNode>
 
+    combineAsVariants(nodes: ReadonlyArray<ComponentNode>, parent: BaseNode & ChildrenMixin, index?: number): ComponentSetNode
+
     getHoverLayer(): PageNode | SceneNode
 
     /**
