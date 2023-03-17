@@ -165,7 +165,7 @@ declare global {
     readonly isSuffix?: boolean
     readonly fileName?: string
     readonly constraint?: ExportSettingsConstraints
-    readonly useAbsoluteBounds?: boolean  // defaults to false
+    readonly useAbsoluteBounds?: boolean  // defaults to true
     readonly useRenderBounds?: boolean // default to true
   }
   interface ExportSettingsSVG {
@@ -178,7 +178,7 @@ declare global {
     readonly format: 'PDF'
     readonly isSuffix?: string
     readonly fileName?: string
-    readonly useAbsoluteBounds?: boolean // defaults to false
+    readonly useAbsoluteBounds?: boolean // defaults to true
     readonly useRenderBounds?: boolean // default to true
   }
   
