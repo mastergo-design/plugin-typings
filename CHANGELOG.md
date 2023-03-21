@@ -1,3 +1,14 @@
+# [1.16.0](https://github.com/mastergo-design/plugin-typings/compare/v1.15.1...v1.16.0) (2023-03-21)
+
+
+### Features
+
+* 修改combineAsVariants类型 ([16c2cd0](https://github.com/mastergo-design/plugin-typings/commit/16c2cd0c18e1c570fb4ebe70385c287e61865119))
+* 修改combineAsVariantstype ([bd59082](https://github.com/mastergo-design/plugin-typings/commit/bd590829eda21bbeef0bbc01b57b9f3a2a1dc296))
+* combineAsVariants ([f683658](https://github.com/mastergo-design/plugin-typings/commit/f683658e452024849a4e190b3782fe45d78f7de1))
+
+
+
 ## [1.15.1](https://github.com/mastergo-design/plugin-typings/compare/v1.15.0...v1.15.1) (2023-03-16)
 
 
