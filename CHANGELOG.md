@@ -1,3 +1,12 @@
+## [1.16.1](https://github.com/mastergo-design/plugin-typings/compare/v1.16.0...v1.16.1) (2023-03-22)
+
+
+### Bug Fixes
+
+* groupNode和booleanOperation移除frameContainerMixin ([de52f6c](https://github.com/mastergo-design/plugin-typings/commit/de52f6cbb991c812de6fe7579293b16e336bde20))
+
+
+
 # [1.16.0](https://github.com/mastergo-design/plugin-typings/compare/v1.15.1...v1.16.0) (2023-03-21)
 
 
