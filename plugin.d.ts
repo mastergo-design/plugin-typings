@@ -781,7 +781,7 @@ declare global {
     resizeToFit(): void
   }
 
-  interface GroupNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin {
+  interface GroupNode extends DefaultContainerMixin, GeometryMixin {
     readonly type: 'GROUP'
     clone(): GroupNode
   }
@@ -849,7 +849,6 @@ declare global {
 
   interface BooleanOperationNode
     extends DefaultShapeMixin,
-    FrameContainerMixin,
     Omit<ChildrenMixin, 'appendChild' | 'insertChild'>,
     CornerMixin {
     readonly type: 'BOOLEAN_OPERATION'
