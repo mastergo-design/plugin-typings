@@ -1031,8 +1031,8 @@ declare global {
     /**
      * this is an async func
      */
-    swapComponent(): void
-    detachInstance(): InstanceNode
+    swapComponent(component: ComponentNode): void
+    detachInstance(): FrameNode
     mainComponent: ComponentNode | null
   }
 
