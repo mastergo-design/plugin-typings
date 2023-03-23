@@ -1,3 +1,12 @@
+## [1.16.2](https://github.com/mastergo-design/plugin-typings/compare/v1.16.1...v1.16.2) (2023-03-23)
+
+
+### Bug Fixes
+
+* 修复instance的swapComponent和detachInstance类型错误 ([c8aa208](https://github.com/mastergo-design/plugin-typings/commit/c8aa208700fc4f5323bffc41737199360ee13f6b))
+
+
+
 ## [1.16.1](https://github.com/mastergo-design/plugin-typings/compare/v1.16.0...v1.16.1) (2023-03-22)
 
 
