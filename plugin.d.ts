@@ -781,11 +781,14 @@ declare global {
     resizeToFit(): void
   }
 
+<<<<<<< Updated upstream
   interface GroupNode extends DefaultContainerMixin, GeometryMixin {
     readonly type: 'GROUP'
     clone(): GroupNode
   }
 
+=======
+>>>>>>> Stashed changes
   interface RectangleNode
     extends DefaultShapeMixin,
     ConstraintMixin,
@@ -854,6 +857,15 @@ declare global {
     readonly type: 'BOOLEAN_OPERATION'
     booleanOperation: 'UNION' | 'INTERSECT' | 'SUBTRACT' | 'EXCLUDE'
     clone(): BooleanOperationNode
+  }
+
+
+  interface GroupNode 
+  extends DefaultShapeMixin,     
+  Omit<ChildrenMixin, 'appendChild' | 'insertChild'>,
+  CornerMixin {
+    readonly type: 'GROUP'
+    clone(): GroupNode
   }
 
   interface TextRangeStyle {
