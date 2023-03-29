@@ -781,14 +781,6 @@ declare global {
     resizeToFit(): void
   }
 
-<<<<<<< Updated upstream
-  interface GroupNode extends DefaultContainerMixin, GeometryMixin {
-    readonly type: 'GROUP'
-    clone(): GroupNode
-  }
-
-=======
->>>>>>> Stashed changes
   interface RectangleNode
     extends DefaultShapeMixin,
     ConstraintMixin,
