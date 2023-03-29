@@ -844,7 +844,7 @@ declare global {
 
   interface BooleanOperationNode
     extends DefaultShapeMixin,
-    Omit<ChildrenMixin, 'appendChild' | 'insertChild'>,
+    ChildrenMixin,
     CornerMixin {
     readonly type: 'BOOLEAN_OPERATION'
     booleanOperation: 'UNION' | 'INTERSECT' | 'SUBTRACT' | 'EXCLUDE'
@@ -853,8 +853,8 @@ declare global {
 
 
   interface GroupNode 
-  extends DefaultShapeMixin,     
-  Omit<ChildrenMixin, 'appendChild' | 'insertChild'>,
+  extends DefaultShapeMixin,
+  ChildrenMixin,  
   CornerMixin {
     readonly type: 'GROUP'
     clone(): GroupNode
