@@ -480,7 +480,7 @@ declare global {
     clearPluginData(): void
     getSharedPluginData(namespace: string, key: string): string
     setSharedPluginData(namespace: string, key: string, value: string): void
-    getSharedPluginDataKeys(namespace: string): void
+    getSharedPluginDataKeys(namespace: string): string[]
     removeSharedPluginData(namespace: string, key: string): void
     clearSharedPluginData(namespace: string): void
   }
