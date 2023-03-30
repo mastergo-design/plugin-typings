@@ -1,3 +1,12 @@
+## [1.17.1](https://github.com/mastergo-design/plugin-typings/compare/v1.17.0...v1.17.1) (2023-03-30)
+
+
+### Bug Fixes
+
+* getSharedPluginDataKeys返回错误 ([cb9c3cd](https://github.com/mastergo-design/plugin-typings/commit/cb9c3cd15fede7584fe1b253b91fbc67bd1ed993))
+
+
+
 # [1.17.0](https://github.com/mastergo-design/plugin-typings/compare/v1.16.1...v1.17.0) (2023-03-30)
 
 
