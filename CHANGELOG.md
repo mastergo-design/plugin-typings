@@ -1,11 +1,23 @@
-## [1.16.2](https://github.com/mastergo-design/plugin-typings/compare/v1.16.1...v1.16.2) (2023-03-23)
+# [1.17.0](https://github.com/mastergo-design/plugin-typings/compare/v1.16.1...v1.17.0) (2023-03-30)
 
 
 ### Bug Fixes
 
+* 完善flatten返回值类型 ([687ff5d](https://github.com/mastergo-design/plugin-typings/commit/687ff5de547be6f6ccc6d2f9b5c50dcbb1c014c0))
+* 修复布尔组的childrenMixin的错误 ([25c6588](https://github.com/mastergo-design/plugin-typings/commit/25c6588c0a774733770a4eced4887a6f55024832))
 * 修复instance的swapComponent和detachInstance类型错误 ([c8aa208](https://github.com/mastergo-design/plugin-typings/commit/c8aa208700fc4f5323bffc41737199360ee13f6b))
+* userenderBounds注释错误 ([caae3fb](https://github.com/mastergo-design/plugin-typings/commit/caae3fbd654bfc970cedabc62bc1b548a78419f5))
 
 
+### Features
+
+* 实例切换首选项和公开嵌套实例 ([a821c55](https://github.com/mastergo-design/plugin-typings/commit/a821c55e7388286f9673da006659e51ea052883d))
+* 移除group和布尔组的约束属性 ([a636dd4](https://github.com/mastergo-design/plugin-typings/commit/a636dd4d7fc2bb9ba1dff8550e5acef9401c4605))
+
+## [1.16.2](https://github.com/mastergo-design/plugin-typings/compare/v1.16.1...v1.16.2) (2023-03-23)
+### Bug Fixes
+
+* 修复instance的swapComponent和detachInstance类型错误 ([c8aa208](https://github.com/mastergo-design/plugin-typings/commit/c8aa208700fc4f5323bffc41737199360ee13f6b))
 
 ## [1.16.1](https://github.com/mastergo-design/plugin-typings/compare/v1.16.0...v1.16.1) (2023-03-22)
 
