@@ -167,7 +167,7 @@ declare global {
     readonly isSuffix?: boolean
     readonly fileName?: string
     readonly constraint?: ExportSettingsConstraints
-    readonly useAbsoluteBounds?: boolean  // defaults to false
+    readonly useAbsoluteBounds?: boolean  // defaults to true
     readonly useRenderBounds?: boolean // default to true
   }
   interface ExportSettingsSVG {
@@ -180,7 +180,7 @@ declare global {
     readonly format: 'PDF'
     readonly isSuffix?: string
     readonly fileName?: string
-    readonly useAbsoluteBounds?: boolean // defaults to false
+    readonly useAbsoluteBounds?: boolean // defaults to true
     readonly useRenderBounds?: boolean // default to true
   }
   
@@ -969,12 +969,14 @@ declare global {
       propertyName: string,
       type: Exclude<ComponentPropertyType, 'VARIANT'>,
       defaultValue: string | boolean,
+      options?: ComponentPropertyOptions,
     ): string
     editComponentProperty(
       propertyId: string,
       newValue: {
         name?: string
         defaultValue?: string | boolean
+        preferredValues?: InstanceSwapPreferredValue[]
       },
     ): string
     deleteComponentProperty(propertyId: string): void
@@ -988,15 +990,23 @@ declare global {
     defaultValue: string | boolean
     id?: string
     variantOptions?: string[]
+    preferredValues?: InstanceSwapPreferredValue[]
   }
 
   type ComponentPropertyType = 'BOOLEAN' | 'TEXT' | 'INSTANCE_SWAP' | 'VARIANT'
-
+  type InstanceSwapPreferredValue = {
+    type: 'COMPONENT' | 'COMPONENT_SET'
+    key: string
+  }
+  type ComponentPropertyOptions = {
+    preferredValues?: InstanceSwapPreferredValue[]
+  }
   type ComponentProperties = {
     name: string
     id?: string
     type: ComponentPropertyType
     value: boolean | string
+    preferredValues?: InstanceSwapPreferredValue[]
   }
 
   interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin, ComponentPropertiesMixin {
@@ -1026,11 +1036,14 @@ declare global {
   interface InstanceNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
     readonly type: 'INSTANCE'
     readonly variantProperties: Array<VariantProperty> | undefined
+    
     setVariantPropertyValues(property: Record<string, string>): void
 
     readonly componentProperties: Array<ComponentProperties>
     setProperties(properties: { [propertyId: string]: string | boolean }): void
-
+    readonly exposedInstances: InstanceNode[]
+    isExposedInstance: boolean
+    
     clone(): InstanceNode
     /**
      * this is an async func
