@@ -620,6 +620,7 @@ declare global {
 
   interface DefaultContainerMixin
     extends BaseNodeMixin,
+    ContainerMixin,
     ReactionMixin,
     SceneNodeMixin,
     ChildrenMixin,
@@ -629,7 +630,9 @@ declare global {
     ConstraintMixin,
     LayoutMixin,
     ExportMixin { }
-
+  interface ContainerMixin {
+    expanded: boolean
+  }
   interface AutoLayout {
     flexMode: 'NONE' | 'HORIZONTAL' | 'VERTICAL'
     itemSpacing: number
@@ -844,6 +847,7 @@ declare global {
 
   interface BooleanOperationNode
     extends DefaultShapeMixin,
+    ContainerMixin,
     ChildrenMixin,
     CornerMixin {
     readonly type: 'BOOLEAN_OPERATION'
@@ -854,6 +858,7 @@ declare global {
 
   interface GroupNode 
   extends DefaultShapeMixin,
+  ContainerMixin,
   ChildrenMixin,  
   CornerMixin {
     readonly type: 'GROUP'
@@ -1044,6 +1049,8 @@ declare global {
     readonly exposedInstances: InstanceNode[]
     isExposedInstance: boolean
     
+    resetOverrides(): void
+
     clone(): InstanceNode
     /**
      * this is an async func
