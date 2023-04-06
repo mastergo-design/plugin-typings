@@ -1,3 +1,12 @@
+# [1.18.0](https://github.com/mastergo-design/plugin-typings/compare/v1.17.1...v1.18.0) (2023-04-06)
+
+
+### Features
+
+* 容器图层增加expanded属性, 实例增加resetoverrides方法 ([a2d1bad](https://github.com/mastergo-design/plugin-typings/commit/a2d1bad715c5e6d3096c4c406ce73a1fc4f3b391))
+
+
+
 ## [1.17.1](https://github.com/mastergo-design/plugin-typings/compare/v1.17.0...v1.17.1) (2023-03-30)
 
 
