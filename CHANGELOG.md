@@ -1,3 +1,12 @@
+# [1.19.0](https://github.com/mastergo-design/plugin-typings/compare/v1.18.0...v1.19.0) (2023-04-11)
+
+
+### Features
+
+* 添加currentUser接口 ([ebc74c3](https://github.com/mastergo-design/plugin-typings/commit/ebc74c3f98f97cd0fb58867ceb05fb27767bc596))
+
+
+
 # [1.18.0](https://github.com/mastergo-design/plugin-typings/compare/v1.17.1...v1.18.0) (2023-04-06)
 
 
