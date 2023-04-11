@@ -45,6 +45,8 @@ declare global {
 
     readonly clientStorage: ClientStorageAPI
 
+    readonly currentUser: User | null
+
     readonly viewport: ViewportAPI
 
     closePlugin(): void
@@ -127,6 +129,12 @@ declare global {
 
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
+  }
+
+  interface User {
+    id: string | null
+    name: string | 'Anonymous'
+    photoUrl: string | null
   }
 
   interface Rect extends Readonly<Bound> {}
