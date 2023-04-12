@@ -744,6 +744,8 @@ declare global {
 
   interface DocumentNode {
     readonly type: 'DOCUMENT'
+
+    readonly id: string
     name: string
 
     currentPage: PageNode
