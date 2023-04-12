@@ -39,6 +39,8 @@ declare global {
 
     readonly documentId: number
 
+    readonly pluginId: number
+
     readonly command: string
 
     readonly mixed: string | symbol
