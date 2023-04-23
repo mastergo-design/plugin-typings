@@ -39,6 +39,8 @@ declare global {
 
     readonly documentId: number
 
+    readonly pluginId: number
+
     readonly command: string
 
     readonly mixed: string | symbol
@@ -384,6 +386,7 @@ declare global {
      */
     readonly alpha?: number
     readonly blendMode?: BlendMode
+    readonly name?: string
   }
 
   interface GradientPaint {
@@ -398,6 +401,7 @@ declare global {
     readonly isVisible?: boolean
     readonly alpha?: number
     readonly blendMode?: BlendMode
+    readonly name?: string
   }
 
   interface ImagePaint {
@@ -408,6 +412,7 @@ declare global {
     readonly isVisible?: boolean
     readonly alpha?: number
     readonly blendMode?: BlendMode
+    readonly name?: string
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
@@ -744,6 +749,8 @@ declare global {
 
   interface DocumentNode {
     readonly type: 'DOCUMENT'
+
+    readonly id: string
     name: string
 
     currentPage: PageNode
