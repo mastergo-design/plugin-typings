@@ -712,7 +712,7 @@ declare global {
 
   interface OpaqueNodeMixin extends BaseNodeMixin, SceneNodeMixin, ExportMixin {
     readonly absoluteTransform: Transform
-    relativeTransform: Transform
+    readonly relativeTransform: Transform
     readonly absoluteRenderBounds: Bound | null
     readonly absoluteBoundingBox: Bound
     x: number
