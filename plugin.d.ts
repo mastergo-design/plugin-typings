@@ -564,7 +564,9 @@ declare global {
     opacity: number
     blendMode: BlendMode
     isMask: boolean
-    effects: ReadonlyArray<Effect>
+    isMaskOutline: boolean
+    isMaskVisible: boolean
+    effects: ReadonlyArray<Effect>    
     effectStyleId: string
   }
 
@@ -930,7 +932,7 @@ declare global {
     readonly hyperlinks: Array<HyperlinkWithRange>
     textAlignHorizontal: 'LEFT' | 'CENTER' | 'RIGHT' | 'JUSTIFIED'
     textAlignVertical: 'TOP' | 'CENTER' | 'BOTTOM'
-    textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT'
+    textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT' | 'TRUNCATE'
     paragraphSpacing: number
     readonly textStyles: ReadonlyArray<TextSegStyle>
     readonly listStyles: ReadonlyArray<ListStyle>
