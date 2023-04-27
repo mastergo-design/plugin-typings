@@ -39,6 +39,8 @@ declare global {
 
     readonly documentId: number
 
+    readonly pluginId: number
+
     readonly command: string
 
     readonly mixed: string | symbol
@@ -384,6 +386,7 @@ declare global {
      */
     readonly alpha?: number
     readonly blendMode?: BlendMode
+    readonly name?: string
   }
 
   interface GradientPaint {
@@ -398,6 +401,7 @@ declare global {
     readonly isVisible?: boolean
     readonly alpha?: number
     readonly blendMode?: BlendMode
+    readonly name?: string
   }
 
   interface ImagePaint {
@@ -408,6 +412,7 @@ declare global {
     readonly isVisible?: boolean
     readonly alpha?: number
     readonly blendMode?: BlendMode
+    readonly name?: string
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
@@ -559,7 +564,9 @@ declare global {
     opacity: number
     blendMode: BlendMode
     isMask: boolean
-    effects: ReadonlyArray<Effect>
+    isMaskOutline: boolean
+    isMaskVisible: boolean
+    effects: ReadonlyArray<Effect>    
     effectStyleId: string
   }
 
@@ -707,7 +714,7 @@ declare global {
 
   interface OpaqueNodeMixin extends BaseNodeMixin, SceneNodeMixin, ExportMixin {
     readonly absoluteTransform: Transform
-    relativeTransform: Transform
+    readonly relativeTransform: Transform
     readonly absoluteRenderBounds: Bound | null
     readonly absoluteBoundingBox: Bound
     x: number
@@ -744,6 +751,8 @@ declare global {
 
   interface DocumentNode {
     readonly type: 'DOCUMENT'
+
+    readonly id: string
     name: string
 
     currentPage: PageNode
@@ -923,7 +932,7 @@ declare global {
     readonly hyperlinks: Array<HyperlinkWithRange>
     textAlignHorizontal: 'LEFT' | 'CENTER' | 'RIGHT' | 'JUSTIFIED'
     textAlignVertical: 'TOP' | 'CENTER' | 'BOTTOM'
-    textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT'
+    textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT' | 'TRUNCATE'
     paragraphSpacing: number
     readonly textStyles: ReadonlyArray<TextSegStyle>
     readonly listStyles: ReadonlyArray<ListStyle>
