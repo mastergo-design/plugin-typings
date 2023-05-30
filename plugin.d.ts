@@ -404,10 +404,21 @@ declare global {
     readonly name?: string
   }
 
+  interface ImageFilters {
+    exposure?: number
+    contrast?: number
+    saturation?: number
+    temperature?: number
+    tint?: number
+    highlights?: number
+    shadows?: number
+  }
+
   interface ImagePaint {
     readonly type: 'IMAGE'
     readonly imageRef: string
     readonly scaleMode?: 'FILL' | 'TILE' | 'STRETCH' | 'FIT' | 'CROP'
+    readonly filters?: ImageFilters
 
     readonly isVisible?: boolean
     readonly alpha?: number
