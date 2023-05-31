@@ -405,14 +405,14 @@ declare global {
   }
 
   interface ImageFilters {
-    exposure: number
-    contrast: number
-    saturation: number
-    temperature: number
-    tint: number
-    highlights: number
-    shadows: number
-    hue: number
+    exposure?: number
+    contrast?: number
+    saturation?: number
+    temperature?: number
+    tint?: number
+    highlights?: number
+    shadows?: number
+    hue?: number
   }
 
   interface ImagePaint {
