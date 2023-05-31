@@ -425,6 +425,7 @@ declare global {
     readonly alpha?: number
     readonly blendMode?: BlendMode
     readonly name?: string
+    readonly ratio?: number
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
