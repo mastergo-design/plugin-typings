@@ -985,8 +985,13 @@ declare global {
    */
   type ComponentPropertyDefinitions = Array<VariantMixin>
 
+  interface DocumentationLink {
+    readonly url: string
+  }
+
   interface ComponentPropertiesMixin {
     readonly componentPropertyValues: ComponentPropertyValues
+    documentationLinks: Array<DocumentationLink>
     addComponentProperty(
       propertyName: string,
       type: Exclude<ComponentPropertyType, 'VARIANT'>,
