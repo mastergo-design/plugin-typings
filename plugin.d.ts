@@ -986,7 +986,7 @@ declare global {
   type ComponentPropertyDefinitions = Array<VariantMixin>
 
   interface DocumentationLink {
-    readonly url: string
+    readonly uri: string
   }
 
   interface ComponentPropertiesMixin {
