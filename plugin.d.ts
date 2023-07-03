@@ -226,8 +226,12 @@ declare global {
     onmessage: ((pluginMessage: any, origin: string) => void) | undefined
   }
   type PublishStatus = 'UNPUBLISHED' | 'CURRENT' | 'CHANGED'
+  interface DocumentationLink {
+    readonly uri: string
+  }
   interface PublishableMixin {
     description: string
+    documentationLinks: ReadonlyArray<DocumentationLink>
     /**
      * 是否为团队库组件/样式
     */
@@ -241,7 +245,7 @@ declare global {
 
   type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID'
 
-  interface BaseStyle extends PublishableMixin {
+  interface BaseStyle extends  Omit<PublishableMixin, 'documentationLinks'> {
     readonly id: string
     readonly type: StyleType
     name: string
