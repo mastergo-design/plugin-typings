@@ -226,8 +226,12 @@ declare global {
     onmessage: ((pluginMessage: any, origin: string) => void) | undefined
   }
   type PublishStatus = 'UNPUBLISHED' | 'CURRENT' | 'CHANGED'
+  interface DocumentationLink {
+    readonly uri: string
+  }
   interface PublishableMixin {
     description: string
+    documentationLinks: ReadonlyArray<DocumentationLink>
     /**
      * 是否为团队库组件/样式
     */
@@ -241,7 +245,7 @@ declare global {
 
   type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID'
 
-  interface BaseStyle extends PublishableMixin {
+  interface BaseStyle extends  Omit<PublishableMixin, 'documentationLinks'> {
     readonly id: string
     readonly type: StyleType
     name: string
@@ -404,15 +408,29 @@ declare global {
     readonly name?: string
   }
 
+  interface ImageFilters {
+    exposure?: number
+    contrast?: number
+    saturation?: number
+    temperature?: number
+    tint?: number
+    highlights?: number
+    shadows?: number
+    hue?: number
+  }
+
   interface ImagePaint {
     readonly type: 'IMAGE'
     readonly imageRef: string
     readonly scaleMode?: 'FILL' | 'TILE' | 'STRETCH' | 'FIT' | 'CROP'
+    readonly filters?: ImageFilters
 
     readonly isVisible?: boolean
     readonly alpha?: number
     readonly blendMode?: BlendMode
     readonly name?: string
+    readonly ratio?: number
+    readonly rotation?: number
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
