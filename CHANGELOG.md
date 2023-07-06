@@ -1,3 +1,20 @@
+# [1.21.0](https://github.com/mastergo-design/plugin-typings/compare/v1.19.0...v1.21.0) (2023-07-06)
+
+
+### Bug Fixes
+
+* 补充paint的name字段 ([217c68e](https://github.com/mastergo-design/plugin-typings/commit/217c68efdcd1a3e6d0d0d07c3fd024794563751b))
+* opaque图层禁止修改相对矩阵 ([fb634b1](https://github.com/mastergo-design/plugin-typings/commit/fb634b1eb77d7df2f5d1eeb98bd53888586b0daa))
+
+
+### Features
+
+* 添加轮廓蒙层和是否可视属性，文本支持省略 ([89414ad](https://github.com/mastergo-design/plugin-typings/commit/89414ad67f398dd44055172b1d0f9ff47693b1d6))
+* 增加pluginId ([321db49](https://github.com/mastergo-design/plugin-typings/commit/321db497ff6da8f2802bab2f5ea1c5e3f3a1fc76))
+* document增加id ([d2bfdff](https://github.com/mastergo-design/plugin-typings/commit/d2bfdff8451eea4c09a757b6d01fec0c37f73e6f))
+
+
+
 # [1.20.0](https://github.com/mastergo-design/plugin-typings/compare/v1.19.0...v1.20.0) (2023-04-27)
 
 
