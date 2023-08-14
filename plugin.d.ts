@@ -25,7 +25,7 @@ declare global {
     getBytesAsync(): Promise<Uint8Array>
   }
 
-  type PluginEventType = 'selectionchange' | 'currentpagechange' | 'close' | 'themechange' | 'drop' | 'run'
+  type PluginEventType = 'selectionchange' | 'layoutchange' | 'currentpagechange' | 'close' | 'themechange' | 'drop' | 'run'
   type ThemeColor = 'dark' | 'light'
 
   interface PluginAPI {
@@ -143,10 +143,18 @@ declare global {
   interface NotificationHandler {
     cancel: () => void
   }
+  interface Layout {
+    canvas: number
+    leftbar: number
+    rightbar: number
+    window: number
+  }
+
   interface ViewportAPI {
     center: Vector
     zoom: number
     readonly bound: Rect
+    readonly layout: Layout
     rulerVisible: boolean
     layoutGridVisible: boolean
     scrollAndZoomIntoView(nodes: SceneNode[]): void
