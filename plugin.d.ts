@@ -1090,9 +1090,9 @@ declare global {
     createVariantProperties(properties: Array<string>): void
     editVariantProperties(properties: Record<string, string>): void
     editVariantPropertyValues(properties: Record<string, { oldValue: string, newValue: string }>): void
+    editVariantPropertiesAlias(properties: Record<string, string>): void
+    editVariantPropertyValuesAlias(properties: Record<string, { name: string, alias: string }>): void
     deleteVariantProperty(property: string): void
-    setComponentPropertyAlias(property: string, alias: string): void
-    setComponentValuesAlias(property: string, label: string, alias: string): void
     resizeToFit(): void
   }
 
