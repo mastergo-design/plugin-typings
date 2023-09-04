@@ -150,11 +150,22 @@ declare global {
     window: number
   }
 
+  interface PositionOnDom {
+    width: number
+    height: number
+    x: number
+    y: number
+  }
+
   interface ViewportAPI {
     center: Vector
     zoom: number
     readonly bound: Rect
+    /**
+     * @deprecated
+     */
     readonly layout: Layout
+    readonly positionOnDom: PositionOnDom
     rulerVisible: boolean
     layoutGridVisible: boolean
     scrollAndZoomIntoView(nodes: SceneNode[]): void
@@ -1039,6 +1050,8 @@ declare global {
     id?: string
     variantOptions?: string[]
     preferredValues?: InstanceSwapPreferredValue[]
+    alias?: string
+    variantOptionsAlias?: string[]
   }
 
   type ComponentPropertyType = 'BOOLEAN' | 'TEXT' | 'INSTANCE_SWAP' | 'VARIANT'
@@ -1078,6 +1091,8 @@ declare global {
     editVariantProperties(properties: Record<string, string>): void
     editVariantPropertyValues(properties: Record<string, { oldValue: string, newValue: string }>): void
     deleteVariantProperty(property: string): void
+    setComponentPropertyAlias(property: string, alias: string): void
+    setComponentValuesAlias(property: string, label: string, alias: string): void
     resizeToFit(): void
   }
 
