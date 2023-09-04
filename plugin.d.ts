@@ -1016,12 +1016,6 @@ declare global {
     value: string
   }
 
-  /**
-   * @deprecated
-   * 
-   */
-  type ComponentPropertyDefinitions = Array<VariantMixin>
-
   interface ComponentPropertiesMixin {
     readonly componentPropertyValues: ComponentPropertyValues
     addComponentProperty(
@@ -1081,10 +1075,6 @@ declare global {
 
   interface ComponentSetNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin, ComponentPropertiesMixin {
     readonly type: 'COMPONENT_SET'
-    /**
-     * @deprecated
-     */
-    readonly componentPropertyDefinitions: ComponentPropertyDefinitions
     clone(): ComponentSetNode
     createVariantComponent(): void
     createVariantProperties(properties: Array<string>): void
