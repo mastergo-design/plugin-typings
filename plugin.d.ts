@@ -150,11 +150,22 @@ declare global {
     window: number
   }
 
+  interface PositionOnDom {
+    width: number
+    height: number
+    x: number
+    y: number
+  }
+
   interface ViewportAPI {
     center: Vector
     zoom: number
     readonly bound: Rect
+    /**
+     * @deprecated
+     */
     readonly layout: Layout
+    readonly positionOnDom: PositionOnDom
     rulerVisible: boolean
     layoutGridVisible: boolean
     scrollAndZoomIntoView(nodes: SceneNode[]): void
@@ -1005,12 +1016,6 @@ declare global {
     value: string
   }
 
-  /**
-   * @deprecated
-   * 
-   */
-  type ComponentPropertyDefinitions = Array<VariantMixin>
-
   interface ComponentPropertiesMixin {
     readonly componentPropertyValues: ComponentPropertyValues
     addComponentProperty(
@@ -1039,6 +1044,8 @@ declare global {
     id?: string
     variantOptions?: string[]
     preferredValues?: InstanceSwapPreferredValue[]
+    alias?: string
+    variantOptionsAlias?: string[]
   }
 
   type ComponentPropertyType = 'BOOLEAN' | 'TEXT' | 'INSTANCE_SWAP' | 'VARIANT'
@@ -1068,15 +1075,13 @@ declare global {
 
   interface ComponentSetNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin, ComponentPropertiesMixin {
     readonly type: 'COMPONENT_SET'
-    /**
-     * @deprecated
-     */
-    readonly componentPropertyDefinitions: ComponentPropertyDefinitions
     clone(): ComponentSetNode
     createVariantComponent(): void
     createVariantProperties(properties: Array<string>): void
     editVariantProperties(properties: Record<string, string>): void
     editVariantPropertyValues(properties: Record<string, { oldValue: string, newValue: string }>): void
+    editVariantPropertiesAlias(properties: Record<string, string>): void
+    editVariantPropertyValuesAlias(properties: Record<string, { name: string, alias: string }>): void
     deleteVariantProperty(property: string): void
     resizeToFit(): void
   }
