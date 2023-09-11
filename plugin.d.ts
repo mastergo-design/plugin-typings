@@ -63,7 +63,7 @@ declare global {
     showUI(html: string, options?: ShowUIOptions): void
 
     getNodeById(id: string): SceneNode | null
-    getNodeByPosition(position: {x: number, y: number}): SceneNode | null
+    getNodeByPosition(position: { x: number, y: number }): SceneNode | null
     createRectangle(): RectangleNode
     createLine(): LineNode
     createEllipse(): EllipseNode
@@ -100,7 +100,7 @@ declare global {
     notify(message: string, options?: NotifyOptions): NotificationHandler
 
     getStyleById(id: string): Style | null
-    getTitleByFontFamilyAndStyle(fontFamily: string, fontStyle: string) : FontAlias | null
+    getTitleByFontFamilyAndStyle(fontFamily: string, fontStyle: string): FontAlias | null
     createFillStyle(config: CreateStyleConfig): PaintStyle
     createStrokeStyle(config: CreateStyleConfig): PaintStyle
     createEffectStyle(config: CreateStyleConfig): EffectStyle
@@ -139,7 +139,7 @@ declare global {
     photoUrl: string | null
   }
 
-  interface Rect extends Readonly<Bound> {}
+  interface Rect extends Readonly<Bound> { }
   interface NotificationHandler {
     cancel: () => void
   }
@@ -204,7 +204,7 @@ declare global {
     readonly isSuffix?: boolean
     readonly fileName?: string
   }
-  
+
   interface ExportSettingsPDF {
     readonly format: 'PDF'
     readonly isSuffix?: string
@@ -212,7 +212,7 @@ declare global {
     readonly useAbsoluteBounds?: boolean // defaults to true
     readonly useRenderBounds?: boolean // default to true
   }
-  
+
   type ExportSettings = ExportSettingsImage | ExportSettingsSVG | ExportSettingsPDF
 
 
@@ -233,7 +233,7 @@ declare global {
     readonly headerHeight: number
     readonly visible: boolean
   }
-  
+
   interface UIAPI {
     show(): void
     hide(): void
@@ -264,7 +264,7 @@ declare global {
 
   type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID'
 
-  interface BaseStyle extends  Omit<PublishableMixin, 'documentationLinks'> {
+  interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks'> {
     readonly id: string
     readonly type: StyleType
     name: string
@@ -325,7 +325,7 @@ declare global {
     title: string
     subtitle: string
   }
-  
+
   interface GridStyle extends BaseStyle {
     type: 'GRID'
     layoutGrids: ReadonlyArray<LayoutGrid>
@@ -420,7 +420,7 @@ declare global {
     | 'GRADIENT_DIAMOND'
     readonly transform: Transform
     readonly gradientStops: ReadonlyArray<ColorStop>
-    readonly gradientHandlePositions?: [{ x: number, y: number}, { x: number, y: number}];
+    readonly gradientHandlePositions?: [{ x: number, y: number }, { x: number, y: number }];
     readonly isVisible?: boolean
     readonly alpha?: number
     readonly blendMode?: BlendMode
@@ -481,11 +481,11 @@ declare global {
   }
 
   type LineHeight =
-  | {
+    | {
       readonly value: number
       readonly unit: 'PIXELS' | 'PERCENT'
     }
-  | {
+    | {
       readonly unit: 'AUTO'
     }
 
@@ -543,7 +543,7 @@ declare global {
       isVisible?: string,
       characters?: string,
       mainComponent?: string
-    } | null   
+    } | null
   }
 
   interface ChildrenMixin<ChildrenNode = SceneNode> {
@@ -603,7 +603,7 @@ declare global {
     isMask: boolean
     isMaskOutline: boolean
     isMaskVisible: boolean
-    effects: ReadonlyArray<Effect>    
+    effects: ReadonlyArray<Effect>
     effectStyleId: string
   }
 
@@ -617,14 +617,14 @@ declare global {
   interface ConnectorEndpointPosition {
     readonly position: { x: number; y: number }
   }
-  
+
   interface ConnectorEndpointConnected {
     readonly position: { x: number; y: number }
     readonly endpointNodeId: string
     readonly magnet: 'TOP' | 'LEFT' | 'BOTTOM' | 'RIGHT'
   }
-  
-  
+
+
   type ConnectorEndpoint =
     | ConnectorEndpointPosition
     | ConnectorEndpointConnected
@@ -708,25 +708,25 @@ declare global {
     readonly count: number
     readonly sectionSize?: number | null
     readonly offset?: number
-  
+
     readonly isVisible?: boolean
     readonly color?: RGBA
     readonly id?: string
     readonly name?: string
   }
-  
+
   interface GridLayoutGrid {
     readonly gridType: "GRID"
 
     readonly sectionSize: number
-  
+
     readonly isVisible?: boolean
     readonly color?: RGBA
     readonly id?: string
     readonly name?: string
   }
-  
-  
+
+
   type LayoutGrid = RowsColsLayoutGrid | GridLayoutGrid
 
   interface FrameContainerMixin extends AutoLayout {
@@ -795,7 +795,7 @@ declare global {
     currentPage: PageNode
 
     readonly children: ReadonlyArray<PageNode>
-    
+
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
     findAllWithCriteria<T extends NodeType[]>(criteria: { types: T }): Array<{ type: T[number] } & SceneNode>
@@ -817,7 +817,7 @@ declare global {
     /**
      * 选中所有图层
      */
-    selectAll() : void
+    selectAll(): void
     /**
      * 背景颜色
      */
@@ -829,7 +829,12 @@ declare global {
     /**
      * 标签,默认'NONE'
      */
-    label:'NONE' | 'BLUE' | 'GREEN' | 'RED' | 'YELLOW' | 'PURPLE' | 'GRAY'
+    label: 'NONE' | 'BLUE' | 'GREEN' | 'RED' | 'YELLOW' | 'PURPLE' | 'GRAY'
+  }
+
+  interface SectionNode extends Omit<DefaultContainerMixin, 'opacity' | 'blendMode' | 'isMask' | 'isMaskOutline' | 'isMaskVisible' | 'effects' | 'effectStyleId'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
+    readonly type: 'SECTION'
+    clone(): SectionNode
   }
 
   interface FrameNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
@@ -910,11 +915,11 @@ declare global {
   }
 
 
-  interface GroupNode 
-  extends DefaultShapeMixin,
-  ContainerMixin,
-  ChildrenMixin,  
-  CornerMixin {
+  interface GroupNode
+    extends DefaultShapeMixin,
+    ContainerMixin,
+    ChildrenMixin,
+    CornerMixin {
     readonly type: 'GROUP'
     clone(): GroupNode
   }
@@ -942,7 +947,7 @@ declare global {
     superlink: {
       layerId?: string
       link: string
-      linkFlag: LinkFlagEnum 
+      linkFlag: LinkFlagEnum
       pageId: string
     }
   }
@@ -1089,14 +1094,14 @@ declare global {
   interface InstanceNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
     readonly type: 'INSTANCE'
     readonly variantProperties: Array<VariantProperty> | undefined
-    
+
     setVariantPropertyValues(property: Record<string, string>): void
 
     readonly componentProperties: Array<ComponentProperties>
     setProperties(properties: { [propertyId: string]: string | boolean }): void
     readonly exposedInstances: InstanceNode[]
     isExposedInstance: boolean
-    
+
     resetOverrides(): void
 
     clone(): InstanceNode
@@ -1136,13 +1141,13 @@ declare global {
     readonly hyperlinks: Array<HyperlinkWithRange>
 
     readonly textStyles: ReadonlyArray<TextSegStyle>
-  
+
     paragraphSpacing: number
 
     characters: string
     insertCharacters(start: number, characters: string): void
     deleteCharacters(start: number, end: number): void
-  
+
     setRangeFontSize(start: number, end: number, fontSize: number): void
     setRangeTextDecoration(
       start: number,
@@ -1175,7 +1180,7 @@ declare global {
     id: string;
     description?: string;
   }
-  
+
   interface FlowStartingPoint {
     name: string
     id: string
@@ -1195,22 +1200,22 @@ declare global {
     readonly scrollToXOffset?: number;
     readonly scrollToYOffset?: number;
   }
-  
-  type ActionType = 'BACK' | 'NODE'| 'URL'| 'CLOSE'| 'NONE';
-  
-  type  Navigation =  'NAVIGATE' | 'OVERLAY' | 'SWAP_OVERLAY' | 'SCROLL_TO';
-  
+
+  type ActionType = 'BACK' | 'NODE' | 'URL' | 'CLOSE' | 'NONE';
+
+  type Navigation = 'NAVIGATE' | 'OVERLAY' | 'SWAP_OVERLAY' | 'SCROLL_TO';
+
   interface Transition {
     readonly type: TransitionType;
     readonly duration: number;
     readonly direction: TransitionDirection;
     readonly easing: Easing;
   }
-  
+
   type TransitionType = 'TANS_NONE' | 'INSTANT' | 'DISSOLVE' | 'SMART_ANIMATE' | 'MOVE_IN' | 'MOVE_OUT' | 'PUSH' | 'SLIDE_IN' | 'SLIDE_OUT' | 'DISPLACE'
-  
+
   type TransitionDirection = 'LEFT' | 'RIGHT' | 'TOP' | 'BOTTOM'
-  interface Easing{
+  interface Easing {
     readonly type: EasingType;
     readonly easingFunctionCubicBezier: {
       x1: number;
@@ -1219,19 +1224,19 @@ declare global {
       y2: number;
     };
   }
-  
+
   type EasingType = 'LINEAR' | 'EASE_IN' | 'EASE_OUT' | 'EASE_IN_AND_OUT' | 'EASE_IN_BACK' | 'EASE_OUT_BACK' | 'EASE_IN_AND_OUT_BACK' | 'CUSTOM_CUBIC_BEZIER'
-  interface Trigger{
+  interface Trigger {
     readonly type: TriggerType;
     readonly delay: number;
   }
   type TriggerType = 'ON_CLICK' | 'ON_DRAG' | 'ON_HOVER' | 'ON_PRESS' | 'MOUSE_ENTER' | 'MOUSE_LEAVE' | 'MOUSE_DOWN' | 'MOUSE_UP' | 'AFTER_DELAY'
-  
+
   interface ArcData {
     /**
      * 起点弧度
      */
-    startingAngle: number 
+    startingAngle: number
     /**
      * 终点弧度
      */
@@ -1252,7 +1257,7 @@ declare global {
     x: number
     y: number
     absoluteX: number
-    absoluteY: number 
+    absoluteY: number
     dropMetadata?: any
   }
 
@@ -1305,6 +1310,7 @@ declare global {
     | BooleanOperationNode
     | SliceNode
     | ConnectorNode
+    | SectionNode
 
   type NodeType =
     | 'DOCUMENT'
@@ -1324,6 +1330,7 @@ declare global {
     | 'BOOLEAN_OPERATION'
     | 'SLICE'
     | 'CONNECTOR'
+    | 'SECTION'
 }
 
 export { }
