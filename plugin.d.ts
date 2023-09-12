@@ -73,6 +73,7 @@ declare global {
     createText(): TextNode
     createFrame(children?: SceneNode[]): FrameNode
     createComponent(children?: SceneNode[]): ComponentNode
+    createSection(): SectionNode
     createPage(): PageNode
     createSlice(): SliceNode
     createConnector(): ConnectorNode
