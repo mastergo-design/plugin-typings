@@ -96,7 +96,7 @@ declare global {
     exclude(children: SceneNode[]): BooleanOperationNode
     flatten(nodes: SceneNode[]): PenNode | null
 
-    saveVersionHistoryAsync(desc: string): Promise<void>
+    saveVersionHistoryAsync(desc: string, title?: string): Promise<void>
 
     notify(message: string, options?: NotifyOptions): NotificationHandler
 
