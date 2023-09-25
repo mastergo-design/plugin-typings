@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/mastergo-design/plugin-typings/compare/v1.21.0...v2.0.0) (2023-09-25)
+
+
+### Bug Fixes
+
+* 修改接口 ([50c9d6f](https://github.com/mastergo-design/plugin-typings/commit/50c9d6f1ad1f7290f62009f7c4f672b8f7f1ad81))
+
+
+### Features
+
+* 插件API支持SECTION类型 ([ae02af9](https://github.com/mastergo-design/plugin-typings/commit/ae02af932b90ca770e343a5f1bad7abb48fe90df))
+* 全局增加createSection的接口 ([da713b1](https://github.com/mastergo-design/plugin-typings/commit/da713b18c1994ecbe576c75a19e67ba7edda6e46))
+* 新增组件集属性别名相关方法/画布在整个窗口中的位置 ([5b212c9](https://github.com/mastergo-design/plugin-typings/commit/5b212c943c7d0c2afb92fcad1433e70733fa43d2))
+
+
+
 # [1.21.0](https://github.com/mastergo-design/plugin-typings/compare/v1.19.0...v1.21.0) (2023-07-06)
 
 
