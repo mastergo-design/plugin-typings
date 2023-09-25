@@ -8,7 +8,9 @@
     "prepare": "husky install",
     "dev": "node scripts/dev.js",
     "build": "node scripts/build.js",
-    "postbuild": "node scripts/concat-typings.js",
+    "postbuild": "node scripts/concat-typings",
+    "release": "node scripts/release.js",
+    "publish-to-npm": "node scripts/publish.js",
     "verify-commit": "node scripts/verify-commit.js",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
