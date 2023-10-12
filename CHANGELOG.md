@@ -1,3 +1,13 @@
+# [2.1.0](https://github.com/mastergo-design/plugin-typings/compare/v2.0.0...v2.1.0) (2023-10-12)
+
+
+### Features
+
+* 更新pkg ([f708fc7](https://github.com/mastergo-design/plugin-typings/commit/f708fc79d7b590e8a79b3bcd6a064be4cb53ef1a))
+* saveVersionHistoryAsync增加标题参数 ([1fef69d](https://github.com/mastergo-design/plugin-typings/commit/1fef69db64abe6f12e09a4996db31bb0db9f8353))
+
+
+
 # [2.0.0](https://github.com/mastergo-design/plugin-typings/compare/v1.21.0...v2.0.0) (2023-09-25)
 
 
