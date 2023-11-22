@@ -1,3 +1,12 @@
+# [2.2.0](https://github.com/mastergo-design/plugin-typings/compare/v2.0.0...v2.2.0) (2023-11-22)
+
+
+### Features
+
+* 文字分段样式增加fillStyleId ([f508d08](https://github.com/mastergo-design/plugin-typings/commit/f508d08096a16bce33c37d90f01cba13d0fe0dfe))
+
+
+
 # [2.1.0](https://github.com/mastergo-design/plugin-typings/compare/v2.0.0...v2.1.0) (2023-10-12)
 
 
