@@ -297,6 +297,7 @@ declare global {
       fontWeight: number
     }
     fills: Paint[]
+    fillStyleId: string
   }
 
   interface ListStyle {
