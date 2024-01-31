@@ -1264,11 +1264,14 @@ declare global {
   }
 
   interface TeamLibraryComponent {
-    readonly id: string;
-    readonly name: string;
-    readonly ukey: string;
-    readonly description: string;
+    readonly id: string
+    readonly name: string
+    readonly ukey: string
+    readonly description: string
     readonly type: "COMPONENT" | 'COMPONENT_SET'
+    readonly cover: string
+    readonly width: number
+    readonly height: number
   }
 
   interface TeamLibraryStyle {
