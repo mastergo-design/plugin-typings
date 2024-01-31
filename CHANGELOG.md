@@ -1,3 +1,13 @@
+# [2.3.0](https://github.com/mastergo-design/plugin-typings/compare/v2.2.0...v2.3.0) (2024-01-31)
+
+
+### Features
+
+* 团队库增加组件的cover和宽高 ([1eb2855](https://github.com/mastergo-design/plugin-typings/commit/1eb28555e1dd63b4c830f66ba7d21dfda471b613))
+* 增加等比缩放系数 ([5afbaf4](https://github.com/mastergo-design/plugin-typings/commit/5afbaf45a9e587eb2a8c5b60fe4a5db111368746))
+
+
+
 # [2.2.0](https://github.com/mastergo-design/plugin-typings/compare/v2.0.0...v2.2.0) (2023-11-22)
 
 

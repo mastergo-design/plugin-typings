@@ -596,6 +596,7 @@ declare global {
     alignSelf: 'STRETCH' | 'INHERIT' // applicable only inside auto-layout frames
     flexGrow: 0 | 1 // applicable only inside auto-layout frames
     rescale(scale: number, scaleOption?: ScaleOption): void
+    scaleFactor: number // The default value is 1
     flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
 
@@ -1264,11 +1265,14 @@ declare global {
   }
 
   interface TeamLibraryComponent {
-    readonly id: string;
-    readonly name: string;
-    readonly ukey: string;
-    readonly description: string;
+    readonly id: string
+    readonly name: string
+    readonly ukey: string
+    readonly description: string
     readonly type: "COMPONENT" | 'COMPONENT_SET'
+    readonly cover: string
+    readonly width: number
+    readonly height: number
   }
 
   interface TeamLibraryStyle {
