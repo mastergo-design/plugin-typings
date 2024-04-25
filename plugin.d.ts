@@ -690,11 +690,14 @@ declare global {
   }
   interface AutoLayout {
     flexMode: 'NONE' | 'HORIZONTAL' | 'VERTICAL'
+    flexWrap: 'WRAP' | 'NO_WRAP'
     itemSpacing: number
     mainAxisAlignItems: 'FLEX_START' | 'FLEX_END' | 'CENTER' | 'SPACING_BETWEEN'
     crossAxisAlignItems: 'FLEX_START' | 'FLEX_END' | 'CENTER'
     mainAxisSizingMode: 'FIXED' | 'AUTO'
     crossAxisSizingMode: 'FIXED' | 'AUTO'
+    crossAxisAlignContent: 'AUTO' | 'SPACE_BETWEEN'
+    crossAxisSpacing: number | null
     strokesIncludedInLayout: boolean
     itemReverseZIndex: boolean
     paddingTop: number
