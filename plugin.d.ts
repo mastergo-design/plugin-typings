@@ -590,6 +590,10 @@ declare global {
     y: number
     width: number
     height: number
+    minWidth: number | null
+    maxWidth: number | null
+    minHeight: number | null
+    maxHeight: number | null
     rotation: number // In degrees
     constrainProportions: boolean
     layoutPositioning: 'AUTO' | 'ABSOLUTE' // applicable only inside auto-layout frames
