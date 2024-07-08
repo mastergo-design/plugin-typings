@@ -1,3 +1,12 @@
+# [2.5.0](https://github.com/mastergo-design/plugin-typings/compare/v2.4.0...v2.5.0) (2024-07-08)
+
+
+### Features
+
+* 最大最小值 ([a0ca485](https://github.com/mastergo-design/plugin-typings/commit/a0ca485eac8d49061dcbb35ce93b75d8bf6e9558))
+
+
+
 # [2.4.0](https://github.com/mastergo-design/plugin-typings/compare/v2.3.0...v2.4.0) (2024-04-25)
 
 
