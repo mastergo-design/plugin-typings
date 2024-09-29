@@ -1,3 +1,5 @@
+import './mg-dsl.d';
+import './mg-comp-temp.d';
 declare global {
   const mastergo: PluginAPI
   const mg: PluginAPI
@@ -50,6 +52,9 @@ declare global {
     readonly currentUser: User | null
 
     readonly viewport: ViewportAPI
+
+    // only available in devMode
+    readonly codegen?: CodegenAPI
 
     closePlugin(): void
 
@@ -115,7 +120,7 @@ declare global {
 
     listAvailableFontsAsync(): Promise<Font[]>
     loadFontAsync(fontName: FontName): Promise<boolean>
-    createImage(imageData: Uint8Array): Promise<Image>
+    createImage(imageData: Uint8Array, isSync?: boolean): Promise<Image>
     getImageByHref(href: string): Image
 
 
@@ -1344,6 +1349,74 @@ declare global {
     | 'SLICE'
     | 'CONNECTOR'
     | 'SECTION'
+  
+  
+  
+  // d2c
+  type CodeFile = {
+    /**
+     * import third-party paths
+     */
+    importPath?: {
+      name: string;
+      path: string;
+      type: 'script' | 'style';
+    }[];
+    importType?: 'GLOBAL' | 'IMPORT';
+    // absolute path
+    path: string;
+    // relative to the relative path of the imported file
+    relativePath: string;
+    fileName: string;
+    type: 'css' | 'js' | 'typescript' | 'ts-definition' | 'static' | 'vue' | 'react' | 'java' | 'kt' | 'xml';
+    // code
+    code: string;
+    // parsed code
+    parsedCode?: string;
+    // import
+    chunks?: CodeFile[];
+  };
+  interface CodegenAPI {
+    /**
+     * @param event a callback function that is triggered when the plugin generates the DSL, and the parameter of the callback function is the modified DSL data
+     */
+    on(type: 'generateDSL', event: (generateData: {data: MGDSL.MGDSLData, callback: (modifiedData: MGDSL.MGDSLData) => void}) => void) : void
+    /**
+     * @param event a callback function that is triggered when the plugin generates the DSL, and the parameter of the callback function is the custom code, and when the callback returns the custom code, the custom code will be used as the standard, and the code will not be generated according to the DSL
+     */
+    on(type: 'generate', event: (generateData: {data: MGDSL.MGDSLData, callback: (modifiedData: MGDSL.CustomCode) => void}) => void) : void
+    /**
+     * @param event a callback function that is triggered when the plugin generates the code, and the parameter of the callback function is the generated code
+     */
+    on(type: 'codeChange', event: (data: MGDSL.CustomCode['data']) => void) : void
+    /**
+     * Set the component template
+     * @description used to set the component mapping relationship
+     * @param template component template
+     */
+    setComponentTemplate(template: MGTMP.ComponentTemplate): void
+    /**
+     * Get code by id and framework
+     * @param layerId layer id
+     * @param type framework type
+     * @returns code file
+     */
+    getCode(layerId: string, type: MGDSL.Framework): Promise<CodeFile | null>;
+    /**
+     * Get DSL by id and framework
+     * @param layerId layer id
+     * @param type framework type
+     * @returns DSL data
+     */
+    getDSL(layerId: string, type: MGDSL.Framework): Promise<MGDSL.MGDSLData | null>;
+    /**
+     * Get code by DSL
+     * @param data DSL data
+     * @param type framework type
+     * @returns code file
+     */
+    getCodeByDSL(data: MGDSL.MGDSLData, type: MGDSL.Framework): Promise<CodeFile | null>;
+  }
 }
 
 export { }
