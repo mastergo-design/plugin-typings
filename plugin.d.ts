@@ -293,6 +293,8 @@ declare global {
     textStyleId: string
     textStyle: {
       fontName: FontName
+      localizedFontName: FontName
+      referrer: FontReferrer
       fontSize: number
       letterSpacing: LetterSpacing
       lineHeight: LineHeight
@@ -517,8 +519,12 @@ declare global {
     | 'PLUS_LIGHTER'
     | 'PASS_THROUGH'
 
+    type FontReferrer = 'team' | 'org' | 'local' | 'official'
+
   interface Font {
     fontName: FontName
+    localizedFontName: FontName
+    referrer: FontReferrer
   }
 
   /// /////////////////////////////////////////////////////////////////////////////
