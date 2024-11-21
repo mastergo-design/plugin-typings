@@ -383,6 +383,8 @@ declare global {
     readonly radius: number
     readonly isVisible: boolean
     readonly blendMode: BlendMode
+    readonly showShadowBehindNode: boolean
+    readonly isEffectShow: boolean
   }
 
   interface BlurEffect {
