@@ -1,12 +1,11 @@
-import {
-  resolve
-} from 'path'
+import { resolve } from 'path'
 import ts from 'rollup-plugin-typescript2'
 import dts from "rollup-plugin-dts";
 
 export default [{
   input: "plugin.d.ts",
   plugins: [
+    dts(),
     ts({
       check: process.env.NODE_ENV === 'production',
       tsconfig: resolve(__dirname, 'tsconfig.json'),
@@ -25,5 +24,4 @@ export default [{
     file: `dist/index.d.ts`,
     format: "es"
   }],
-  plugins: [dts()],
 }]
