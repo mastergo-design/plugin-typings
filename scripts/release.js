@@ -46,7 +46,7 @@ async function release() {
   execSync(`git tag ${tagName}`);
   
   // 推送到远程
-  execSync('git push origin main');
+  execSync('git push origin master');
   execSync('git push origin --tags');
 
   // 创建 GitHub Release
