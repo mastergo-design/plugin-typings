@@ -1,3 +1,13 @@
+# [2.7.0](https://github.com/mastergo-design/plugin-typings/compare/v2.5.0...v2.7.0) (2024-12-18)
+
+
+### Features
+
+* update effect props ([#85](https://github.com/mastergo-design/plugin-typings/issues/85)) ([71392d7](https://github.com/mastergo-design/plugin-typings/commit/71392d75dddacac312868084f8ce22eb45e9c665))
+* 支持字体来源以及字段本地化名称 ([#84](https://github.com/mastergo-design/plugin-typings/issues/84)) ([41dc7ec](https://github.com/mastergo-design/plugin-typings/commit/41dc7ec873b26e19fd6dfef80890a32f9c748d91))
+
+
+
 # [2.5.0](https://github.com/mastergo-design/plugin-typings/compare/v2.4.0...v2.5.0) (2024-07-08)
 
 
