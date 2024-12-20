@@ -1,7 +1,12 @@
 import './mg-dsl.d';
 import './mg-comp-temp.d';
+
 declare global {
+  /**
+   * @deprecated please use mg instead
+   */
   const mastergo: PluginAPI
+
   const mg: PluginAPI
   const console: Console
   const __html__: string
@@ -22,12 +27,34 @@ declare global {
     clear(): void
   }
 
+  interface ConfirmAction {
+    label: string
+    type: 'confirm' | 'cancel'
+    callback: () => void
+  }
+
+  interface PromptAction {
+    label: string
+    type: 'confirm' | 'cancel'
+    callback: (value: string) => void
+  }
+
+  const confirm: (message: string, options: [ConfirmAction, ConfirmAction?]) => Promise<ConfirmAction['type']>
+  const prompt: (message: string, defaultValue: string, options: [PromptAction, PromptAction?]) => Promise<[PromptAction['type'], string]>
+
   interface Image {
     readonly href: string
     getBytesAsync(): Promise<Uint8Array>
   }
 
-  type PluginEventType = 'selectionchange' | 'layoutchange' | 'currentpagechange' | 'close' | 'themechange' | 'drop' | 'run'
+  type GuardEventType = 'beforeReadyForDev'
+
+  type PluginEventType =
+    'selectionchange' | 'layoutchange' |
+    'currentpagechange' | 'close' |
+    'themechange' | 'drop' |
+    'run' | 'readyForDev' | GuardEventType
+
   type ThemeColor = 'dark' | 'light'
 
   interface PluginAPI {
@@ -53,7 +80,9 @@ declare global {
 
     readonly viewport: ViewportAPI
 
-    // only available in devMode
+    /**
+     * @note only available in devMode
+     */
     readonly codegen?: CodegenAPI
 
     closePlugin(): void
@@ -112,6 +141,15 @@ declare global {
     createEffectStyle(config: CreateStyleConfig): EffectStyle
     createTextStyle(config: CreateStyleConfig): TextStyle
     createGridStyle(config: CreateStyleConfig): GridStyle
+
+    createCornerRadiusToken(config: CreateStyleConfig): CornerRadiusToken
+    createPaddingToken(config: CreateStyleConfig): PaddingToken
+    createSpacingToken(config: CreateStyleConfig): SpacingToken
+    createStrokeToken(config: CreateStyleConfig): StrokeToken
+
+    createStyle<T extends StyleType>(name: string, type: T): StyleReturnType<T>
+    createStyleCopy<T extends StyleType = StyleType>(sourceStyleId: string, name: string): StyleReturnType<T>
+    createStyleRef<T extends StyleType = StyleType>(sourceStyleId: string, name: string): StyleReturnType<T>
 
     getLocalPaintStyles(): PaintStyle[]
     getLocalEffectStyles(): EffectStyle[]
@@ -258,19 +296,23 @@ declare global {
     description: string
     documentationLinks: ReadonlyArray<DocumentationLink>
     /**
-     * 是否为团队库组件/样式
-    */
+     * @description 组件或者组件集的别名
+     */
+    alias: string
+
+    /**
+     * @description 是否为团队库组件/样式
+     */
     readonly isExternal: boolean
     readonly ukey: string
     readonly publishStatus: PublishStatus
   }
 
-  /// /////////////////////////////////////////////////////////////////////////////
   // Styles
 
-  type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID'
+  type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID' | 'STROKE' | 'CORNER_RADIUS' | 'PADDING' | 'SPACING'
 
-  interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks'> {
+  interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks' | 'alias'> {
     readonly id: string
     readonly type: StyleType
     name: string
@@ -280,6 +322,26 @@ declare global {
   interface PaintStyle extends BaseStyle {
     type: 'PAINT'
     paints: ReadonlyArray<Paint>
+  }
+
+  interface StrokeToken extends BaseStyle {
+    type: 'STROKE'
+    strokes: Stroke
+  }
+
+  interface CornerRadiusToken extends BaseStyle {
+    type: 'CORNER_RADIUS'
+    cornerRadiuses: CornerRadius
+  }
+
+  interface PaddingToken extends BaseStyle {
+    type: 'PADDING'
+    paddings: Padding
+  }
+
+  interface SpacingToken extends BaseStyle {
+    type: 'SPACING'
+    spacings: Spacing
   }
 
   interface NumValue {
@@ -464,6 +526,24 @@ declare global {
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
+
+  type CSSWidthSetter = number | [number, number] | [number, number, number] | [number, number, number, number]
+
+  interface Stroke {
+    width: CSSWidthSetter,
+  }
+
+  interface Padding {
+    padding: CSSWidthSetter,
+  }
+
+  interface Spacing {
+    spacing: CSSWidthSetter,
+  }
+
+  interface CornerRadius {
+    cornerRadius: CSSWidthSetter,
+  }
 
   type WindingRule = 'Nonzero' | 'Evenodd'
 
@@ -1425,6 +1505,16 @@ declare global {
      */
     getCodeByDSL(data: MGDSL.MGDSLData, type: MGDSL.Framework): Promise<CodeFile | null>;
   }
+
+  type StyleReturnType<T extends StyleType> = 
+    T extends 'PAINT' ? PaintStyle : 
+    T extends 'TEXT' ? TextStyle : 
+    T extends 'EFFECT' ? EffectStyle : 
+    T extends 'GRID' ? GridStyle : 
+    T extends 'STROKE' ? StrokeToken : 
+    T extends 'CORNER_RADIUS' ? CornerRadiusToken : 
+    T extends 'PADDING' ? PaddingToken : 
+    T extends 'SPACING' ? SpacingToken : never
 }
 
 export { }
