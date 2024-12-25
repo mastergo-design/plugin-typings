@@ -142,10 +142,10 @@ declare global {
     createTextStyle(config: CreateStyleConfig): TextStyle
     createGridStyle(config: CreateStyleConfig): GridStyle
 
-    createCornerRadiusToken(config: CreateStyleConfig): CornerRadiusToken
-    createPaddingToken(config: CreateStyleConfig): PaddingToken
-    createSpacingToken(config: CreateStyleConfig): SpacingToken
-    createStrokeToken(config: CreateStyleConfig): StrokeToken
+    createCornerRadiusStyle(config: CreateStyleConfig): CornerRadiusStyle
+    createPaddingStyle(config: CreateStyleConfig): PaddingStyle
+    createSpacingStyle(config: CreateStyleConfig): SpacingStyle
+    createBorderStyle(config: CreateStyleConfig): BorderStyle
 
     createStyle<T extends StyleType>(name: string, type: T): StyleReturnType<T>
     createStyleCopy<T extends StyleType = StyleType>(sourceStyleId: string, name: string): StyleReturnType<T>
@@ -324,24 +324,24 @@ declare global {
     paints: ReadonlyArray<Paint>
   }
 
-  interface StrokeToken extends BaseStyle {
+  interface BorderStyle extends BaseStyle {
     type: 'STROKE'
-    strokes: Stroke
+    value: Stroke
   }
 
-  interface CornerRadiusToken extends BaseStyle {
+  interface CornerRadiusStyle extends BaseStyle {
     type: 'CORNER_RADIUS'
-    cornerRadiuses: CornerRadius
+    value: CornerRadius
   }
 
-  interface PaddingToken extends BaseStyle {
+  interface PaddingStyle extends BaseStyle {
     type: 'PADDING'
-    paddings: Padding
+    value: Padding
   }
 
-  interface SpacingToken extends BaseStyle {
+  interface SpacingStyle extends BaseStyle {
     type: 'SPACING'
-    spacings: Spacing
+    value: Spacing
   }
 
   interface NumValue {
@@ -741,6 +741,11 @@ declare global {
     strokeDashes: ReadonlyArray<number>
     fillStyleId: string
     strokeStyleId: string
+    borderStyleId: string
+    paddingStyleId: string
+    spacingStyleId: string
+    cornerRadiusStyleId: string
+
     /**
      * You have to ensure the layer has stroke before invoking this method.
      * 在调用接口之前需要确保layer有描边.
@@ -1511,10 +1516,10 @@ declare global {
     T extends 'TEXT' ? TextStyle : 
     T extends 'EFFECT' ? EffectStyle : 
     T extends 'GRID' ? GridStyle : 
-    T extends 'STROKE' ? StrokeToken : 
-    T extends 'CORNER_RADIUS' ? CornerRadiusToken : 
-    T extends 'PADDING' ? PaddingToken : 
-    T extends 'SPACING' ? SpacingToken : never
+    T extends 'STROKE' ? StrokeStyle : 
+    T extends 'CORNER_RADIUS' ? CornerRadiusStyle : 
+    T extends 'PADDING' ? PaddingStyle : 
+    T extends 'SPACING' ? SpacingStyle : never
 }
 
 export { }
