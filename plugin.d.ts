@@ -29,18 +29,15 @@ declare global {
 
   interface ConfirmAction {
     label: string
-    type: 'confirm' | 'cancel'
-    callback: () => void
+    type: 'primary' | 'text'
+    action: () => void
   }
 
   interface PromptAction {
     label: string
-    type: 'confirm' | 'cancel'
-    callback: (value: string) => void
+    type: 'primary' | 'text'
+    action: (value: string) => void
   }
-
-  const confirm: (message: string, options: [ConfirmAction, ConfirmAction?]) => Promise<ConfirmAction['type']>
-  const prompt: (message: string, defaultValue: string, options: [PromptAction, PromptAction?]) => Promise<[PromptAction['type'], string]>
 
   interface Image {
     readonly href: string
@@ -175,6 +172,9 @@ declare global {
 
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
+
+    confirm: (message: string, options: [ConfirmAction, ...ConfirmAction[]]) => void
+    prompt: (message: string, defaultValue: string, options: [PromptAction, ...PromptAction[]]) => void
   }
 
   interface User {
