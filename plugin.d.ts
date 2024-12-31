@@ -133,25 +133,64 @@ declare global {
 
     getStyleById(id: string): Style | null
     getTitleByFontFamilyAndStyle(fontFamily: string, fontStyle: string): FontAlias | null
+
     createFillStyle(config: CreateStyleConfig): PaintStyle
-    createStrokeStyle(config: CreateStyleConfig): PaintStyle
     createEffectStyle(config: CreateStyleConfig): EffectStyle
     createTextStyle(config: CreateStyleConfig): TextStyle
     createGridStyle(config: CreateStyleConfig): GridStyle
-
     createCornerRadiusStyle(config: CreateStyleConfig): CornerRadiusStyle
     createPaddingStyle(config: CreateStyleConfig): PaddingStyle
     createSpacingStyle(config: CreateStyleConfig): SpacingStyle
-    createBorderStyle(config: CreateStyleConfig): BorderStyle
 
-    createStyle<T extends StyleType>(name: string, type: T): StyleReturnType<T>
-    createStyleCopy<T extends StyleType = StyleType>(sourceStyleId: string, name: string): StyleReturnType<T>
-    createStyleRef<T extends StyleType = StyleType>(sourceStyleId: string, name: string): StyleReturnType<T>
+    /**
+     * @deprecated please use createStrokeFillStyle instead
+     */
+    createStrokeStyle(config: CreateStyleConfig): PaintStyle
+    createStrokeFillStyle(config: CreateStyleConfig): PaintStyle
+    createStrokeWidthStyle(config: CreateStyleConfig): StrokeWidthStyle
+
+    /**
+     * createFillStyle/createStrokeFillStyle 这些函数的聚合函数，传入不同的 type，返回对应的 style
+     * @param layerId 
+     * @param type NodeStyleType
+     * @param styleName
+     * @param description optional
+     */
+    createStyleByLayer<T extends NodeStyleType>(layerId: string, type: T, styleName: string, description?: string): NodeStyleReturnType<T>
+
+    /**
+     * 创建一个新的默认样式，不依赖某一个图层中的样式，
+     * eg: createStyle('PAINT', 'New Style', 'This is a new style')
+     * @param type styleType
+     * @param styleName
+     * @param description optional
+     */
+    createStyle<T extends StyleType>(type: T, styleName: string, description?: string): StyleReturnType<T>
+    /**
+     * 创建某一个样式的副本
+     * @param sourceStyleId 副本的源样式id
+     * @param type 
+     * @param styleName 
+     * @param description 
+     */
+    createStyleCopy<T extends StyleType = StyleType>(sourceStyleId: string, type: T, styleName?: string, description?: string): StyleReturnType<T>
+    /**
+     * 创建某一个样式引用
+     * @param sourceStyleId 引用源样式id
+     * @param type 
+     * @param styleName 
+     * @param description 
+     */
+    createStyleRef<T extends StyleType = StyleType>(sourceStyleId: string, type: T,  styleName?: string, description?: string): StyleReturnType<T>
 
     getLocalPaintStyles(): PaintStyle[]
     getLocalEffectStyles(): EffectStyle[]
     getLocalTextStyles(): TextStyle[]
     getLocalGridStyles(): GridStyle[]
+    getLocalStrokeWidthStyles(): StrokeWidthStyle[]
+    getLocalCornerRadiusStyles(): CornerRadiusStyle[]
+    getLocalPaddingStyles(): PaddingStyle[]
+    getLocalSpacingStyles(): SpacingStyle[]
 
     listAvailableFontsAsync(): Promise<Font[]>
     loadFontAsync(fontName: FontName): Promise<boolean>
@@ -309,8 +348,8 @@ declare global {
   }
 
   // Styles
-
-  type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID' | 'STROKE' | 'CORNER_RADIUS' | 'PADDING' | 'SPACING'
+  type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID' | 'STROKE_WIDTH' | 'CORNER_RADIUS' | 'PADDING' | 'SPACING'
+  type NodeStyleType = 'fill' | 'strokeFill' | 'strokeWidth' | 'cornerRadius' | 'padding' | 'spacing'
 
   interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks' | 'alias'> {
     readonly id: string
@@ -324,9 +363,9 @@ declare global {
     paints: ReadonlyArray<Paint>
   }
 
-  interface BorderStyle extends BaseStyle {
-    type: 'STROKE'
-    value: Stroke
+  interface StrokeWidthStyle extends BaseStyle {
+    type: 'STROKE_WIDTH'
+    value: StrokeWidth
   }
 
   interface CornerRadiusStyle extends BaseStyle {
@@ -529,7 +568,7 @@ declare global {
 
   type CSSWidthSetter = number | [number, number] | [number, number, number] | [number, number, number, number]
 
-  interface Stroke {
+  interface StrokeWidth {
     width: CSSWidthSetter,
   }
 
@@ -740,7 +779,12 @@ declare global {
     dashCap: DashCap
     strokeDashes: ReadonlyArray<number>
     fillStyleId: string
+    /**
+     * @deprecated please use strokePaintStyleId instead
+     */
     strokeStyleId: string
+    strokeFillStyleId: string
+    strokeWidthStyleId: string
     borderStyleId: string
     paddingStyleId: string
     spacingStyleId: string
@@ -1397,6 +1441,10 @@ declare global {
       effects: ReadonlyArray<TeamLibraryStyle>
       texts: ReadonlyArray<TeamLibraryStyle>
       grids: ReadonlyArray<TeamLibraryStyle>
+      strokeWidths: ReadonlyArray<TeamLibraryStyle>
+      cornerRadiuses: ReadonlyArray<TeamLibraryStyle>
+      paddings: ReadonlyArray<TeamLibraryStyle>
+      spacings: ReadonlyArray<TeamLibraryStyle>
     }
   }>
 
@@ -1516,10 +1564,18 @@ declare global {
     T extends 'TEXT' ? TextStyle : 
     T extends 'EFFECT' ? EffectStyle : 
     T extends 'GRID' ? GridStyle : 
-    T extends 'STROKE' ? StrokeStyle : 
+    T extends 'STROKE_WIDTH' ? StrokeWidthStyle : 
     T extends 'CORNER_RADIUS' ? CornerRadiusStyle : 
     T extends 'PADDING' ? PaddingStyle : 
     T extends 'SPACING' ? SpacingStyle : never
+
+  type NodeStyleReturnType<T extends NodeStyleType> = 
+    T extends 'fill' ? PaintStyle : 
+    T extends 'strokeFill' ? PaintStyle : 
+    T extends 'strokeWidth' ? StrokeWidthStyle : 
+    T extends 'cornerRadius' ? CornerRadiusStyle : 
+    T extends 'padding' ? PaddingStyle : 
+    T extends 'spacing' ? SpacingStyle : never
 }
 
 export { }
