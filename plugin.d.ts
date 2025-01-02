@@ -1,7 +1,12 @@
 import './mg-dsl.d';
 import './mg-comp-temp.d';
+
 declare global {
+  /**
+   * @deprecated please use mg instead
+   */
   const mastergo: PluginAPI
+
   const mg: PluginAPI
   const console: Console
   const __html__: string
@@ -22,12 +27,31 @@ declare global {
     clear(): void
   }
 
+  interface ConfirmAction {
+    label: string
+    type: 'primary' | 'text'
+    action: () => void
+  }
+
+  interface PromptAction {
+    label: string
+    type: 'primary' | 'text'
+    action: (value: string) => void
+  }
+
   interface Image {
     readonly href: string
     getBytesAsync(): Promise<Uint8Array>
   }
 
-  type PluginEventType = 'selectionchange' | 'layoutchange' | 'currentpagechange' | 'close' | 'themechange' | 'drop' | 'run'
+  type GuardEventType = 'beforeReadyForDev'
+
+  type PluginEventType =
+    'selectionchange' | 'layoutchange' |
+    'currentpagechange' | 'close' |
+    'themechange' | 'drop' |
+    'run' | 'readyForDev' | GuardEventType
+
   type ThemeColor = 'dark' | 'light'
 
   interface PluginAPI {
@@ -53,7 +77,9 @@ declare global {
 
     readonly viewport: ViewportAPI
 
-    // only available in devMode
+    /**
+     * @note only available in devMode
+     */
     readonly codegen?: CodegenAPI
 
     closePlugin(): void
@@ -107,16 +133,64 @@ declare global {
 
     getStyleById(id: string): Style | null
     getTitleByFontFamilyAndStyle(fontFamily: string, fontStyle: string): FontAlias | null
+
     createFillStyle(config: CreateStyleConfig): PaintStyle
-    createStrokeStyle(config: CreateStyleConfig): PaintStyle
     createEffectStyle(config: CreateStyleConfig): EffectStyle
     createTextStyle(config: CreateStyleConfig): TextStyle
     createGridStyle(config: CreateStyleConfig): GridStyle
+    createCornerRadiusStyle(config: CreateStyleConfig): CornerRadiusStyle
+    createPaddingStyle(config: CreateStyleConfig): PaddingStyle
+    createSpacingStyle(config: CreateStyleConfig): SpacingStyle
+
+    /**
+     * @deprecated please use createStrokeFillStyle instead
+     */
+    createStrokeStyle(config: CreateStyleConfig): PaintStyle
+    createStrokeFillStyle(config: CreateStyleConfig): PaintStyle
+    createStrokeWidthStyle(config: CreateStyleConfig): StrokeWidthStyle
+
+    /**
+     * createFillStyle/createStrokeFillStyle 这些函数的聚合函数，传入不同的 type，返回对应的 style
+     * @param layerId 
+     * @param type NodeStyleType
+     * @param styleName
+     * @param description optional
+     */
+    createStyleByLayer<T extends NodeStyleType>(layerId: string, type: T, styleName: string, description?: string): NodeStyleReturnType<T>
+
+    /**
+     * 创建一个新的默认样式，不依赖某一个图层中的样式，
+     * eg: createStyle('PAINT', 'New Style', 'This is a new style')
+     * @param type styleType
+     * @param styleName
+     * @param description optional
+     */
+    createStyle<T extends StyleType>(type: T, styleName: string, description?: string): StyleReturnType<T>
+    /**
+     * 创建某一个样式的副本
+     * @param sourceStyleId 副本的源样式id
+     * @param type 
+     * @param styleName 
+     * @param description 
+     */
+    createStyleCopy<T extends StyleType = StyleType>(sourceStyleId: string, type: T, styleName?: string, description?: string): StyleReturnType<T>
+    /**
+     * 创建某一个样式引用
+     * @param sourceStyleId 引用源样式id
+     * @param type 
+     * @param styleName 
+     * @param description 
+     */
+    createStyleRef<T extends StyleType = StyleType>(sourceStyleId: string, type: T,  styleName?: string, description?: string): StyleReturnType<T>
 
     getLocalPaintStyles(): PaintStyle[]
     getLocalEffectStyles(): EffectStyle[]
     getLocalTextStyles(): TextStyle[]
     getLocalGridStyles(): GridStyle[]
+    getLocalStrokeWidthStyles(): StrokeWidthStyle[]
+    getLocalCornerRadiusStyles(): CornerRadiusStyle[]
+    getLocalPaddingStyles(): PaddingStyle[]
+    getLocalSpacingStyles(): SpacingStyle[]
 
     listAvailableFontsAsync(): Promise<Font[]>
     loadFontAsync(fontName: FontName): Promise<boolean>
@@ -137,6 +211,9 @@ declare global {
 
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
+
+    confirm: (message: string, options: [ConfirmAction, ...ConfirmAction[]]) => void
+    prompt: (message: string, defaultValue: string, options: [PromptAction, ...PromptAction[]]) => void
   }
 
   interface User {
@@ -258,19 +335,23 @@ declare global {
     description: string
     documentationLinks: ReadonlyArray<DocumentationLink>
     /**
-     * 是否为团队库组件/样式
-    */
+     * @description 组件或者组件集的别名
+     */
+    alias: string
+
+    /**
+     * @description 是否为团队库组件/样式
+     */
     readonly isExternal: boolean
     readonly ukey: string
     readonly publishStatus: PublishStatus
   }
 
-  /// /////////////////////////////////////////////////////////////////////////////
   // Styles
+  type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID' | 'STROKE_WIDTH' | 'CORNER_RADIUS' | 'PADDING' | 'SPACING'
+  type NodeStyleType = 'fill' | 'strokeFill' | 'strokeWidth' | 'cornerRadius' | 'padding' | 'spacing'
 
-  type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID'
-
-  interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks'> {
+  interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks' | 'alias'> {
     readonly id: string
     readonly type: StyleType
     name: string
@@ -280,6 +361,26 @@ declare global {
   interface PaintStyle extends BaseStyle {
     type: 'PAINT'
     paints: ReadonlyArray<Paint>
+  }
+
+  interface StrokeWidthStyle extends BaseStyle {
+    type: 'STROKE_WIDTH'
+    value: StrokeWidth
+  }
+
+  interface CornerRadiusStyle extends BaseStyle {
+    type: 'CORNER_RADIUS'
+    value: CornerRadius
+  }
+
+  interface PaddingStyle extends BaseStyle {
+    type: 'PADDING'
+    value: Padding
+  }
+
+  interface SpacingStyle extends BaseStyle {
+    type: 'SPACING'
+    value: Spacing
   }
 
   interface NumValue {
@@ -464,6 +565,24 @@ declare global {
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
+
+  type CSSWidthSetter = number | [number, number] | [number, number, number] | [number, number, number, number]
+
+  interface StrokeWidth {
+    width: CSSWidthSetter,
+  }
+
+  interface Padding {
+    padding: CSSWidthSetter,
+  }
+
+  interface Spacing {
+    spacing: CSSWidthSetter,
+  }
+
+  interface CornerRadius {
+    cornerRadius: CSSWidthSetter,
+  }
 
   type WindingRule = 'Nonzero' | 'Evenodd'
 
@@ -660,7 +779,17 @@ declare global {
     dashCap: DashCap
     strokeDashes: ReadonlyArray<number>
     fillStyleId: string
+    /**
+     * @deprecated please use strokePaintStyleId instead
+     */
     strokeStyleId: string
+    strokeFillStyleId: string
+    strokeWidthStyleId: string
+    borderStyleId: string
+    paddingStyleId: string
+    spacingStyleId: string
+    cornerRadiusStyleId: string
+
     /**
      * You have to ensure the layer has stroke before invoking this method.
      * 在调用接口之前需要确保layer有描边.
@@ -1312,6 +1441,10 @@ declare global {
       effects: ReadonlyArray<TeamLibraryStyle>
       texts: ReadonlyArray<TeamLibraryStyle>
       grids: ReadonlyArray<TeamLibraryStyle>
+      strokeWidths: ReadonlyArray<TeamLibraryStyle>
+      cornerRadiuses: ReadonlyArray<TeamLibraryStyle>
+      paddings: ReadonlyArray<TeamLibraryStyle>
+      spacings: ReadonlyArray<TeamLibraryStyle>
     }
   }>
 
@@ -1425,6 +1558,24 @@ declare global {
      */
     getCodeByDSL(data: MGDSL.MGDSLData, type: MGDSL.Framework): Promise<CodeFile | null>;
   }
+
+  type StyleReturnType<T extends StyleType> = 
+    T extends 'PAINT' ? PaintStyle : 
+    T extends 'TEXT' ? TextStyle : 
+    T extends 'EFFECT' ? EffectStyle : 
+    T extends 'GRID' ? GridStyle : 
+    T extends 'STROKE_WIDTH' ? StrokeWidthStyle : 
+    T extends 'CORNER_RADIUS' ? CornerRadiusStyle : 
+    T extends 'PADDING' ? PaddingStyle : 
+    T extends 'SPACING' ? SpacingStyle : never
+
+  type NodeStyleReturnType<T extends NodeStyleType> = 
+    T extends 'fill' ? PaintStyle : 
+    T extends 'strokeFill' ? PaintStyle : 
+    T extends 'strokeWidth' ? StrokeWidthStyle : 
+    T extends 'cornerRadius' ? CornerRadiusStyle : 
+    T extends 'padding' ? PaddingStyle : 
+    T extends 'spacing' ? SpacingStyle : never
 }
 
 export { }
