@@ -1,3 +1,12 @@
+# [2.8.0-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.7.0...v2.8.0-beta.0) (2025-01-02)
+
+
+### Features
+
+* support DSM/ReadyForDev/Confirm/Prompt API ([#89](https://github.com/mastergo-design/plugin-typings/issues/89)) ([62dd2bf](https://github.com/mastergo-design/plugin-typings/commit/62dd2bfe768cc8f04fd1b097ad7508ef17695d9b))
+
+
+
 # [2.7.0](https://github.com/mastergo-design/plugin-typings/compare/v2.5.0...v2.7.0) (2024-12-18)
 
 
