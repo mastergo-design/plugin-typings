@@ -1,3 +1,5 @@
+[![Publish to NPM](https://github.com/mastergo-design/plugin-typings/actions/workflows/publish.yaml/badge.svg)](https://github.com/mastergo-design/plugin-typings/actions/workflows/publish.yaml)
+
 **中文** | [English](./README-en.md)
 
 # MasterGo插件API声明文件
