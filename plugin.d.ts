@@ -44,15 +44,29 @@ declare global {
     getBytesAsync(): Promise<Uint8Array>
   }
 
-  type GuardEventType = 'beforeReadyForDev'
-
-  type PluginEventType =
-    'selectionchange' | 'layoutchange' |
-    'currentpagechange' | 'close' |
-    'themechange' | 'drop' |
-    'run' | 'readyForDev' | GuardEventType
-
   type ThemeColor = 'dark' | 'light'
+
+  type LayoutInfo = {
+    leftbar: number;
+    rightbar: number;
+    canvas: number;
+    window: number;
+    height: number;
+    topbar: number;
+  }
+
+  type MGEventCallbackMap = {
+    'selectionchange': (selectionLayerIds: string[]) => void;
+    'layoutchange': (layoutInfo: LayoutInfo) => void;
+    'currentpagechange': (pageId: string) => void;
+    'themechange': (theme: ThemeColor) => void;
+    'drop': (event: DropEvent) => void;
+    'run': (command: { command: string }) => void;
+    'close': () => void;
+    'beforeReadyForDev': (sectionLayerId: string, callback: (setReady: boolean) => void) => void;
+  }
+
+  type PluginEventType = keyof MGEventCallbackMap
 
   interface PluginAPI {
     readonly document: DocumentNode
@@ -84,9 +98,9 @@ declare global {
 
     closePlugin(): void
 
-    on(type: PluginEventType, callback: CallableFunction): void
-    once(type: PluginEventType, callback: CallableFunction): void
-    off(type?: PluginEventType, callback?: CallableFunction): void
+    on<T extends PluginEventType>(type: T, callback: MGEventCallbackMap[T]): void
+    once<T extends PluginEventType>(type: T, callback: MGEventCallbackMap[T]): void
+    off<T extends PluginEventType>(type?: T, callback?: MGEventCallbackMap[T]): void
 
     commitUndo(): void
     triggerUndo(): void
