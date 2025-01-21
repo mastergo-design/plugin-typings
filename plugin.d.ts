@@ -187,15 +187,14 @@ declare global {
      * @param styleName 
      * @param description 
      */
-    createStyleCopy<T extends StyleType = StyleType>(sourceStyleId: string, type: T, styleName?: string, description?: string): StyleReturnType<T>
+    createStyleCopy<T extends StyleType = "PAINT">(sourceStyleId: string, styleName?: string, description?: string): StyleReturnType<T>
     /**
      * 创建某一个样式引用
      * @param sourceStyleId 引用源样式id
-     * @param type 
      * @param styleName 
      * @param description 
      */
-    createStyleRef<T extends StyleType = StyleType>(sourceStyleId: string, type: T,  styleName?: string, description?: string): StyleReturnType<T>
+    createStyleRef<T extends StyleType = "PAINT">(sourceStyleId: string, styleName?: string, description?: string): StyleReturnType<T>
 
     getLocalPaintStyles(): PaintStyle[]
     getLocalEffectStyles(): EffectStyle[]
@@ -365,7 +364,7 @@ declare global {
   type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID' | 'STROKE_WIDTH' | 'CORNER_RADIUS' | 'PADDING' | 'SPACING'
   type NodeStyleType = 'fill' | 'strokeFill' | 'strokeWidth' | 'cornerRadius' | 'padding' | 'spacing'
 
-  interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks' | 'alias'> {
+  interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks'> {
     readonly id: string
     readonly type: StyleType
     name: string
@@ -799,7 +798,6 @@ declare global {
     strokeStyleId: string
     strokeFillStyleId: string
     strokeWidthStyleId: string
-    borderStyleId: string
     paddingStyleId: string
     spacingStyleId: string
     cornerRadiusStyleId: string
