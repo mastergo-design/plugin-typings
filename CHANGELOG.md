@@ -1,3 +1,12 @@
+# [2.8.0-beta.3](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0-beta.2...v2.8.0-beta.3) (2025-01-21)
+
+
+### Bug Fixes
+
+* 精简接口 ([#91](https://github.com/mastergo-design/plugin-typings/issues/91)) ([a950706](https://github.com/mastergo-design/plugin-typings/commit/a95070607c64fb981a54f39fb6ad6ba33f1f9297))
+
+
+
 # [2.8.0-beta.2](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0-beta.1...v2.8.0-beta.2) (2025-01-17)
 
 
