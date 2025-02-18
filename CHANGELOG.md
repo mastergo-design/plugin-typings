@@ -1,3 +1,12 @@
+# [2.8.0-beta.4](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0-beta.3...v2.8.0-beta.4) (2025-02-18)
+
+
+### Features
+
+* disabled createStyleRef and support edit component prop alias ([#92](https://github.com/mastergo-design/plugin-typings/issues/92)) ([851a886](https://github.com/mastergo-design/plugin-typings/commit/851a886ec5608ac8e4a3cf76da6cc346e3864e20))
+
+
+
 # [2.8.0-beta.3](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0-beta.2...v2.8.0-beta.3) (2025-01-21)
 
 
