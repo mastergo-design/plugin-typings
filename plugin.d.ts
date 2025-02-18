@@ -188,13 +188,6 @@ declare global {
      * @param description 
      */
     createStyleCopy<T extends StyleType = "PAINT">(sourceStyleId: string, styleName?: string, description?: string): StyleReturnType<T>
-    /**
-     * 创建某一个样式引用
-     * @param sourceStyleId 引用源样式id
-     * @param styleName 
-     * @param description 
-     */
-    createStyleRef<T extends StyleType = "PAINT">(sourceStyleId: string, styleName?: string, description?: string): StyleReturnType<T>
 
     getLocalPaintStyles(): PaintStyle[]
     getLocalEffectStyles(): EffectStyle[]
@@ -454,7 +447,9 @@ declare global {
     layoutGrids: ReadonlyArray<LayoutGrid>
   }
 
-  type Style = PaintStyle | EffectStyle | TextStyle | GridStyle
+  type Style = PaintStyle | EffectStyle | TextStyle |
+    GridStyle | StrokeWidthStyle | CornerRadiusStyle |
+    PaddingStyle | SpacingStyle
 
   /// /////////////////////////////////////////////////////////////////////////////
   // Datatypes
@@ -653,7 +648,7 @@ declare global {
     | 'PLUS_LIGHTER'
     | 'PASS_THROUGH'
 
-    type FontReferrer = 'team' | 'org' | 'local' | 'official'
+  type FontReferrer = 'team' | 'org' | 'local' | 'official'
 
   interface Font {
     fontName: FontName
@@ -1199,6 +1194,7 @@ declare global {
         name?: string
         defaultValue?: string | boolean
         preferredValues?: InstanceSwapPreferredValue[]
+        alias?: string
       },
     ): string
     deleteComponentProperty(propertyId: string): void
@@ -1502,9 +1498,9 @@ declare global {
     | 'SLICE'
     | 'CONNECTOR'
     | 'SECTION'
-  
-  
-  
+
+
+
   // d2c
   type CodeFile = {
     /**
@@ -1533,15 +1529,15 @@ declare global {
     /**
      * @param event a callback function that is triggered when the plugin generates the DSL, and the parameter of the callback function is the modified DSL data
      */
-    on(type: 'generateDSL', event: (generateData: {data: MGDSL.MGDSLData, callback: (modifiedData: MGDSL.MGDSLData) => void}) => void) : void
+    on(type: 'generateDSL', event: (generateData: { data: MGDSL.MGDSLData, callback: (modifiedData: MGDSL.MGDSLData) => void }) => void): void
     /**
      * @param event a callback function that is triggered when the plugin generates the DSL, and the parameter of the callback function is the custom code, and when the callback returns the custom code, the custom code will be used as the standard, and the code will not be generated according to the DSL
      */
-    on(type: 'generate', event: (generateData: {data: MGDSL.MGDSLData, callback: (modifiedData: MGDSL.CustomCode) => void}) => void) : void
+    on(type: 'generate', event: (generateData: { data: MGDSL.MGDSLData, callback: (modifiedData: MGDSL.CustomCode) => void }) => void): void
     /**
      * @param event a callback function that is triggered when the plugin generates the code, and the parameter of the callback function is the generated code
      */
-    on(type: 'codeChange', event: (data: MGDSL.CustomCode['data']) => void) : void
+    on(type: 'codeChange', event: (data: MGDSL.CustomCode['data']) => void): void
     /**
      * Set the component template
      * @description used to set the component mapping relationship
@@ -1571,22 +1567,22 @@ declare global {
     getCodeByDSL(data: MGDSL.MGDSLData, type: MGDSL.Framework): Promise<CodeFile | null>;
   }
 
-  type StyleReturnType<T extends StyleType> = 
-    T extends 'PAINT' ? PaintStyle : 
-    T extends 'TEXT' ? TextStyle : 
-    T extends 'EFFECT' ? EffectStyle : 
-    T extends 'GRID' ? GridStyle : 
-    T extends 'STROKE_WIDTH' ? StrokeWidthStyle : 
-    T extends 'CORNER_RADIUS' ? CornerRadiusStyle : 
-    T extends 'PADDING' ? PaddingStyle : 
+  type StyleReturnType<T extends StyleType> =
+    T extends 'PAINT' ? PaintStyle :
+    T extends 'TEXT' ? TextStyle :
+    T extends 'EFFECT' ? EffectStyle :
+    T extends 'GRID' ? GridStyle :
+    T extends 'STROKE_WIDTH' ? StrokeWidthStyle :
+    T extends 'CORNER_RADIUS' ? CornerRadiusStyle :
+    T extends 'PADDING' ? PaddingStyle :
     T extends 'SPACING' ? SpacingStyle : never
 
-  type NodeStyleReturnType<T extends NodeStyleType> = 
-    T extends 'fill' ? PaintStyle : 
-    T extends 'strokeFill' ? PaintStyle : 
-    T extends 'strokeWidth' ? StrokeWidthStyle : 
-    T extends 'cornerRadius' ? CornerRadiusStyle : 
-    T extends 'padding' ? PaddingStyle : 
+  type NodeStyleReturnType<T extends NodeStyleType> =
+    T extends 'fill' ? PaintStyle :
+    T extends 'strokeFill' ? PaintStyle :
+    T extends 'strokeWidth' ? StrokeWidthStyle :
+    T extends 'cornerRadius' ? CornerRadiusStyle :
+    T extends 'padding' ? PaddingStyle :
     T extends 'spacing' ? SpacingStyle : never
 }
 
