@@ -1,3 +1,7 @@
+# [2.8.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0-beta.4...v2.8.0) (2025-02-25)
+
+
+
 # [2.8.0-beta.4](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0-beta.3...v2.8.0-beta.4) (2025-02-18)
 
 
