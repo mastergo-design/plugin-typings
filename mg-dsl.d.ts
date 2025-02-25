@@ -70,7 +70,7 @@ declare global {
     /**
      * 自定义样式
      */
-    type TokenItem = TokenCommonItem | TokenTextItem;
+    type TokenItem = TokenCommonItem | TokenTextItem | TokenEffectItem;
     type TokenCommonItem = {
       id: string;
       type: 'color' | 'padding' | 'border-radius' | 'border-width' | 'gap';
@@ -85,7 +85,7 @@ declare global {
        */
       isMultiple?: boolean;
     };
-    type TokenTextSubItemType = 'fontfamily' | 'fontstyle' | 'fontsize' | 'lineheight' | 'decoration' | 'letterspacing';
+    type TokenTextSubItemType = 'font' | 'fontfamily' | 'fontstyle' | 'fontsize' | 'lineheight' | 'decoration' | 'letterspacing';
 
     type TokenTextItem = {
       id: string;
@@ -93,11 +93,31 @@ declare global {
       name: TokenName;
       originName: string;
       originAlias: string;
+      variable: TokenVariable;
       textItems: Record<TokenTextSubItemType, TokenTextSubItem>;
     };
 
     type TokenTextSubItem = {
       type: TokenTextSubItemType;
+      name: TokenName;
+      value: TokenValue;
+    };
+
+    type TokenEffectItem = {
+      id: string;
+      type: 'effect';
+      name: TokenName;
+      originName: string;
+      originAlias: string;
+      value: TokenValue;
+      variable: TokenVariable;
+      effectItems: Record<TokenEffectSubItemType, TokenEffectSubItem>;
+    };
+
+    type TokenEffectSubItemType = 'shadow' | 'filter' | 'backdropfilter';
+
+    type TokenEffectSubItem = {
+      type: TokenEffectSubItemType;
       name: TokenName;
       value: TokenValue;
     };
