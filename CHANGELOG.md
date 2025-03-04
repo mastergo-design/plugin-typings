@@ -1,3 +1,12 @@
+## [2.8.1-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0...v2.8.1-beta.0) (2025-03-04)
+
+
+### Features
+
+* dsl 支持获取 font shorthand property，支持获取 effect 相关属性 ([#93](https://github.com/mastergo-design/plugin-typings/issues/93)) ([ebc0c80](https://github.com/mastergo-design/plugin-typings/commit/ebc0c80db5a1a5c2c0bca98a8bc52d4ab7d66c41))
+
+
+
 # [2.8.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0-beta.4...v2.8.0) (2025-02-25)
 
 
