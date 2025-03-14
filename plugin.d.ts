@@ -812,9 +812,13 @@ declare global {
   }
 
   interface CornerMixin {
-    // 待确认
     cornerSmooth: number
     cornerRadius: number | PluginAPI['mixed']
+
+    topLeftRadius: number
+    topRightRadius: number
+    bottomLeftRadius: number
+    bottomRightRadius: number
   }
 
   interface DefaultShapeMixin
@@ -832,7 +836,6 @@ declare global {
     ReactionMixin,
     SceneNodeMixin,
     ChildrenMixin,
-    RectangleCornerMixin,
     BlendMixin,
     CornerMixin,
     ConstraintMixin,
@@ -896,13 +899,6 @@ declare global {
   }
 
   type OverflowDirection = "NONE" | "HORIZONTAL" | "VERTICAL" | "BOTH"
-
-  interface RectangleCornerMixin {
-    topLeftRadius: number
-    topRightRadius: number
-    bottomLeftRadius: number
-    bottomRightRadius: number
-  }
 
   interface ReactionMixin {
     reactions: ReadonlyArray<Reaction>
@@ -1006,8 +1002,7 @@ declare global {
     extends DefaultShapeMixin,
     ConstraintMixin,
     CornerMixin,
-    RectangleStrokeWeightMixin,
-    RectangleCornerMixin {
+    RectangleStrokeWeightMixin {
     readonly type: 'RECTANGLE'
     clone(): RectangleNode
   }
