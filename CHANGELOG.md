@@ -1,3 +1,12 @@
+## [2.8.2-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.1-beta.0...v2.8.2-beta.0) (2025-03-14)
+
+
+### Bug Fixes
+
+* radius 相关接口类型声明不全面 ([#94](https://github.com/mastergo-design/plugin-typings/issues/94)) ([a25cd97](https://github.com/mastergo-design/plugin-typings/commit/a25cd974a610f7de1bb0360b151a007a8c09f946))
+
+
+
 ## [2.8.1-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.0...v2.8.1-beta.0) (2025-03-04)
 
 
