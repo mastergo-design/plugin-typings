@@ -1,3 +1,12 @@
+## [2.8.2](https://github.com/mastergo-design/plugin-typings/compare/v2.8.2-beta.0...v2.8.2) (2025-05-26)
+
+
+### Features
+
+* **support mode:** 新增 mode 字段用于判断插件当前运行的模式 ([#95](https://github.com/mastergo-design/plugin-typings/issues/95)) ([036b22a](https://github.com/mastergo-design/plugin-typings/commit/036b22adff9617bb72e15c4710882033f32900df))
+
+
+
 ## [2.8.2-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.1-beta.0...v2.8.2-beta.0) (2025-03-14)
 
 
