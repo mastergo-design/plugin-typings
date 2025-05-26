@@ -96,6 +96,8 @@ declare global {
      */
     readonly codegen?: CodegenAPI
 
+    readonly mode?: "inspect" | "design" | "codegen" | "snippetgen"
+
     closePlugin(): void
 
     on<T extends PluginEventType>(type: T, callback: MGEventCallbackMap[T]): void
