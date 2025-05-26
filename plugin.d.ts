@@ -96,6 +96,8 @@ declare global {
      */
     readonly codegen?: CodegenAPI
 
+    readonly snippetgent?: SnippetgenAPI
+
     readonly mode?: "inspect" | "design" | "codegen" | "snippetgen"
 
     closePlugin(): void
@@ -1562,6 +1564,27 @@ declare global {
      * @returns code file
      */
     getCodeByDSL(data: MGDSL.MGDSLData, type: MGDSL.Framework): Promise<CodeFile | null>;
+  }
+
+  interface SnippetgenData {
+    language: string;
+    layerId: string;
+    preferences: Record<string, string>;
+    unit: Record<string, string>;
+  }
+
+  interface SnippetGenResult {
+    language: string;
+    code: string;
+    title: string;
+  }
+
+  interface SnippetgenAPI {
+    on(type: 'generate', event: (data: SnippetgenData, callback: (modifiedData: SnippetGenResult[]) => void) => void): void
+    off(type: 'generate', event: (data: SnippetgenData, callback: (modifiedData: SnippetGenResult[]) => void) => void): void
+
+    on(type: 'action', event: (value: string) => void): void
+    off(type: 'action', event: (value: string) => void): void
   }
 
   type StyleReturnType<T extends StyleType> =
