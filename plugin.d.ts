@@ -111,7 +111,7 @@ declare global {
 
     showUI(html: string, options?: ShowUIOptions): void
 
-    getNodeById(id: string): SceneNode | null
+    getNodeById<T extends SceneNode>(id: string): T | null
     getNodeByPosition(position: { x: number, y: number }): SceneNode | null
     createRectangle(): RectangleNode
     createLine(): LineNode
