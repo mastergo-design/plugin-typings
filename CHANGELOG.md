@@ -1,3 +1,13 @@
+## [2.8.3-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.2...v2.8.3-beta.0) (2025-06-05)
+
+
+### Features
+
+* **getnodebyid 增加泛型:** 增加泛型,提高ts代码体验 ([899c65e](https://github.com/mastergo-design/plugin-typings/commit/899c65efd576546e7f783e559855c28f7bb6f66e))
+* support snipptegen plugin ([0b557c3](https://github.com/mastergo-design/plugin-typings/commit/0b557c3dcf0c8388331bad8c1ef3e3bb31f1286e))
+
+
+
 ## [2.8.2](https://github.com/mastergo-design/plugin-typings/compare/v2.8.2-beta.0...v2.8.2) (2025-05-26)
 
 
