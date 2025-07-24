@@ -1,3 +1,12 @@
+## [2.8.4-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.3-beta.0...v2.8.4-beta.0) (2025-07-24)
+
+
+### Features
+
+* 新增 ComponentSetUkey ([ecfbc37](https://github.com/mastergo-design/plugin-typings/commit/ecfbc373d1dbf5254b6b35fb94378ee604c7a9cf))
+
+
+
 ## [2.8.3-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.2...v2.8.3-beta.0) (2025-06-05)
 
 
