@@ -1429,6 +1429,8 @@ declare global {
     readonly cover: string
     readonly width: number
     readonly height: number
+    /** 如果 Component 属于某一个 ComponentSet，则 componentSetUkey 为 ComponentSet 的 ukey, 否则为空字符串 */
+    readonly componentSetUkey: string
   }
 
   interface TeamLibraryStyle {
