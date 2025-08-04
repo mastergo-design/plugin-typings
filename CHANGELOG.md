@@ -1,3 +1,12 @@
+## [2.8.5-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.4-beta.0...v2.8.5-beta.0) (2025-08-04)
+
+
+### Bug Fixes
+
+* typo snippetgen ([2a5f828](https://github.com/mastergo-design/plugin-typings/commit/2a5f828e36062e002752b205c584378b8c6ffbac))
+
+
+
 ## [2.8.4-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.3-beta.0...v2.8.4-beta.0) (2025-07-24)
 
 
