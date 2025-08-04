@@ -96,7 +96,7 @@ declare global {
      */
     readonly codegen?: CodegenAPI
 
-    readonly snippetgent?: SnippetgenAPI
+    readonly snippetgen?: SnippetgenAPI
 
     readonly mode?: "inspect" | "design" | "codegen" | "snippetgen"
 
