@@ -1498,15 +1498,7 @@ declare global {
     | 'BOOLEAN_OPERATION'
     | 'SLICE'
     | 'CONNECTOR'
-    | 'SECTION'
-    | 'Input'
-    | 'TABLE'
-    | 'Select'
-    | 'Chart'
-    | 'TOGGLE'
-    | 'BUTTON'
-    | 'TREE'
-    | 'TEXTSHAPE';
+    | 'SECTION';
 
 
 
