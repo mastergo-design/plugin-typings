@@ -1,3 +1,12 @@
+# [2.9.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.5-beta.0...v2.9.0) (2025-08-26)
+
+
+### Features
+
+* add type definition ([b3c3369](https://github.com/mastergo-design/plugin-typings/commit/b3c3369dacd916fc2d59a441ca659d95a66ccf2e))
+
+
+
 ## [2.8.5-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.8.4-beta.0...v2.8.5-beta.0) (2025-08-04)
 
 
