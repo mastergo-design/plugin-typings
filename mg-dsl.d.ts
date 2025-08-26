@@ -254,8 +254,15 @@ declare global {
       | 'SLICE'
       | 'CONNECTOR'
       | 'SECTION'
-      | 'CUSTOM';
-
+      | 'CUSTOM'
+      | 'Input'
+      | 'TABLE'
+      | 'Select'
+      | 'Chart'
+      | 'TOGGLE'
+      | 'BUTTON'
+      | 'TREE'
+      | 'TEXTSHAPE'
     /**
      * 图层的布局信息
      */
