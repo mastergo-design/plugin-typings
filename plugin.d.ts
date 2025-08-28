@@ -1499,6 +1499,14 @@ declare global {
     | 'SLICE'
     | 'CONNECTOR'
     | 'SECTION'
+    | 'Input'
+    | 'TABLE'
+    | 'Select'
+    | 'Chart'
+    | 'TOGGLE'
+    | 'BUTTON'
+    | 'TREE'
+    | 'TEXTSHAPE'
 
 
   // d2c
