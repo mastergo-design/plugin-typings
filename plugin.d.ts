@@ -690,6 +690,7 @@ declare global {
       characters?: string,
       mainComponent?: string
     } | null
+    slotInfo: { slotName: string; slotAlias: string } | null
   }
 
   interface ChildrenMixin<ChildrenNode = SceneNode> {
@@ -1177,6 +1178,8 @@ declare global {
   interface VariantProperty {
     property: string
     value: string
+    componentSetProperAlias?: string
+    alias?: string
   }
 
   interface ComponentPropertiesMixin {
@@ -1226,6 +1229,8 @@ declare global {
     type: ComponentPropertyType
     value: boolean | string
     preferredValues?: InstanceSwapPreferredValue[]
+    alias?: string
+    valueAlias?: string
   }
 
   interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin, ComponentPropertiesMixin {
