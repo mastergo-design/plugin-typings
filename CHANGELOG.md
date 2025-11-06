@@ -1,3 +1,12 @@
+## [2.9.1-beta.1](https://github.com/mastergo-design/plugin-typings/compare/v2.9.1-beta.0...v2.9.1-beta.1) (2025-11-06)
+
+
+### Bug Fixes
+
+* 组件实例添加别名字段以及插槽信息 ([07c32f5](https://github.com/mastergo-design/plugin-typings/commit/07c32f538dd9b004f5fbfb90e679d1fe8bacb537))
+
+
+
 ## [2.9.1-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.9.0...v2.9.1-beta.0) (2025-08-27)
 
 
