@@ -1,3 +1,7 @@
+## [2.9.1-beta.3](https://github.com/mastergo-design/plugin-typings/compare/v2.9.1-beta.1...v2.9.1-beta.3) (2025-11-06)
+
+
+
 ## [2.9.1-beta.1](https://github.com/mastergo-design/plugin-typings/compare/v2.9.1-beta.0...v2.9.1-beta.1) (2025-11-06)
 
 

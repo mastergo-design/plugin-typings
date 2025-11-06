@@ -80,7 +80,7 @@ async function release() {
       // 检查标签是否已存在
       execSync(`git rev-parse -q --verify "refs/tags/${tagName}"`, { stdio: 'ignore' })
       // 如果没有抛出异常，说明标签已存在，抛出错误
-      throw new Error(`标签 ${tagName} 已存在，请选择不同的版本号或手动处理冲突`)  
+      throw new Error(`标签 ${tagName} 已存在，可以更改package.json中的版本号,再次执行 yarn release `)  
     } catch (e) {
       // 如果是我们自己抛出的错误，直接传递
       if (e.message && e.message.includes('标签已存在')) {
