@@ -100,16 +100,34 @@ async function release() {
 
     // 创建Pull Request到master分支
     console.log('创建Pull Request到master分支...')
-    const prOutput = execSync(`gh pr create \
-    --title "Release v${newVersion}" \
-    --body "Release version ${newVersion}" \
-    --base master \
-    --head ${releaseBranch}`).toString()
-    console.log(prOutput)
+    try {
+      // 检查gh命令是否存在
+      execSync('gh --version', { stdio: 'ignore' })
+      
+      // 命令存在，使用gh创建PR
+      const prOutput = execSync(`gh pr create \
+      --title "Release v${newVersion}" \
+      --body "Release version ${newVersion}" \
+      --base master \
+      --head ${releaseBranch}`).toString()
+      console.log(prOutput)
+    } catch (e) {
+      // gh命令不存在，提供手动创建PR的指导
+      console.log(`⚠️ GitHub CLI (gh) 命令未找到`)
+      console.log(`🔗 请手动在GitHub上创建Pull Request:`)
+      console.log(`   - 从分支: ${releaseBranch}`)
+      console.log(`   - 到分支: master`)
+      console.log(`   - 标题: Release v${newVersion}`)
+      console.log(`   - 描述: Release version ${newVersion}`)
+      console.log(`💡 提示: 安装GitHub CLI可简化此流程: https://cli.github.com/`)
+    }
 
     // 创建 GitHub Release
     console.log('创建GitHub Release...')
     try {
+      // 检查gh命令是否存在
+      execSync('gh --version', { stdio: 'ignore' })
+      
       // 尝试读取变更日志
       const releaseNotes = fs
         .readFileSync('CHANGELOG.md', 'utf-8')
@@ -124,7 +142,19 @@ async function release() {
       --notes "${releaseNotes}" \
       ${isPrerelease ? '--prerelease' : ''}`)
     } catch (error) {
-      console.error('创建GitHub Release时出错:', error.message)
+      if (error.message.includes('command not found') || error.message.includes('gh: command not found')) {
+        // gh命令不存在，提供手动创建Release的指导
+        console.log(`⚠️ GitHub CLI (gh) 命令未找到`)
+        console.log(`🔗 请手动在GitHub上创建Release:`)
+        console.log(`   - 标签: ${tagName}`)
+        console.log(`   - 标题: ${tagName}`)
+        console.log(`   - 描述: 请从CHANGELOG.md中复制最新的变更日志`)
+        if (isPrerelease) {
+          console.log(`   - 勾选 "This is a pre-release"`)
+        }
+      } else {
+        console.error('创建GitHub Release时出错:', error.message)
+      }
     }
 
     // 切换回原分支
