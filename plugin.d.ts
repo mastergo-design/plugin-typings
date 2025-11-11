@@ -150,6 +150,10 @@ declare global {
     notify(message: string, options?: NotifyOptions): NotificationHandler
 
     getStyleById(id: string): Style | null
+    getStyleCodeById(id: string, options?: StyleCodeOptions): CodeString | null
+    getWebStyleCodeById(id: string, options?: WebStyleCodeOptions): CodeString | null
+    getAndroidStyleCodeById(id: string, options?: AndroidStyleCodeOptions): CodeString | null
+    getIOSStyleCodeById(id: string, options?: IOSStyleCodeOptions): CodeString | null
     getTitleByFontFamilyAndStyle(fontFamily: string, fontStyle: string): FontAlias | null
 
     createFillStyle(config: CreateStyleConfig): PaintStyle
@@ -320,6 +324,50 @@ declare global {
     type?: 'normal' | 'highlight' | 'error' | 'warning' | 'success'
     timeout?: number
     isLoading?: boolean
+  }
+
+  type CodeType = 'CSS' | 'iOS' | 'Android'
+
+  type WebCodeLang = 'css' | 'less' | 'sass'
+  type AndroidCodeLang = 'xml'
+  type IOSCodeLang = 'swift'
+  type CodeLang = WebCodeLang | AndroidCodeLang | IOSCodeLang
+
+  type WebCodeUnit = 'px' | 'rem' | 'rpx'
+  type AndroidCodeUnit = 'dp' | 'dp/sp'
+  type IOSCodeUnit = 'pt'
+  type CodeUnit = WebCodeUnit | AndroidCodeUnit | IOSCodeUnit
+
+  interface StyleCodeOptions {
+    codeType?: CodeType
+    codeLang?: CodeLang
+    unit?: CodeUnit
+    pixelRatio?: number
+  }
+
+  interface WebStyleCodeOptions {
+    codeLang?: WebCodeLang
+    unit?: WebCodeUnit
+    pixelRatio?: number
+  }
+
+  interface AndroidStyleCodeOptions {
+    pixelRatio?: number
+  }
+
+  interface IOSStyleCodeOptions {
+    pixelRatio?: number
+  }
+
+  type CodeData = {
+    layout?: string;
+    style?: string;
+    typography?: string;
+    other?: string;
+  }
+  interface CodeString {
+    type: 'CSS' | 'iOS' | 'Android'
+    data: CodeData | ''
   }
 
   interface UIViewport extends Bound {
