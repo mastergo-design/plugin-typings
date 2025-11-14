@@ -1,3 +1,13 @@
+# [2.10.0-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.9.1-beta.5...v2.10.0-beta.0) (2025-11-14)
+
+
+### Features
+
+* 修改ts类型 ([aa491c3](https://github.com/mastergo-design/plugin-typings/commit/aa491c3cd82a07d2a259bbc791d405e851daca60))
+* 增加获取研发模式样式api ([7e23688](https://github.com/mastergo-design/plugin-typings/commit/7e23688518d4ba79795dfb51ab5337aac8a24e4c))
+
+
+
 ## [2.9.1-beta.5](https://github.com/mastergo-design/plugin-typings/compare/v2.9.1-beta.1...v2.9.1-beta.5) (2025-11-06)
 
 
