@@ -326,7 +326,7 @@ declare global {
     isLoading?: boolean
   }
 
-  type CodeType = 'CSS' | 'iOS' | 'Android'
+  type CodeType = 'Web' | 'iOS' | 'Android'
 
   type WebCodeLang = 'css' | 'less' | 'sass'
   type AndroidCodeLang = 'xml'
