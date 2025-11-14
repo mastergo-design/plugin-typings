@@ -163,7 +163,7 @@ async function release() {
 
     console.log(`🎉 成功发布版本: ${newVersion}`)
     console.log(`✅ Pull Request已创建，等待审核合并到master分支`)
-    console.log(`📝 请手动检查并合并Pull Request`)
+    console.log(`📝 请手动检查并合并Pull Request, https://github.com/mastergo-design/plugin-typings/pulls`)
   } catch (error) {
     console.error('\n❌ 发布过程中出错:', error.message)
 
