@@ -1,3 +1,12 @@
+# [2.11.0-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.10.0...v2.11.0-beta.0) (2026-01-16)
+
+
+### Features
+
+* 补充特效ts ([d438006](https://github.com/mastergo-design/plugin-typings/commit/d438006ed4f9c18c5eb50a9ec52dc69fe95c5502))
+
+
+
 # [2.10.0](https://github.com/mastergo-design/plugin-typings/compare/v2.9.1-beta.5...v2.10.0) (2025-12-04)
 
 
