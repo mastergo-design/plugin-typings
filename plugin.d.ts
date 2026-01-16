@@ -1,5 +1,5 @@
-import './mg-dsl.d';
-import './mg-comp-temp.d';
+import './mg-dsl.d'
+import './mg-comp-temp.d'
 
 declare global {
   /**
@@ -47,23 +47,26 @@ declare global {
   type ThemeColor = 'dark' | 'light'
 
   type LayoutInfo = {
-    leftbar: number;
-    rightbar: number;
-    canvas: number;
-    window: number;
-    height: number;
-    topbar: number;
+    leftbar: number
+    rightbar: number
+    canvas: number
+    window: number
+    height: number
+    topbar: number
   }
 
   type MGEventCallbackMap = {
-    'selectionchange': (selectionLayerIds: string[]) => void;
-    'layoutchange': (layoutInfo: LayoutInfo) => void;
-    'currentpagechange': (pageId: string) => void;
-    'themechange': (theme: ThemeColor) => void;
-    'drop': (event: DropEvent) => void;
-    'run': (command: { command: string }) => void;
-    'close': () => void;
-    'beforeReadyForDev': (sectionLayerId: string, callback: (setReady: boolean) => void) => void;
+    selectionchange: (selectionLayerIds: string[]) => void
+    layoutchange: (layoutInfo: LayoutInfo) => void
+    currentpagechange: (pageId: string) => void
+    themechange: (theme: ThemeColor) => void
+    drop: (event: DropEvent) => void
+    run: (command: { command: string }) => void
+    close: () => void
+    beforeReadyForDev: (
+      sectionLayerId: string,
+      callback: (setReady: boolean) => void
+    ) => void
   }
 
   type PluginEventType = keyof MGEventCallbackMap
@@ -98,13 +101,22 @@ declare global {
 
     readonly snippetgen?: SnippetgenAPI
 
-    readonly mode?: "inspect" | "design" | "codegen" | "snippetgen"
+    readonly mode?: 'inspect' | 'design' | 'codegen' | 'snippetgen'
 
     closePlugin(): void
 
-    on<T extends PluginEventType>(type: T, callback: MGEventCallbackMap[T]): void
-    once<T extends PluginEventType>(type: T, callback: MGEventCallbackMap[T]): void
-    off<T extends PluginEventType>(type?: T, callback?: MGEventCallbackMap[T]): void
+    on<T extends PluginEventType>(
+      type: T,
+      callback: MGEventCallbackMap[T]
+    ): void
+    once<T extends PluginEventType>(
+      type: T,
+      callback: MGEventCallbackMap[T]
+    ): void
+    off<T extends PluginEventType>(
+      type?: T,
+      callback?: MGEventCallbackMap[T]
+    ): void
 
     commitUndo(): void
     triggerUndo(): void
@@ -112,7 +124,7 @@ declare global {
     showUI(html: string, options?: ShowUIOptions): void
 
     getNodeById<T extends SceneNode>(id: string): T | null
-    getNodeByPosition(position: { x: number, y: number }): SceneNode | null
+    getNodeByPosition(position: { x: number; y: number }): SceneNode | null
     createRectangle(): RectangleNode
     createLine(): LineNode
     createEllipse(): EllipseNode
@@ -151,10 +163,22 @@ declare global {
 
     getStyleById(id: string): Style | null
     getStyleCodeById(id: string, options?: StyleCodeOptions): CodeString | null
-    getWebStyleCodeById(id: string, options?: WebStyleCodeOptions): CodeString | null
-    getAndroidStyleCodeById(id: string, options?: AndroidStyleCodeOptions): CodeString | null
-    getIOSStyleCodeById(id: string, options?: IOSStyleCodeOptions): CodeString | null
-    getTitleByFontFamilyAndStyle(fontFamily: string, fontStyle: string): FontAlias | null
+    getWebStyleCodeById(
+      id: string,
+      options?: WebStyleCodeOptions
+    ): CodeString | null
+    getAndroidStyleCodeById(
+      id: string,
+      options?: AndroidStyleCodeOptions
+    ): CodeString | null
+    getIOSStyleCodeById(
+      id: string,
+      options?: IOSStyleCodeOptions
+    ): CodeString | null
+    getTitleByFontFamilyAndStyle(
+      fontFamily: string,
+      fontStyle: string
+    ): FontAlias | null
 
     createFillStyle(config: CreateStyleConfig): PaintStyle
     createEffectStyle(config: CreateStyleConfig): EffectStyle
@@ -173,12 +197,17 @@ declare global {
 
     /**
      * createFillStyle/createStrokeFillStyle 这些函数的聚合函数，传入不同的 type，返回对应的 style
-     * @param layerId 
+     * @param layerId
      * @param type NodeStyleType
      * @param styleName
      * @param description optional
      */
-    createStyleByLayer<T extends NodeStyleType>(layerId: string, type: T, styleName: string, description?: string): NodeStyleReturnType<T>
+    createStyleByLayer<T extends NodeStyleType>(
+      layerId: string,
+      type: T,
+      styleName: string,
+      description?: string
+    ): NodeStyleReturnType<T>
 
     /**
      * 创建一个新的默认样式，不依赖某一个图层中的样式，
@@ -187,15 +216,23 @@ declare global {
      * @param styleName
      * @param description optional
      */
-    createStyle<T extends StyleType>(type: T, styleName: string, description?: string): StyleReturnType<T>
+    createStyle<T extends StyleType>(
+      type: T,
+      styleName: string,
+      description?: string
+    ): StyleReturnType<T>
     /**
      * 创建某一个样式的副本
      * @param sourceStyleId 副本的源样式id
-     * @param type 
-     * @param styleName 
-     * @param description 
+     * @param type
+     * @param styleName
+     * @param description
      */
-    createStyleCopy<T extends StyleType = "PAINT">(sourceStyleId: string, styleName?: string, description?: string): StyleReturnType<T>
+    createStyleCopy<T extends StyleType = 'PAINT'>(
+      sourceStyleId: string,
+      styleName?: string,
+      description?: string
+    ): StyleReturnType<T>
 
     getLocalPaintStyles(): PaintStyle[]
     getLocalEffectStyles(): EffectStyle[]
@@ -211,23 +248,29 @@ declare global {
     createImage(imageData: Uint8Array, isSync?: boolean): Promise<Image>
     getImageByHref(href: string): Image
 
-
-    getTeamLibraryAsync(): Promise<TeamLibrary>,
-    importComponentByKeyAsync(ukey: string): Promise<ComponentNode>,
-    importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>,
-    importStyleByKeyAsync(ukey: string): Promise<Style>,
+    getTeamLibraryAsync(): Promise<TeamLibrary>
+    importComponentByKeyAsync(ukey: string): Promise<ComponentNode>
+    importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>
+    importStyleByKeyAsync(ukey: string): Promise<Style>
     /**
      * @deprecated
-     * 
+     *
      * This attribute is deprecated, please use getTeamLibraryAsync instead.
      */
-    teamLibrary: TeamLibrary,
+    teamLibrary: TeamLibrary
 
     hexToRGBA(hex: string): RGBA
     RGBAToHex(rgba: RGBA): string
 
-    confirm: (message: string, options: [ConfirmAction, ...ConfirmAction[]]) => void
-    prompt: (message: string, defaultValue: string, options: [PromptAction, ...PromptAction[]]) => void
+    confirm: (
+      message: string,
+      options: [ConfirmAction, ...ConfirmAction[]]
+    ) => void
+    prompt: (
+      message: string,
+      defaultValue: string,
+      options: [PromptAction, ...PromptAction[]]
+    ) => void
   }
 
   interface User {
@@ -236,7 +279,7 @@ declare global {
     photoUrl: string | null
   }
 
-  interface Rect extends Readonly<Bound> { }
+  interface Rect extends Readonly<Bound> {}
   interface NotificationHandler {
     cancel: () => void
   }
@@ -293,7 +336,7 @@ declare global {
     readonly isSuffix?: boolean
     readonly fileName?: string
     readonly constraint?: ExportSettingsConstraints
-    readonly useAbsoluteBounds?: boolean  // defaults to true
+    readonly useAbsoluteBounds?: boolean // defaults to true
     readonly useRenderBounds?: boolean // default to true
   }
   interface ExportSettingsSVG {
@@ -310,8 +353,10 @@ declare global {
     readonly useRenderBounds?: boolean // default to true
   }
 
-  type ExportSettings = ExportSettingsImage | ExportSettingsSVG | ExportSettingsPDF
-
+  type ExportSettings =
+    | ExportSettingsImage
+    | ExportSettingsSVG
+    | ExportSettingsPDF
 
   interface ExportMixin {
     exportSettings: ReadonlyArray<ExportSettings>
@@ -360,10 +405,10 @@ declare global {
   }
 
   type CodeData = {
-    layout?: string;
-    style?: string;
-    typography?: string;
-    other?: string;
+    layout?: string
+    style?: string
+    typography?: string
+    other?: string
   }
   interface CodeString {
     type: 'CSS' | 'iOS' | 'Android'
@@ -406,8 +451,22 @@ declare global {
   }
 
   // Styles
-  type StyleType = 'PAINT' | 'TEXT' | 'EFFECT' | 'GRID' | 'STROKE_WIDTH' | 'CORNER_RADIUS' | 'PADDING' | 'SPACING'
-  type NodeStyleType = 'fill' | 'strokeFill' | 'strokeWidth' | 'cornerRadius' | 'padding' | 'spacing'
+  type StyleType =
+    | 'PAINT'
+    | 'TEXT'
+    | 'EFFECT'
+    | 'GRID'
+    | 'STROKE_WIDTH'
+    | 'CORNER_RADIUS'
+    | 'PADDING'
+    | 'SPACING'
+  type NodeStyleType =
+    | 'fill'
+    | 'strokeFill'
+    | 'strokeWidth'
+    | 'cornerRadius'
+    | 'padding'
+    | 'spacing'
 
   interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks'> {
     readonly id: string
@@ -499,9 +558,15 @@ declare global {
     layoutGrids: ReadonlyArray<LayoutGrid>
   }
 
-  type Style = PaintStyle | EffectStyle | TextStyle |
-    GridStyle | StrokeWidthStyle | CornerRadiusStyle |
-    PaddingStyle | SpacingStyle
+  type Style =
+    | PaintStyle
+    | EffectStyle
+    | TextStyle
+    | GridStyle
+    | StrokeWidthStyle
+    | CornerRadiusStyle
+    | PaddingStyle
+    | SpacingStyle
 
   /// /////////////////////////////////////////////////////////////////////////////
   // Datatypes
@@ -531,7 +596,7 @@ declare global {
     readonly style: string
   }
 
-  type TextCase = 'ORIGINAL' | 'UPPER' | 'LOWER' | 'TITLE';
+  type TextCase = 'ORIGINAL' | 'UPPER' | 'LOWER' | 'TITLE'
 
   type TextDecoration = 'NONE' | 'UNDERLINE' | 'STRIKETHROUGH'
 
@@ -553,9 +618,46 @@ declare global {
     readonly radius: number
     readonly isVisible: boolean
     readonly blendMode: BlendMode
+    readonly gradient: PluginGradientEffect
   }
 
-  type Effect = ShadowEffect | BlurEffect
+  interface PluginGradientEffect {
+    readonly mode: 'EVEN' | 'PROGRESSIVE'
+    readonly gradientStops?: ReadonlyArray<PluginGradientStopItem>
+    readonly gradientHandlePositions?: [Point, Point]
+    readonly transform?: Transform
+  }
+
+  interface PluginGradientStopItem {
+    readonly position: number
+    readonly value: number
+  }
+
+  interface Point {
+    readonly x: number
+    readonly y: number
+  }
+
+  interface LIquidGlassEffect {
+    readonly type: 'LIQUID_GLASS'
+    readonly depth: number
+    readonly dispersion: number
+    readonly refraction: number
+    readonly lightIntensity: number
+    readonly lightAngle: number
+    readonly isVisible: boolean
+    readonly radius: number
+    readonly blendMode: BlendMode
+  }
+
+  interface MotionBlurEffect {
+    readonly isVisible: boolean
+    readonly radius: number
+    readonly angle: number
+    readonly blendMode: BlendMode
+  }
+
+  type Effect = ShadowEffect | BlurEffect | LIquidGlassEffect | MotionBlurEffect
 
   // 待确认
   type ConstraintType = 'START' | 'END' | 'STARTANDEND' | 'CENTER' | 'SCALE'
@@ -586,13 +688,16 @@ declare global {
 
   interface GradientPaint {
     readonly type:
-    | 'GRADIENT_LINEAR'
-    | 'GRADIENT_RADIAL'
-    | 'GRADIENT_ANGULAR'
-    | 'GRADIENT_DIAMOND'
+      | 'GRADIENT_LINEAR'
+      | 'GRADIENT_RADIAL'
+      | 'GRADIENT_ANGULAR'
+      | 'GRADIENT_DIAMOND'
     readonly transform: Transform
     readonly gradientStops: ReadonlyArray<ColorStop>
-    readonly gradientHandlePositions?: [{ x: number, y: number }, { x: number, y: number }];
+    readonly gradientHandlePositions?: [
+      { x: number; y: number },
+      { x: number; y: number }
+    ]
     readonly isVisible?: boolean
     readonly alpha?: number
     readonly blendMode?: BlendMode
@@ -626,22 +731,26 @@ declare global {
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
 
-  type CSSWidthSetter = number | [number, number] | [number, number, number] | [number, number, number, number]
+  type CSSWidthSetter =
+    | number
+    | [number, number]
+    | [number, number, number]
+    | [number, number, number, number]
 
   interface StrokeWidth {
-    width: CSSWidthSetter,
+    width: CSSWidthSetter
   }
 
   interface Padding {
-    padding: CSSWidthSetter,
+    padding: CSSWidthSetter
   }
 
   interface Spacing {
-    spacing: CSSWidthSetter,
+    spacing: CSSWidthSetter
   }
 
   interface CornerRadius {
-    cornerRadius: CSSWidthSetter,
+    cornerRadius: CSSWidthSetter
   }
 
   type WindingRule = 'Nonzero' | 'Evenodd'
@@ -672,12 +781,12 @@ declare global {
 
   type LineHeight =
     | {
-      readonly value: number
-      readonly unit: 'PIXELS' | 'PERCENT'
-    }
+        readonly value: number
+        readonly unit: 'PIXELS' | 'PERCENT'
+      }
     | {
-      readonly unit: 'AUTO'
-    }
+        readonly unit: 'AUTO'
+      }
 
   type BlendMode =
     | 'NORMAL'
@@ -734,8 +843,8 @@ declare global {
     isLocked: boolean
     readonly attachedConnectors: ConnectorNode[]
     componentPropertyReferences: {
-      isVisible?: string,
-      characters?: string,
+      isVisible?: string
+      characters?: string
       mainComponent?: string
     } | null
     slotInfo: { slotName: string; slotAlias: string } | null
@@ -753,7 +862,9 @@ declare global {
 
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
-    findAllWithCriteria<T extends NodeType[]>(criteria: { types: T }): Array<{ type: T[number] } & SceneNode>
+    findAllWithCriteria<T extends NodeType[]>(criteria: {
+      types: T
+    }): Array<{ type: T[number] } & SceneNode>
   }
 
   interface ConstraintMixin {
@@ -767,7 +878,16 @@ declare global {
     height: number
   }
 
-  type ScaleCenter = 'TOPLEFT' | 'TOP' | 'TOPRIGHT' | 'LEFT' | 'CENTER' | 'RIGHT' | 'BOTTOMLEFT' | 'BOTTOM' | 'BOTTOMRIGHT'
+  type ScaleCenter =
+    | 'TOPLEFT'
+    | 'TOP'
+    | 'TOPRIGHT'
+    | 'LEFT'
+    | 'CENTER'
+    | 'RIGHT'
+    | 'BOTTOMLEFT'
+    | 'BOTTOM'
+    | 'BOTTOMRIGHT'
 
   interface ScaleOption {
     scaleCenter?: ScaleCenter
@@ -807,7 +927,16 @@ declare global {
     effectStyleId: string
   }
 
-  type StrokeCap = 'NONE' | 'ROUND' | 'SQUARE' | 'LINE_ARROW' | 'TRIANGLE_ARROW' | 'ROUND_ARROW' | 'RING' | 'DIAMOND' | 'LINE'
+  type StrokeCap =
+    | 'NONE'
+    | 'ROUND'
+    | 'SQUARE'
+    | 'LINE_ARROW'
+    | 'TRIANGLE_ARROW'
+    | 'ROUND_ARROW'
+    | 'RING'
+    | 'DIAMOND'
+    | 'LINE'
   type StrokeJoin = 'MITER' | 'BEVEL' | 'ROUND'
   type StrokeAlign = 'CENTER' | 'INSIDE' | 'OUTSIDE'
   type DashCap = 'NONE' | 'ROUND' | 'SQUARE'
@@ -823,7 +952,6 @@ declare global {
     readonly endpointNodeId: string
     readonly magnet: 'TOP' | 'LEFT' | 'BOTTOM' | 'RIGHT'
   }
-
 
   type ConnectorEndpoint =
     | ConnectorEndpointPosition
@@ -876,24 +1004,24 @@ declare global {
 
   interface DefaultShapeMixin
     extends BaseNodeMixin,
-    SceneNodeMixin,
-    BlendMixin,
-    GeometryMixin,
-    LayoutMixin,
-    ReactionMixin,
-    ExportMixin { }
+      SceneNodeMixin,
+      BlendMixin,
+      GeometryMixin,
+      LayoutMixin,
+      ReactionMixin,
+      ExportMixin {}
 
   interface DefaultContainerMixin
     extends BaseNodeMixin,
-    ContainerMixin,
-    ReactionMixin,
-    SceneNodeMixin,
-    ChildrenMixin,
-    BlendMixin,
-    CornerMixin,
-    ConstraintMixin,
-    LayoutMixin,
-    ExportMixin { }
+      ContainerMixin,
+      ReactionMixin,
+      SceneNodeMixin,
+      ChildrenMixin,
+      BlendMixin,
+      CornerMixin,
+      ConstraintMixin,
+      LayoutMixin,
+      ExportMixin {}
   interface ContainerMixin {
     expanded: boolean
   }
@@ -916,9 +1044,9 @@ declare global {
   }
 
   interface RowsColsLayoutGrid {
-    readonly gridType: "ROWS" | "COLUMNS"
+    readonly gridType: 'ROWS' | 'COLUMNS'
 
-    readonly alignment: "LEFT" | "RIGHT" | "STRETCH" | "CENTER"
+    readonly alignment: 'LEFT' | 'RIGHT' | 'STRETCH' | 'CENTER'
     readonly gutterSize: number
     readonly count: number
     readonly sectionSize?: number | null
@@ -931,7 +1059,7 @@ declare global {
   }
 
   interface GridLayoutGrid {
-    readonly gridType: "GRID"
+    readonly gridType: 'GRID'
 
     readonly sectionSize: number
 
@@ -940,7 +1068,6 @@ declare global {
     readonly id?: string
     readonly name?: string
   }
-
 
   type LayoutGrid = RowsColsLayoutGrid | GridLayoutGrid
 
@@ -951,7 +1078,7 @@ declare global {
     overflowDirection: OverflowDirection
   }
 
-  type OverflowDirection = "NONE" | "HORIZONTAL" | "VERTICAL" | "BOTH"
+  type OverflowDirection = 'NONE' | 'HORIZONTAL' | 'VERTICAL' | 'BOTH'
 
   interface ReactionMixin {
     reactions: ReadonlyArray<Reaction>
@@ -1006,12 +1133,12 @@ declare global {
 
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
-    findAllWithCriteria<T extends NodeType[]>(criteria: { types: T }): Array<{ type: T[number] } & SceneNode>
+    findAllWithCriteria<T extends NodeType[]>(criteria: {
+      types: T
+    }): Array<{ type: T[number] } & SceneNode>
   }
 
-  interface PageNode
-    extends
-    ChildrenMixin<SceneNode> {
+  interface PageNode extends ChildrenMixin<SceneNode> {
     readonly type: 'PAGE'
 
     readonly id: string
@@ -1040,12 +1167,29 @@ declare global {
     label: 'NONE' | 'BLUE' | 'GREEN' | 'RED' | 'YELLOW' | 'PURPLE' | 'GRAY'
   }
 
-  interface SectionNode extends Omit<DefaultContainerMixin, 'opacity' | 'blendMode' | 'isMask' | 'isMaskOutline' | 'isMaskVisible' | 'effects' | 'effectStyleId'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
+  interface SectionNode
+    extends Omit<
+        DefaultContainerMixin,
+        | 'opacity'
+        | 'blendMode'
+        | 'isMask'
+        | 'isMaskOutline'
+        | 'isMaskVisible'
+        | 'effects'
+        | 'effectStyleId'
+      >,
+      GeometryMixin,
+      FrameContainerMixin,
+      RectangleStrokeWeightMixin {
     readonly type: 'SECTION'
     clone(): SectionNode
   }
 
-  interface FrameNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
+  interface FrameNode
+    extends DefaultContainerMixin,
+      GeometryMixin,
+      FrameContainerMixin,
+      RectangleStrokeWeightMixin {
     readonly type: 'FRAME'
     clone(): FrameNode
     resizeToFit(): void
@@ -1053,9 +1197,9 @@ declare global {
 
   interface RectangleNode
     extends DefaultShapeMixin,
-    ConstraintMixin,
-    CornerMixin,
-    RectangleStrokeWeightMixin {
+      ConstraintMixin,
+      CornerMixin,
+      RectangleStrokeWeightMixin {
     readonly type: 'RECTANGLE'
     clone(): RectangleNode
   }
@@ -1074,7 +1218,10 @@ declare global {
     arcData: ArcData
   }
 
-  interface PolygonNode extends DefaultShapeMixin, ConstraintMixin, CornerMixin {
+  interface PolygonNode
+    extends DefaultShapeMixin,
+      ConstraintMixin,
+      CornerMixin {
     readonly type: 'POLYGON'
     pointCount: number
     clone(): PolygonNode
@@ -1113,20 +1260,19 @@ declare global {
 
   interface BooleanOperationNode
     extends DefaultShapeMixin,
-    ContainerMixin,
-    ChildrenMixin,
-    CornerMixin {
+      ContainerMixin,
+      ChildrenMixin,
+      CornerMixin {
     readonly type: 'BOOLEAN_OPERATION'
     booleanOperation: 'UNION' | 'INTERSECT' | 'SUBTRACT' | 'EXCLUDE'
     clone(): BooleanOperationNode
   }
 
-
   interface GroupNode
     extends DefaultShapeMixin,
-    ContainerMixin,
-    ChildrenMixin,
-    CornerMixin {
+      ContainerMixin,
+      ChildrenMixin,
+      CornerMixin {
     readonly type: 'GROUP'
     clone(): GroupNode
   }
@@ -1145,7 +1291,7 @@ declare global {
     PROTOTYPE = 'prototype',
     OUTFILE = 'outFile',
     OWNWEBSITE = 'ownWebsite',
-    OTHERLINK = 'otherLink',
+    OTHERLINK = 'otherLink'
   }
 
   interface Superlink {
@@ -1160,7 +1306,7 @@ declare global {
   }
 
   interface Hyperlink {
-    type: 'PAGE' | 'NODE' | 'URL',
+    type: 'PAGE' | 'NODE' | 'URL'
     value: string
   }
   interface HyperlinkWithRange {
@@ -1209,9 +1355,17 @@ declare global {
      * This function is deprecated, please use setRangeHyperlink instead.
      */
     setRangeSuperLink(start: number, end: number, link: string | null): void
-    setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
+    setRangeHyperlink(
+      start: number,
+      end: number,
+      hyperlink: Hyperlink | null
+    ): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
-    setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
+    setRangeListStyle(
+      start: number,
+      end: number,
+      type: 'ORDERED' | 'BULLETED' | 'NONE'
+    ): void
 
     setRangeFillStyleId(start: number, end: number, fillStyleId: string): void
     setRangeTextStyleId(start: number, end: number, textStyleId: string): void
@@ -1236,7 +1390,7 @@ declare global {
       propertyName: string,
       type: Exclude<ComponentPropertyType, 'VARIANT'>,
       defaultValue: string | boolean,
-      options?: ComponentPropertyOptions,
+      options?: ComponentPropertyOptions
     ): string
     editComponentProperty(
       propertyId: string,
@@ -1245,7 +1399,7 @@ declare global {
         defaultValue?: string | boolean
         preferredValues?: InstanceSwapPreferredValue[]
         alias?: string
-      },
+      }
     ): string
     deleteComponentProperty(propertyId: string): void
   }
@@ -1281,7 +1435,13 @@ declare global {
     valueAlias?: string
   }
 
-  interface ComponentNode extends DefaultContainerMixin, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin, ComponentPropertiesMixin {
+  interface ComponentNode
+    extends DefaultContainerMixin,
+      GeometryMixin,
+      FrameContainerMixin,
+      RectangleStrokeWeightMixin,
+      PublishableMixin,
+      ComponentPropertiesMixin {
     readonly type: 'COMPONENT'
     readonly variantProperties: Array<VariantProperty> | undefined
     setVariantPropertyValues(property: Record<string, string>): void
@@ -1290,20 +1450,34 @@ declare global {
     resizeToFit(): void
   }
 
-  interface ComponentSetNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin, PublishableMixin, ComponentPropertiesMixin {
+  interface ComponentSetNode
+    extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>,
+      GeometryMixin,
+      FrameContainerMixin,
+      RectangleStrokeWeightMixin,
+      PublishableMixin,
+      ComponentPropertiesMixin {
     readonly type: 'COMPONENT_SET'
     clone(): ComponentSetNode
     createVariantComponent(): void
     createVariantProperties(properties: Array<string>): void
     editVariantProperties(properties: Record<string, string>): void
-    editVariantPropertyValues(properties: Record<string, { oldValue: string, newValue: string }>): void
+    editVariantPropertyValues(
+      properties: Record<string, { oldValue: string; newValue: string }>
+    ): void
     editVariantPropertiesAlias(properties: Record<string, string>): void
-    editVariantPropertyValuesAlias(properties: Record<string, { name: string, alias: string }>): void
+    editVariantPropertyValuesAlias(
+      properties: Record<string, { name: string; alias: string }>
+    ): void
     deleteVariantProperty(property: string): void
     resizeToFit(): void
   }
 
-  interface InstanceNode extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>, GeometryMixin, FrameContainerMixin, RectangleStrokeWeightMixin {
+  interface InstanceNode
+    extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>,
+      GeometryMixin,
+      FrameContainerMixin,
+      RectangleStrokeWeightMixin {
     readonly type: 'INSTANCE'
     readonly variantProperties: Array<VariantProperty> | undefined
 
@@ -1325,13 +1499,21 @@ declare global {
     mainComponent: ComponentNode | null
   }
 
-  interface SliceNode extends BaseNodeMixin, LayoutMixin, ConstraintMixin, SceneNodeMixin, ExportMixin {
+  interface SliceNode
+    extends BaseNodeMixin,
+      LayoutMixin,
+      ConstraintMixin,
+      SceneNodeMixin,
+      ExportMixin {
     readonly type: 'SLICE'
     clone(): SliceNode
     isPreserveRatio: boolean
   }
 
-  interface ConnectorNode extends OpaqueNodeMixin, Pick<MinimalBlendMixin, 'opacity'>, Omit<MinimalStrokesMixin, 'strokeAlign'> {
+  interface ConnectorNode
+    extends OpaqueNodeMixin,
+      Pick<MinimalBlendMixin, 'opacity'>,
+      Omit<MinimalStrokesMixin, 'strokeAlign'> {
     readonly type: 'CONNECTOR'
     createText(): TextSublayerNode
     readonly text: TextSublayerNode | null
@@ -1374,23 +1556,30 @@ declare global {
     ): void
     setRangeLineHeight(start: number, end: number, value: LineHeight): void
     setRangeFills(start: number, end: number, paints: Paint[]): void
-    setRangeHyperlink(start: number, end: number, hyperlink: Hyperlink | null): void
+    setRangeHyperlink(
+      start: number,
+      end: number,
+      hyperlink: Hyperlink | null
+    ): void
     setRangeTextCase(start: number, end: number, textCase: TextCase): void
 
-    setRangeListStyle(start: number, end: number, type: 'ORDERED' | 'BULLETED' | 'NONE'): void
+    setRangeListStyle(
+      start: number,
+      end: number,
+      type: 'ORDERED' | 'BULLETED' | 'NONE'
+    ): void
 
     setRangeFillStyleId(start: number, end: number, fillStyleId: string): void
     setRangeTextStyleId(start: number, end: number, textStyleId: string): void
   }
 
-
   interface CreateStyleConfig {
-    name: string;
+    name: string
     /**
      * layerId
      */
-    id: string;
-    description?: string;
+    id: string
+    description?: string
   }
 
   interface FlowStartingPoint {
@@ -1400,49 +1589,76 @@ declare global {
     description: string
   }
   interface Reaction {
-    readonly trigger: Trigger;
-    readonly action?: Action;
+    readonly trigger: Trigger
+    readonly action?: Action
   }
   interface Action {
-    readonly type: ActionType;
-    readonly destinationId: string;
-    readonly navigation: Navigation;
-    readonly transition: Transition;
-    readonly url: string;
-    readonly scrollToXOffset?: number;
-    readonly scrollToYOffset?: number;
+    readonly type: ActionType
+    readonly destinationId: string
+    readonly navigation: Navigation
+    readonly transition: Transition
+    readonly url: string
+    readonly scrollToXOffset?: number
+    readonly scrollToYOffset?: number
   }
 
-  type ActionType = 'BACK' | 'NODE' | 'URL' | 'CLOSE' | 'NONE';
+  type ActionType = 'BACK' | 'NODE' | 'URL' | 'CLOSE' | 'NONE'
 
-  type Navigation = 'NAVIGATE' | 'OVERLAY' | 'SWAP_OVERLAY' | 'SCROLL_TO';
+  type Navigation = 'NAVIGATE' | 'OVERLAY' | 'SWAP_OVERLAY' | 'SCROLL_TO'
 
   interface Transition {
-    readonly type: TransitionType;
-    readonly duration: number;
-    readonly direction: TransitionDirection;
-    readonly easing: Easing;
+    readonly type: TransitionType
+    readonly duration: number
+    readonly direction: TransitionDirection
+    readonly easing: Easing
   }
 
-  type TransitionType = 'TANS_NONE' | 'INSTANT' | 'DISSOLVE' | 'SMART_ANIMATE' | 'MOVE_IN' | 'MOVE_OUT' | 'PUSH' | 'SLIDE_IN' | 'SLIDE_OUT' | 'DISPLACE'
+  type TransitionType =
+    | 'TANS_NONE'
+    | 'INSTANT'
+    | 'DISSOLVE'
+    | 'SMART_ANIMATE'
+    | 'MOVE_IN'
+    | 'MOVE_OUT'
+    | 'PUSH'
+    | 'SLIDE_IN'
+    | 'SLIDE_OUT'
+    | 'DISPLACE'
 
   type TransitionDirection = 'LEFT' | 'RIGHT' | 'TOP' | 'BOTTOM'
   interface Easing {
-    readonly type: EasingType;
+    readonly type: EasingType
     readonly easingFunctionCubicBezier: {
-      x1: number;
-      x2: number;
-      y1: number;
-      y2: number;
-    };
+      x1: number
+      x2: number
+      y1: number
+      y2: number
+    }
   }
 
-  type EasingType = 'LINEAR' | 'EASE_IN' | 'EASE_OUT' | 'EASE_IN_AND_OUT' | 'EASE_IN_BACK' | 'EASE_OUT_BACK' | 'EASE_IN_AND_OUT_BACK' | 'CUSTOM_CUBIC_BEZIER'
+  type EasingType =
+    | 'LINEAR'
+    | 'EASE_IN'
+    | 'EASE_OUT'
+    | 'EASE_IN_AND_OUT'
+    | 'EASE_IN_BACK'
+    | 'EASE_OUT_BACK'
+    | 'EASE_IN_AND_OUT_BACK'
+    | 'CUSTOM_CUBIC_BEZIER'
   interface Trigger {
-    readonly type: TriggerType;
-    readonly delay: number;
+    readonly type: TriggerType
+    readonly delay: number
   }
-  type TriggerType = 'ON_CLICK' | 'ON_DRAG' | 'ON_HOVER' | 'ON_PRESS' | 'MOUSE_ENTER' | 'MOUSE_LEAVE' | 'MOUSE_DOWN' | 'MOUSE_UP' | 'AFTER_DELAY'
+  type TriggerType =
+    | 'ON_CLICK'
+    | 'ON_DRAG'
+    | 'ON_HOVER'
+    | 'ON_PRESS'
+    | 'MOUSE_ENTER'
+    | 'MOUSE_LEAVE'
+    | 'MOUSE_DOWN'
+    | 'MOUSE_UP'
+    | 'AFTER_DELAY'
 
   interface ArcData {
     /**
@@ -1478,7 +1694,7 @@ declare global {
     readonly name: string
     readonly ukey: string
     readonly description: string
-    readonly type: "COMPONENT" | 'COMPONENT_SET'
+    readonly type: 'COMPONENT' | 'COMPONENT_SET'
     readonly cover: string
     readonly width: number
     readonly height: number
@@ -1487,16 +1703,16 @@ declare global {
   }
 
   interface TeamLibraryStyle {
-    readonly id: string;
-    readonly name: string;
-    readonly ukey: string;
-    readonly description: string;
-    readonly type: StyleType;
+    readonly id: string
+    readonly name: string
+    readonly ukey: string
+    readonly description: string
+    readonly type: StyleType
   }
 
   type TeamLibrary = ReadonlyArray<{
-    readonly name: string;
-    readonly id: string;
+    readonly name: string
+    readonly id: string
     readonly componentList: TeamLibraryComponent[]
     readonly style: {
       paints: ReadonlyArray<TeamLibraryStyle>
@@ -1553,44 +1769,68 @@ declare global {
     | 'CONNECTOR'
     | 'SECTION'
 
-
   // d2c
   type CodeFile = {
     /**
      * import third-party paths
      */
     importPath?: {
-      name: string;
-      path: string;
-      type: 'script' | 'style';
-    }[];
-    importType?: 'GLOBAL' | 'IMPORT';
+      name: string
+      path: string
+      type: 'script' | 'style'
+    }[]
+    importType?: 'GLOBAL' | 'IMPORT'
     // absolute path
-    path: string;
+    path: string
     // relative to the relative path of the imported file
-    relativePath: string;
-    fileName: string;
-    type: 'css' | 'js' | 'typescript' | 'ts-definition' | 'static' | 'vue' | 'react' | 'java' | 'kt' | 'xml';
+    relativePath: string
+    fileName: string
+    type:
+      | 'css'
+      | 'js'
+      | 'typescript'
+      | 'ts-definition'
+      | 'static'
+      | 'vue'
+      | 'react'
+      | 'java'
+      | 'kt'
+      | 'xml'
     // code
-    code: string;
+    code: string
     // parsed code
-    parsedCode?: string;
+    parsedCode?: string
     // import
-    chunks?: CodeFile[];
-  };
+    chunks?: CodeFile[]
+  }
   interface CodegenAPI {
     /**
      * @param event a callback function that is triggered when the plugin generates the DSL, and the parameter of the callback function is the modified DSL data
      */
-    on(type: 'generateDSL', event: (generateData: { data: MGDSL.MGDSLData, callback: (modifiedData: MGDSL.MGDSLData) => void }) => void): void
+    on(
+      type: 'generateDSL',
+      event: (generateData: {
+        data: MGDSL.MGDSLData
+        callback: (modifiedData: MGDSL.MGDSLData) => void
+      }) => void
+    ): void
     /**
      * @param event a callback function that is triggered when the plugin generates the DSL, and the parameter of the callback function is the custom code, and when the callback returns the custom code, the custom code will be used as the standard, and the code will not be generated according to the DSL
      */
-    on(type: 'generate', event: (generateData: { data: MGDSL.MGDSLData, callback: (modifiedData: MGDSL.CustomCode) => void }) => void): void
+    on(
+      type: 'generate',
+      event: (generateData: {
+        data: MGDSL.MGDSLData
+        callback: (modifiedData: MGDSL.CustomCode) => void
+      }) => void
+    ): void
     /**
      * @param event a callback function that is triggered when the plugin generates the code, and the parameter of the callback function is the generated code
      */
-    on(type: 'codeChange', event: (data: MGDSL.CustomCode['data']) => void): void
+    on(
+      type: 'codeChange',
+      event: (data: MGDSL.CustomCode['data']) => void
+    ): void
     /**
      * Set the component template
      * @description used to set the component mapping relationship
@@ -1603,61 +1843,93 @@ declare global {
      * @param type framework type
      * @returns code file
      */
-    getCode(layerId: string, type: MGDSL.Framework): Promise<CodeFile | null>;
+    getCode(layerId: string, type: MGDSL.Framework): Promise<CodeFile | null>
     /**
      * Get DSL by id and framework
      * @param layerId layer id
      * @param type framework type
      * @returns DSL data
      */
-    getDSL(layerId: string, type: MGDSL.Framework): Promise<MGDSL.MGDSLData | null>;
+    getDSL(
+      layerId: string,
+      type: MGDSL.Framework
+    ): Promise<MGDSL.MGDSLData | null>
     /**
      * Get code by DSL
      * @param data DSL data
      * @param type framework type
      * @returns code file
      */
-    getCodeByDSL(data: MGDSL.MGDSLData, type: MGDSL.Framework): Promise<CodeFile | null>;
+    getCodeByDSL(
+      data: MGDSL.MGDSLData,
+      type: MGDSL.Framework
+    ): Promise<CodeFile | null>
   }
 
   interface SnippetgenData {
-    language: string;
-    layerId: string;
-    preferences: Record<string, string>;
-    unit: Record<string, string>;
+    language: string
+    layerId: string
+    preferences: Record<string, string>
+    unit: Record<string, string>
   }
 
   interface SnippetGenResult {
-    language: string;
-    code: string;
-    title: string;
+    language: string
+    code: string
+    title: string
   }
 
   interface SnippetgenAPI {
-    on(type: 'generate', event: (data: SnippetgenData, callback: (modifiedData: SnippetGenResult[]) => void) => void): void
-    off(type: 'generate', event: (data: SnippetgenData, callback: (modifiedData: SnippetGenResult[]) => void) => void): void
+    on(
+      type: 'generate',
+      event: (
+        data: SnippetgenData,
+        callback: (modifiedData: SnippetGenResult[]) => void
+      ) => void
+    ): void
+    off(
+      type: 'generate',
+      event: (
+        data: SnippetgenData,
+        callback: (modifiedData: SnippetGenResult[]) => void
+      ) => void
+    ): void
 
     on(type: 'action', event: (value: string) => void): void
     off(type: 'action', event: (value: string) => void): void
   }
 
-  type StyleReturnType<T extends StyleType> =
-    T extends 'PAINT' ? PaintStyle :
-    T extends 'TEXT' ? TextStyle :
-    T extends 'EFFECT' ? EffectStyle :
-    T extends 'GRID' ? GridStyle :
-    T extends 'STROKE_WIDTH' ? StrokeWidthStyle :
-    T extends 'CORNER_RADIUS' ? CornerRadiusStyle :
-    T extends 'PADDING' ? PaddingStyle :
-    T extends 'SPACING' ? SpacingStyle : never
+  type StyleReturnType<T extends StyleType> = T extends 'PAINT'
+    ? PaintStyle
+    : T extends 'TEXT'
+    ? TextStyle
+    : T extends 'EFFECT'
+    ? EffectStyle
+    : T extends 'GRID'
+    ? GridStyle
+    : T extends 'STROKE_WIDTH'
+    ? StrokeWidthStyle
+    : T extends 'CORNER_RADIUS'
+    ? CornerRadiusStyle
+    : T extends 'PADDING'
+    ? PaddingStyle
+    : T extends 'SPACING'
+    ? SpacingStyle
+    : never
 
-  type NodeStyleReturnType<T extends NodeStyleType> =
-    T extends 'fill' ? PaintStyle :
-    T extends 'strokeFill' ? PaintStyle :
-    T extends 'strokeWidth' ? StrokeWidthStyle :
-    T extends 'cornerRadius' ? CornerRadiusStyle :
-    T extends 'padding' ? PaddingStyle :
-    T extends 'spacing' ? SpacingStyle : never
+  type NodeStyleReturnType<T extends NodeStyleType> = T extends 'fill'
+    ? PaintStyle
+    : T extends 'strokeFill'
+    ? PaintStyle
+    : T extends 'strokeWidth'
+    ? StrokeWidthStyle
+    : T extends 'cornerRadius'
+    ? CornerRadiusStyle
+    : T extends 'padding'
+    ? PaddingStyle
+    : T extends 'spacing'
+    ? SpacingStyle
+    : never
 }
 
-export { }
+export {}
