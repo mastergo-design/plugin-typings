@@ -1,3 +1,17 @@
+# [2.12.0-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.10.0...v2.12.0-beta.0) (2026-01-19)
+
+
+### Bug Fixes
+
+* 纠正大小写 ([af410f5](https://github.com/mastergo-design/plugin-typings/commit/af410f5a7f0df448805ac22da665edf7c6e21448))
+
+
+### Features
+
+* 补充特效ts ([d438006](https://github.com/mastergo-design/plugin-typings/commit/d438006ed4f9c18c5eb50a9ec52dc69fe95c5502))
+
+
+
 # [2.10.0](https://github.com/mastergo-design/plugin-typings/compare/v2.9.1-beta.5...v2.10.0) (2025-12-04)
 
 
