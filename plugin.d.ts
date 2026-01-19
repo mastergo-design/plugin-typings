@@ -638,7 +638,7 @@ declare global {
     readonly y: number
   }
 
-  interface LIquidGlassEffect {
+  interface LiquidGlassEffect {
     readonly type: 'LIQUID_GLASS'
     readonly depth: number
     readonly dispersion: number
@@ -657,7 +657,7 @@ declare global {
     readonly blendMode: BlendMode
   }
 
-  type Effect = ShadowEffect | BlurEffect | LIquidGlassEffect | MotionBlurEffect
+  type Effect = ShadowEffect | BlurEffect | LiquidGlassEffect | MotionBlurEffect
 
   // 待确认
   type ConstraintType = 'START' | 'END' | 'STARTANDEND' | 'CENTER' | 'SCALE'
