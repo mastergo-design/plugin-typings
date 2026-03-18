@@ -18,6 +18,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # 添加环境变量临时允许使用Node.js 24
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
       # 更新到最新版本 v4
       - uses: actions/checkout@v4
