@@ -1,3 +1,16 @@
+## [2.13.2-beta.2](https://github.com/mastergo-design/plugin-typings/compare/v2.11.0...v2.13.2-beta.2) (2026-03-18)
+
+
+### Features
+
+* 更新发布工作流 ([515f58c](https://github.com/mastergo-design/plugin-typings/commit/515f58c115e14f1ea88e110fffecc3e5aca95a35))
+* 更新发布工作流 ([35122b3](https://github.com/mastergo-design/plugin-typings/commit/35122b3432501cc803b6f1f6a813e9e34fafca8d))
+* 私有化增加导出多个图层对应的api ([a606164](https://github.com/mastergo-design/plugin-typings/commit/a6061645c76ae29394162f5d303e3986d15c4916))
+* 修改流水线 ([2027a93](https://github.com/mastergo-design/plugin-typings/commit/2027a93d8fdca5c619578f1dea0864defa01581b))
+* 修改流水线 ([5a98f5e](https://github.com/mastergo-design/plugin-typings/commit/5a98f5eceb45c2f109a0060e6905032a0bb49b3f))
+
+
+
 # [2.11.0](https://github.com/mastergo-design/plugin-typings/compare/v2.10.0...v2.11.0) (2026-01-19)
 
 
