@@ -1,6 +1,6 @@
 {
   "name": "@mastergo/plugin-typings",
-  "version": "2.13.2-beta.5",
+  "version": "2.13.2-beta.6",
   "description": "MasterGo插件API声明文件",
   "type": "module",
   "main": "",
@@ -9,7 +9,7 @@
     "prepare": "husky install",
     "dev": "rollup -c --environment NODE_ENV=development",
     "build": "rollup -c --environment NODE_ENV=production",
-    "release": "node scripts/release.js",
+    "release": "node scripts/release.cjs",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "commit": "git-cz"
   },
