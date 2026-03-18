@@ -247,6 +247,17 @@ declare global {
     loadFontAsync(fontName: FontName): Promise<boolean>
     createImage(imageData: Uint8Array, isSync?: boolean): Promise<Image>
     getImageByHref(href: string): Image
+    /**
+     * 导出多个图层组成的png图片
+     * @param layerIds 图层id数组
+     * @param scale 缩放比例
+     */
+    exportPngByLayerIds(layerIds: string[], scale?: number): string
+    /**
+     * 导出多个图层组成的svg图片
+     * @param layerIds 图层id数组
+     */
+    exportSvgByLayerIds(layerIds: string[]): string
 
     getTeamLibraryAsync(): Promise<TeamLibrary>
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>
