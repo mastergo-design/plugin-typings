@@ -1,3 +1,22 @@
+## [2.13.2-beta.7](https://github.com/mastergo-design/plugin-typings/compare/v2.11.0...v2.13.2-beta.7) (2026-03-18)
+
+
+### Features
+
+* 更新发布工作流 ([515f58c](https://github.com/mastergo-design/plugin-typings/commit/515f58c115e14f1ea88e110fffecc3e5aca95a35))
+* 更新发布工作流 ([35122b3](https://github.com/mastergo-design/plugin-typings/commit/35122b3432501cc803b6f1f6a813e9e34fafca8d))
+* 升级依赖版本 ([0403005](https://github.com/mastergo-design/plugin-typings/commit/040300522eb8392fc7c3f44e57f02ee5f0bcae45))
+* 私有化增加导出多个图层对应的api ([a606164](https://github.com/mastergo-design/plugin-typings/commit/a6061645c76ae29394162f5d303e3986d15c4916))
+* 修改流水线 ([fde2cc6](https://github.com/mastergo-design/plugin-typings/commit/fde2cc639456b3a26a6c4066d28ca7a938bab83c))
+* 修改流水线 ([a5b6031](https://github.com/mastergo-design/plugin-typings/commit/a5b6031cebdeb25341da38ce4a2ac08fa6e9abf8))
+* 修改流水线 ([09e9c13](https://github.com/mastergo-design/plugin-typings/commit/09e9c1327e31a43c8f73c68a13ca73c24059f371))
+* 修改流水线 ([32a7381](https://github.com/mastergo-design/plugin-typings/commit/32a7381294abab1ec91b1e5827f50e655e96ce6f))
+* 修改流水线 ([2027a93](https://github.com/mastergo-design/plugin-typings/commit/2027a93d8fdca5c619578f1dea0864defa01581b))
+* 修改流水线 ([5a98f5e](https://github.com/mastergo-design/plugin-typings/commit/5a98f5eceb45c2f109a0060e6905032a0bb49b3f))
+* 修改文件后缀名 ([ead271c](https://github.com/mastergo-design/plugin-typings/commit/ead271c84633c6b1543ded9424fff6246fce9f78))
+
+
+
 # [2.11.0](https://github.com/mastergo-design/plugin-typings/compare/v2.10.0...v2.11.0) (2026-01-19)
 
 
