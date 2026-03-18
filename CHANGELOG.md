@@ -1,3 +1,12 @@
+# [2.13.0-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.11.0...v2.13.0-beta.0) (2026-03-18)
+
+
+### Features
+
+* 私有化增加导出多个图层对应的api ([a606164](https://github.com/mastergo-design/plugin-typings/commit/a6061645c76ae29394162f5d303e3986d15c4916))
+
+
+
 # [2.11.0](https://github.com/mastergo-design/plugin-typings/compare/v2.10.0...v2.11.0) (2026-01-19)
 
 
