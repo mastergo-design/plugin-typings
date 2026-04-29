@@ -248,11 +248,9 @@ declare global {
     createImage(imageData: Uint8Array, isSync?: boolean): Promise<Image>
     getImageByHref(href: string): Image
     /**
-     * 导出多个图层组成的png图片
-     * @param layerIds 图层id数组
-     * @param scale 缩放比例
+     * 导出多个图层组成的png图片, 可过滤图层id，设置导出图片的缩放倍率
      */
-    exportPngByLayerIds(layerIds: string[], scale?: number): string
+    exportPng(params: GlobalExportPngSetting): string;
     /**
      * 导出多个图层组成的svg图片
      * @param layerIds 图层id数组
@@ -282,6 +280,12 @@ declare global {
       defaultValue: string,
       options: [PromptAction, ...PromptAction[]]
     ) => void
+  }
+
+  interface GlobalExportPngSetting { 
+    ids?: string[];
+    filterIds?: string[];
+    scale?: number;
   }
 
   interface User {
@@ -373,6 +377,7 @@ declare global {
     exportSettings: ReadonlyArray<ExportSettings>
     export(settings?: ExportSettings): Uint8Array | string // Defaults to PNG format
     exportAsync(settings?: ExportSettings): Promise<Uint8Array | string>
+    exportPng(settings?: Omit<GlobalExportPngSetting, 'ids'>): string
   }
 
   interface NotifyOptions {
