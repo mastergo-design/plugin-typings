@@ -103,7 +103,7 @@ declare global {
     ): void
 
     // --- Group ---
-    getGroupList(collectionId?: string): GroupNode[]
+    getGroupList(collectionId?: string): VariableGroupNode[]
     createGroup(
       collectionId: string,
       variableIds: string[],
@@ -793,13 +793,13 @@ declare global {
     readonly collectionId: string
   }
 
-  interface GroupNode {
+  interface VariableGroupNode {
     readonly id: string
     readonly name: string
     readonly currentPath?: string
     readonly level: number
     readonly isLeaf: boolean
-    readonly children?: ReadonlyArray<GroupNode>
+    readonly children?: ReadonlyArray<VariableGroupNode>
   }
 
   interface FontFamilyInfo {
@@ -1003,6 +1003,7 @@ declare global {
   }
 
   interface MotionBlurEffect {
+    readonly type: 'MOTION_BLUR'
     readonly isVisible: boolean
     readonly radius: number
     readonly angle: number
