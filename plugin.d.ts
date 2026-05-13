@@ -71,184 +71,7 @@ declare global {
 
   type PluginEventType = keyof MGEventCallbackMap
 
-  interface PluginAPI {
-    readonly document: DocumentNode
-
-    readonly ui: UIAPI
-
-    readonly themeColor: ThemeColor
-
-    readonly apiVersion: string
-
-    readonly documentId: number
-
-    readonly pluginId: number
-
-    readonly command: string
-
-    readonly mixed: string | symbol
-
-    readonly clientStorage: ClientStorageAPI
-
-    readonly currentUser: User | null
-
-    readonly viewport: ViewportAPI
-
-    /**
-     * @note only available in devMode
-     */
-    readonly codegen?: CodegenAPI
-
-    readonly snippetgen?: SnippetgenAPI
-
-    readonly mode?: 'inspect' | 'design' | 'codegen' | 'snippetgen'
-
-    closePlugin(): void
-
-    on<T extends PluginEventType>(
-      type: T,
-      callback: MGEventCallbackMap[T]
-    ): void
-    once<T extends PluginEventType>(
-      type: T,
-      callback: MGEventCallbackMap[T]
-    ): void
-    off<T extends PluginEventType>(
-      type?: T,
-      callback?: MGEventCallbackMap[T]
-    ): void
-
-    commitUndo(): void
-    triggerUndo(): void
-
-    showUI(html: string, options?: ShowUIOptions): void
-
-    getNodeById<T extends SceneNode>(id: string): T | null
-    getNodeByPosition(position: { x: number; y: number }): SceneNode | null
-    createRectangle(): RectangleNode
-    createLine(): LineNode
-    createEllipse(): EllipseNode
-    createPolygon(): PolygonNode
-    createStar(): StarNode
-    createPen(): PenNode
-    createText(): TextNode
-    createFrame(children?: SceneNode[]): FrameNode
-    createComponent(children?: SceneNode[]): ComponentNode
-    createSection(): SectionNode
-    createPage(): PageNode
-    createSlice(): SliceNode
-    createConnector(): ConnectorNode
-    createNodeFromSvgAsync(svg: string): Promise<FrameNode>
-
-    combineAsVariants(nodes: ComponentNode[]): ComponentSetNode
-
-    getHoverLayer(): PageNode | SceneNode
-
-    /**
-     * @deprecated
-     * This function is deprecated, please use viewport.layoutGridVisible instead.
-     */
-    showGrid(show: boolean): void
-
-    group(children: SceneNode[]): GroupNode
-    union(children: SceneNode[]): BooleanOperationNode
-    subtract(children: SceneNode[]): BooleanOperationNode
-    intersect(children: SceneNode[]): BooleanOperationNode
-    exclude(children: SceneNode[]): BooleanOperationNode
-    flatten(nodes: SceneNode[]): PenNode | null
-
-    saveVersionHistoryAsync(desc: string, title?: string): Promise<void>
-
-    notify(message: string, options?: NotifyOptions): NotificationHandler
-
-    getStyleById(id: string): Style | null
-    getStyleCodeById(id: string, options?: StyleCodeOptions): CodeString | null
-    getWebStyleCodeById(
-      id: string,
-      options?: WebStyleCodeOptions
-    ): CodeString | null
-    getAndroidStyleCodeById(
-      id: string,
-      options?: AndroidStyleCodeOptions
-    ): CodeString | null
-    getIOSStyleCodeById(
-      id: string,
-      options?: IOSStyleCodeOptions
-    ): CodeString | null
-    getTitleByFontFamilyAndStyle(
-      fontFamily: string,
-      fontStyle: string
-    ): FontAlias | null
-
-    createFillStyle(config: CreateStyleConfig): PaintStyle
-    createEffectStyle(config: CreateStyleConfig): EffectStyle
-    createTextStyle(config: CreateStyleConfig): TextStyle
-    createGridStyle(config: CreateStyleConfig): GridStyle
-    createCornerRadiusStyle(config: CreateStyleConfig): CornerRadiusStyle
-    createPaddingStyle(config: CreateStyleConfig): PaddingStyle
-    createSpacingStyle(config: CreateStyleConfig): SpacingStyle
-
-    /**
-     * @deprecated please use createStrokeFillStyle instead
-     */
-    createStrokeStyle(config: CreateStyleConfig): PaintStyle
-    createStrokeFillStyle(config: CreateStyleConfig): PaintStyle
-    createStrokeWidthStyle(config: CreateStyleConfig): StrokeWidthStyle
-
-    /**
-     * createFillStyle/createStrokeFillStyle 这些函数的聚合函数，传入不同的 type，返回对应的 style
-     * @param layerId
-     * @param type NodeStyleType
-     * @param styleName
-     * @param description optional
-     * @param collectionId optional
-     */
-    createStyleByLayer<T extends NodeStyleType>(
-      layerId: string,
-      type: T,
-      styleName: string,
-      description?: string,
-      collectionId?: string
-    ): NodeStyleReturnType<T>
-
-    /**
-     * 创建一个新的默认样式，不依赖某一个图层中的样式，
-     * eg: createStyle('PAINT', 'New Style', 'This is a new style')
-     * @param type styleType
-     * @param styleName
-     * @param description optional
-     * @param collectionId optional
-     */
-    createStyle<T extends StyleType>(
-      type: T,
-      styleName: string,
-      description?: string,
-      collectionId?: string
-    ): StyleReturnType<T>
-    /**
-     * 创建某一个样式的副本
-     * @param sourceStyleId 副本的源样式id
-     * @param type
-     * @param styleName
-     * @param description
-     */
-    createStyleCopy<T extends StyleType = 'PAINT'>(
-      sourceStyleId: string,
-      styleName?: string,
-      description?: string
-    ): StyleReturnType<T>
-
-    getLocalPaintStyles(): PaintStyle[]
-    getLocalEffectStyles(): EffectStyle[]
-    getLocalTextStyles(): TextStyle[]
-    getLocalGridStyles(): GridStyle[]
-    getLocalStrokeWidthStyles(): StrokeWidthStyle[]
-    getLocalCornerRadiusStyles(): CornerRadiusStyle[]
-    getLocalPaddingStyles(): PaddingStyle[]
-    getLocalSpacingStyles(): SpacingStyle[]
-
-    // #region Variable APIs
-
+  interface VariableAPI {
     // --- Collection ---
     createCollection(name?: string): Promise<Collection | null>
     getCollections(includeExternal?: boolean): Collection[]
@@ -471,8 +294,185 @@ declare global {
     // --- Font ---
     getFontFamilies(): FontFamilyInfo[]
     getFontWeights(fontFamily: string): FontWeightInfo[]
+  }
 
-    // #endregion
+  interface PluginAPI {
+    readonly document: DocumentNode
+
+    readonly ui: UIAPI
+
+    readonly themeColor: ThemeColor
+
+    readonly apiVersion: string
+
+    readonly documentId: number
+
+    readonly pluginId: number
+
+    readonly command: string
+
+    readonly mixed: string | symbol
+
+    readonly clientStorage: ClientStorageAPI
+
+    readonly currentUser: User | null
+
+    readonly viewport: ViewportAPI
+
+    /**
+     * @note only available in devMode
+     */
+    readonly codegen?: CodegenAPI
+
+    readonly snippetgen?: SnippetgenAPI
+
+    readonly mode?: 'inspect' | 'design' | 'codegen' | 'snippetgen'
+
+    closePlugin(): void
+
+    on<T extends PluginEventType>(
+      type: T,
+      callback: MGEventCallbackMap[T]
+    ): void
+    once<T extends PluginEventType>(
+      type: T,
+      callback: MGEventCallbackMap[T]
+    ): void
+    off<T extends PluginEventType>(
+      type?: T,
+      callback?: MGEventCallbackMap[T]
+    ): void
+
+    commitUndo(): void
+    triggerUndo(): void
+
+    showUI(html: string, options?: ShowUIOptions): void
+
+    getNodeById<T extends SceneNode>(id: string): T | null
+    getNodeByPosition(position: { x: number; y: number }): SceneNode | null
+    createRectangle(): RectangleNode
+    createLine(): LineNode
+    createEllipse(): EllipseNode
+    createPolygon(): PolygonNode
+    createStar(): StarNode
+    createPen(): PenNode
+    createText(): TextNode
+    createFrame(children?: SceneNode[]): FrameNode
+    createComponent(children?: SceneNode[]): ComponentNode
+    createSection(): SectionNode
+    createPage(): PageNode
+    createSlice(): SliceNode
+    createConnector(): ConnectorNode
+    createNodeFromSvgAsync(svg: string): Promise<FrameNode>
+
+    combineAsVariants(nodes: ComponentNode[]): ComponentSetNode
+
+    getHoverLayer(): PageNode | SceneNode
+
+    /**
+     * @deprecated
+     * This function is deprecated, please use viewport.layoutGridVisible instead.
+     */
+    showGrid(show: boolean): void
+
+    group(children: SceneNode[]): GroupNode
+    union(children: SceneNode[]): BooleanOperationNode
+    subtract(children: SceneNode[]): BooleanOperationNode
+    intersect(children: SceneNode[]): BooleanOperationNode
+    exclude(children: SceneNode[]): BooleanOperationNode
+    flatten(nodes: SceneNode[]): PenNode | null
+
+    saveVersionHistoryAsync(desc: string, title?: string): Promise<void>
+
+    notify(message: string, options?: NotifyOptions): NotificationHandler
+
+    getStyleById(id: string): Style | null
+    getStyleCodeById(id: string, options?: StyleCodeOptions): CodeString | null
+    getWebStyleCodeById(
+      id: string,
+      options?: WebStyleCodeOptions
+    ): CodeString | null
+    getAndroidStyleCodeById(
+      id: string,
+      options?: AndroidStyleCodeOptions
+    ): CodeString | null
+    getIOSStyleCodeById(
+      id: string,
+      options?: IOSStyleCodeOptions
+    ): CodeString | null
+    getTitleByFontFamilyAndStyle(
+      fontFamily: string,
+      fontStyle: string
+    ): FontAlias | null
+
+    createFillStyle(config: CreateStyleConfig): PaintStyle
+    createEffectStyle(config: CreateStyleConfig): EffectStyle
+    createTextStyle(config: CreateStyleConfig): TextStyle
+    createGridStyle(config: CreateStyleConfig): GridStyle
+    createCornerRadiusStyle(config: CreateStyleConfig): CornerRadiusStyle
+    createPaddingStyle(config: CreateStyleConfig): PaddingStyle
+    createSpacingStyle(config: CreateStyleConfig): SpacingStyle
+
+    /**
+     * @deprecated please use createStrokeFillStyle instead
+     */
+    createStrokeStyle(config: CreateStyleConfig): PaintStyle
+    createStrokeFillStyle(config: CreateStyleConfig): PaintStyle
+    createStrokeWidthStyle(config: CreateStyleConfig): StrokeWidthStyle
+
+    /**
+     * createFillStyle/createStrokeFillStyle 这些函数的聚合函数，传入不同的 type，返回对应的 style
+     * @param layerId
+     * @param type NodeStyleType
+     * @param styleName
+     * @param description optional
+     * @param collectionId optional
+     */
+    createStyleByLayer<T extends NodeStyleType>(
+      layerId: string,
+      type: T,
+      styleName: string,
+      description?: string,
+      collectionId?: string
+    ): NodeStyleReturnType<T>
+
+    /**
+     * 创建一个新的默认样式，不依赖某一个图层中的样式，
+     * eg: createStyle('PAINT', 'New Style', 'This is a new style')
+     * @param type styleType
+     * @param styleName
+     * @param description optional
+     * @param collectionId optional
+     */
+    createStyle<T extends StyleType>(
+      type: T,
+      styleName: string,
+      description?: string,
+      collectionId?: string
+    ): StyleReturnType<T>
+    /**
+     * 创建某一个样式的副本
+     * @param sourceStyleId 副本的源样式id
+     * @param type
+     * @param styleName
+     * @param description
+     */
+    createStyleCopy<T extends StyleType = 'PAINT'>(
+      sourceStyleId: string,
+      styleName?: string,
+      description?: string
+    ): StyleReturnType<T>
+
+    getLocalPaintStyles(): PaintStyle[]
+    getLocalEffectStyles(): EffectStyle[]
+    getLocalTextStyles(): TextStyle[]
+    getLocalGridStyles(): GridStyle[]
+    getLocalStrokeWidthStyles(): StrokeWidthStyle[]
+    getLocalCornerRadiusStyles(): CornerRadiusStyle[]
+    getLocalPaddingStyles(): PaddingStyle[]
+    getLocalSpacingStyles(): SpacingStyle[]
+
+    readonly variables: VariableAPI
 
     listAvailableFontsAsync(): Promise<Font[]>
     loadFontAsync(fontName: FontName): Promise<boolean>
