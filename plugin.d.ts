@@ -707,10 +707,6 @@ declare global {
     | 'CORNER_RADIUS'
     | 'PADDING'
     | 'SPACING'
-    | 'NUMBER'
-    | 'STRING'
-    | 'BOOLEAN'
-    | 'COLOR'
   type NodeStyleType =
     | 'fill'
     | 'strokeFill'
@@ -2273,8 +2269,6 @@ declare global {
     ? PaddingStyle
     : T extends 'SPACING'
     ? SpacingStyle
-    : T extends 'NUMBER' | 'STRING' | 'BOOLEAN' | 'COLOR'
-    ? Variable
     : never
 
   type NodeStyleReturnType<T extends NodeStyleType> = T extends 'fill'
