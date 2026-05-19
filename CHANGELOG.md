@@ -1,3 +1,4 @@
+# [2.16.0](https://github.com/mastergo-design/plugin-typings/compare/v2.11.0...v2.16.0) (2026-05-19)
 # [2.14.0-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.11.0...v2.14.0-beta.0) (2026-04-29)
 
 
