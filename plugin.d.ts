@@ -247,6 +247,7 @@ declare global {
     loadFontAsync(fontName: FontName): Promise<boolean>
     createImage(imageData: Uint8Array, isSync?: boolean): Promise<Image>
     getImageByHref(href: string): Image
+    
     /**
      * 导出多个图层组成的png图片, 可过滤图层id，设置导出图片的缩放倍率
      */
