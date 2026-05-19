@@ -138,6 +138,7 @@ declare global {
     createPage(): PageNode
     createSlice(): SliceNode
     createConnector(): ConnectorNode
+    createIntelligentContainer(children?: SceneNode[]): IntelligentContainerNode
     createNodeFromSvgAsync(svg: string): Promise<FrameNode>
 
     combineAsVariants(nodes: ComponentNode[]): ComponentSetNode
@@ -1195,6 +1196,18 @@ declare global {
     resizeToFit(): void
   }
 
+  interface IntelligentContainerNode
+    extends DefaultContainerMixin,
+      GeometryMixin,
+      FrameContainerMixin,
+      RectangleStrokeWeightMixin {
+    readonly type: 'INTELLIGENT_CONTAINER'
+    clone(): IntelligentContainerNode
+    resizeToFit(): void
+    shaderCode: string
+    isPlaying: boolean
+  }
+
   interface RectangleNode
     extends DefaultShapeMixin,
       ConstraintMixin,
@@ -1748,6 +1761,7 @@ declare global {
     | SliceNode
     | ConnectorNode
     | SectionNode
+    | IntelligentContainerNode
 
   type NodeType =
     | 'DOCUMENT'
@@ -1768,6 +1782,7 @@ declare global {
     | 'SLICE'
     | 'CONNECTOR'
     | 'SECTION'
+    | 'INTELLIGENT_CONTAINER'
 
   // d2c
   type CodeFile = {
