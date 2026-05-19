@@ -1343,7 +1343,7 @@ declare global {
     readonly hyperlinks: Array<HyperlinkWithRange>
     textAlignHorizontal: 'LEFT' | 'CENTER' | 'RIGHT' | 'JUSTIFIED'
     textAlignVertical: 'TOP' | 'CENTER' | 'BOTTOM'
-    textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT' | 'TRUNCATE'
+    textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT' | 'TRUNCATE' | 'TRUNCATE_AND_AUTO_WIDTH' | 'TRUNCATE_AND_AUTO_HEIGHT'
     paragraphSpacing: number
     readonly textStyles: ReadonlyArray<TextSegStyle>
     readonly listStyles: ReadonlyArray<ListStyle>
