@@ -1,6 +1,11 @@
 import { resolve } from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = resolve(__filename, '..')
+
 import ts from 'rollup-plugin-typescript2'
-import dts from "rollup-plugin-dts";
+import dts from "rollup-plugin-dts"
 
 export default [{
   input: "plugin.d.ts",
