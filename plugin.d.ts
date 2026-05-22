@@ -478,6 +478,7 @@ declare global {
     loadFontAsync(fontName: FontName): Promise<boolean>
     createImage(imageData: Uint8Array, isSync?: boolean): Promise<Image>
     getImageByHref(href: string): Image
+    
     /**
      * 导出多个图层组成的png图片, 可过滤图层id，设置导出图片的缩放倍率
      */
@@ -1676,7 +1677,7 @@ declare global {
     readonly hyperlinks: Array<HyperlinkWithRange>
     textAlignHorizontal: 'LEFT' | 'CENTER' | 'RIGHT' | 'JUSTIFIED'
     textAlignVertical: 'TOP' | 'CENTER' | 'BOTTOM'
-    textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT' | 'TRUNCATE'
+    textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT' | 'TRUNCATE' | 'TRUNCATE_AND_AUTO_WIDTH' | 'TRUNCATE_AND_AUTO_HEIGHT'
     paragraphSpacing: number
     readonly textStyles: ReadonlyArray<TextSegStyle>
     readonly listStyles: ReadonlyArray<ListStyle>
