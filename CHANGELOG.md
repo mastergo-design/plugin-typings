@@ -1,3 +1,12 @@
+# [2.17.0](https://github.com/mastergo-design/plugin-typings/compare/v2.16.1...v2.17.0) (2026-05-25)
+
+
+### Features
+
+* add full variable and collection API support ([3cdffb0](https://github.com/mastergo-design/plugin-typings/commit/3cdffb000c95a88da1752916f7e26c731c271884))
+
+
+
 ## [2.16.1](https://github.com/mastergo-design/plugin-typings/compare/v2.16.0...v2.16.1) (2026-05-19)
 
 
