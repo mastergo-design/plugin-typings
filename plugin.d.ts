@@ -71,6 +71,231 @@ declare global {
 
   type PluginEventType = keyof MGEventCallbackMap
 
+  interface VariableAPI {
+    // --- Collection ---
+    createCollection(name?: string): Promise<Collection | null>
+    getCollections(includeExternal?: boolean): Collection[]
+    getCollectionById(id?: string): Collection | null
+    deleteCollection(collectionId: string): void
+    renameCollection(collectionId: string, name: string): void
+    moveCollection(
+      collectionId: string,
+      options?: { afterId?: string; index?: number }
+    ): void
+
+    // --- Mode ---
+    getModes(collectionId?: string): CollectionMode[]
+    getModeById(
+      collectionId?: string,
+      modeId?: string
+    ): CollectionMode | null
+    addMode(
+      collectionId: string,
+      name?: string
+    ): Promise<CollectionMode | null>
+    renameMode(collectionId: string, modeId: string, name: string): void
+    deleteMode(collectionId: string, modeId: string): void
+    setVariableMode(collectionId: string, modeId: string): void
+    setPageVariableMode(
+      collectionId: string,
+      modeId: string,
+      pageId?: string
+    ): void
+
+    // --- Group ---
+    getGroupList(collectionId?: string): VariableGroupNode[]
+    createGroup(
+      collectionId: string,
+      variableIds: string[],
+      groupName?: string
+    ): void
+    addVariablesToGroup(
+      collectionId: string,
+      groupPath: string,
+      variableIds: string[]
+    ): void
+    removeVariablesFromGroup(
+      collectionId: string,
+      groupPath: string,
+      variableIds: string[]
+    ): void
+    disbandGroup(
+      collectionId: string,
+      groupPath?: string,
+      variableIds?: string[]
+    ): void
+    renameGroup(
+      collectionId: string,
+      newName: string,
+      groupPath?: string,
+      variableIds?: string[]
+    ): void
+    deleteGroup(
+      collectionId: string,
+      groupPath?: string,
+      variableIds?: string[]
+    ): void
+
+    // --- Variable ---
+    createVariable(options: {
+      name: string
+      type: VariableType
+      value?: any
+      description?: string
+      collectionId?: string
+    }): Promise<Variable | null>
+    getVariableById(id: string): Variable | null
+    getVariables(options?: {
+      collectionId?: string
+      groupPath?: string
+      type?: VariableType
+      scopeType?: string
+    }): Variable[]
+    setVariableReference(options: {
+      id: string
+      reference: string | object
+      modeId?: string
+      index?: string
+      textProperty?: string
+      strokeProperty?: string
+      radiusProperty?: string
+      paddingProperty?: string
+      gridProperty?: string
+      effectProperty?: string
+    }): void
+    unlinkVariable(options: {
+      id: string
+      modeId?: string
+    }): Promise<void>
+    renameVariable(variableId: string, name: string): void
+    setVariableValue(options: {
+      id: string
+      value: any
+      modeId: string
+    }): Variable | null
+    addVariableValue(options: {
+      id: string
+      value?: any
+      modeId: string
+    }): Variable | null
+    deleteVariableValue(options: {
+      id: string
+      index: string | string[]
+      modeId: string
+    }): Variable | null
+    deleteVariable(variableId: string): void
+    moveVariable(
+      variableId: string,
+      options?: { afterId?: string; index?: number }
+    ): Promise<void>
+
+    // --- Variable Description / Alias ---
+    getVariableDescription(variableId: string): string | null
+    setVariableDescription(
+      variableId: string,
+      value: string
+    ): Promise<Variable | null>
+    resetVariableDescription(
+      variableId: string
+    ): Promise<Variable | null>
+    getVariableAlias(variableId: string): string | null
+    setVariableAlias(
+      variableId: string,
+      value: string
+    ): Promise<Variable | null>
+    resetVariableAlias(variableId: string): Promise<Variable | null>
+
+    // --- Component Property Variable ---
+    setVariableInComponent(options: {
+      id: string
+      propertyId: string
+      type: 'BOOLEAN' | 'CONTENT'
+    }): void
+    unlinkVariableInComponent(options: {
+      propertyId: string
+      type: 'BOOLEAN' | 'CONTENT'
+    }): void
+    createVariableInComponent(options: {
+      name: string
+      description?: string
+      collectionId?: string
+      layerId: string
+      type: 'BOOLEAN' | 'CONTENT'
+      value?: any
+    }): Promise<string | null>
+
+    // --- Layer Property Variable ---
+    createVariableInLayer(options: {
+      name: string
+      description?: string
+      collectionId?: string
+      layerId: string
+      value?: any
+      strokeProperty?: string
+      radiusProperty?: string
+      paddingProperty?: string
+      dimensionProperty?: string
+      baseProperty?: string
+      effectProperty?: string
+      gridProperty?: string
+      textProperty?: string
+      index?: number
+    }): Promise<Variable | null>
+    setVariableReferenceInLayer(options: {
+      id: string
+      layerId: string
+      strokeProperty?: string
+      radiusProperty?: string
+      paddingProperty?: string
+      dimensionProperty?: string
+      baseProperty?: string
+      effectProperty?: string
+      gridProperty?: string
+      textProperty?: string
+      index?: number
+    }): Promise<void>
+    unlinkVariableReferenceInLayer(options: {
+      layerId: string
+      strokeProperty?: string
+      radiusProperty?: string
+      paddingProperty?: string
+      dimensionProperty?: string
+      baseProperty?: string
+      effectProperty?: string
+      gridProperty?: string
+      textProperty?: string
+      index?: number
+    }): Promise<void>
+
+    // --- Variable Code Syntax ---
+    getCodeSyntax(variableId: string): VariableCodeSyntax | null
+    setCodeSyntax(
+      variableId: string,
+      codeSyntax: { web?: string; android?: string; ios?: string }
+    ): Promise<Variable | null>
+    resetCodeSyntax(
+      variableId: string,
+      platform?: string
+    ): Promise<Variable | null>
+
+    // --- Variable Scopes ---
+    getVariableScopes(variableId: string): ScopeName[]
+    setVariableScopes(
+      variableId: string,
+      scopes: ScopeName[]
+    ): Promise<Variable | null>
+
+    // --- Variable Indexes ---
+    getVariableIndexes(
+      variableId: string,
+      modeId?: string
+    ): string[]
+
+    // --- Font ---
+    getFontFamilies(): FontFamilyInfo[]
+    getFontWeights(fontFamily: string): FontWeightInfo[]
+  }
+
   interface PluginAPI {
     readonly document: DocumentNode
 
@@ -202,12 +427,14 @@ declare global {
      * @param type NodeStyleType
      * @param styleName
      * @param description optional
+     * @param collectionId optional
      */
     createStyleByLayer<T extends NodeStyleType>(
       layerId: string,
       type: T,
       styleName: string,
-      description?: string
+      description?: string,
+      collectionId?: string
     ): NodeStyleReturnType<T>
 
     /**
@@ -216,11 +443,13 @@ declare global {
      * @param type styleType
      * @param styleName
      * @param description optional
+     * @param collectionId optional
      */
     createStyle<T extends StyleType>(
       type: T,
       styleName: string,
-      description?: string
+      description?: string,
+      collectionId?: string
     ): StyleReturnType<T>
     /**
      * 创建某一个样式的副本
@@ -244,10 +473,22 @@ declare global {
     getLocalPaddingStyles(): PaddingStyle[]
     getLocalSpacingStyles(): SpacingStyle[]
 
+    readonly variables: VariableAPI
+
     listAvailableFontsAsync(): Promise<Font[]>
     loadFontAsync(fontName: FontName): Promise<boolean>
     createImage(imageData: Uint8Array, isSync?: boolean): Promise<Image>
     getImageByHref(href: string): Image
+    
+    /**
+     * 导出多个图层组成的png图片, 可过滤图层id，设置导出图片的缩放倍率
+     */
+    exportPng(params: GlobalExportPngSetting): string;
+    /**
+     * 导出多个图层组成的svg图片
+     * @param layerIds 图层id数组
+     */
+    exportSvgByLayerIds(layerIds: string[]): string
 
     getTeamLibraryAsync(): Promise<TeamLibrary>
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>
@@ -272,6 +513,12 @@ declare global {
       defaultValue: string,
       options: [PromptAction, ...PromptAction[]]
     ) => void
+  }
+
+  interface GlobalExportPngSetting { 
+    ids?: string[];
+    filterIds?: string[];
+    scale?: number;
   }
 
   interface User {
@@ -363,6 +610,7 @@ declare global {
     exportSettings: ReadonlyArray<ExportSettings>
     export(settings?: ExportSettings): Uint8Array | string // Defaults to PNG format
     exportAsync(settings?: ExportSettings): Promise<Uint8Array | string>
+    exportPng(settings?: Omit<GlobalExportPngSetting, 'ids'>): string
   }
 
   interface NotifyOptions {
@@ -468,6 +716,106 @@ declare global {
     | 'cornerRadius'
     | 'padding'
     | 'spacing'
+    | 'effect'
+    | 'text'
+    | 'grid'
+
+  // #region Variable / Collection / Mode / Group types
+
+  type VariableType =
+    | 'STRING'
+    | 'BOOLEAN'
+    | 'COLOR'
+    | 'NUMBER'
+    | 'PAINT'
+    | 'TEXT'
+    | 'EFFECT'
+    | 'GRID'
+    | 'STROKE_WIDTH'
+    | 'CORNER_RADIUS'
+    | 'PADDING'
+    | 'SPACING'
+
+  type ScopeName =
+    | 'all'
+    | 'fill'
+    | 'fillAll'
+    | 'shapeFill'
+    | 'textFill'
+    | 'stroke'
+    | 'effect'
+    | 'grid'
+    | 'widthHeight'
+    | 'cornerRadius'
+    | 'opacity'
+    | 'layoutSpacing'
+    | 'layoutPadding'
+    | 'fontSize'
+    | 'fontWeight'
+    | 'textLineHeight'
+    | 'textLetterSpacing'
+    | 'textParagraphSpacing'
+    | 'fontFamily'
+    | 'textContent'
+
+  interface VariableCodeSyntax {
+    readonly web?: string
+    readonly android?: string
+    readonly ios?: string
+  }
+
+  interface Variable {
+    readonly id: string
+    readonly name: string
+    readonly description: string
+    readonly alias: string
+    readonly type: VariableType
+    readonly collectionId: string
+    readonly isExternal: boolean
+    readonly supportScope: boolean
+    readonly codeSyntax?: VariableCodeSyntax
+    readonly scopes?: ReadonlyArray<ScopeName>
+    readonly modes: Record<string, ReadonlyArray<any>>
+  }
+
+  interface Collection {
+    readonly id: string
+    readonly name: string
+    readonly isExternal: boolean
+    readonly modes: ReadonlyArray<CollectionMode>
+  }
+
+  interface CollectionMode {
+    readonly id: string
+    readonly name: string
+    readonly collectionId: string
+  }
+
+  interface VariableGroupNode {
+    readonly id: string
+    readonly name: string
+    readonly currentPath?: string
+    readonly level: number
+    readonly isLeaf: boolean
+    readonly children?: ReadonlyArray<VariableGroupNode>
+  }
+
+  interface FontFamilyInfo {
+    readonly family: string
+    readonly label: string
+    readonly lang: string
+    readonly isVariable: boolean
+  }
+
+  interface FontWeightInfo {
+    readonly postscriptName: string
+    readonly label: string
+    readonly style: string
+    readonly weight: number
+    readonly slant: number
+  }
+
+  // #endregion
 
   interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks'> {
     readonly id: string
@@ -568,6 +916,7 @@ declare global {
     | CornerRadiusStyle
     | PaddingStyle
     | SpacingStyle
+    | Variable
 
   /// /////////////////////////////////////////////////////////////////////////////
   // Datatypes
@@ -652,6 +1001,7 @@ declare global {
   }
 
   interface MotionBlurEffect {
+    readonly type: 'MOTION_BLUR'
     readonly isVisible: boolean
     readonly radius: number
     readonly angle: number
@@ -1593,6 +1943,7 @@ declare global {
      */
     id: string
     description?: string
+    collectionId?: string
   }
 
   interface FlowStartingPoint {
@@ -1736,6 +2087,10 @@ declare global {
       cornerRadiuses: ReadonlyArray<TeamLibraryStyle>
       paddings: ReadonlyArray<TeamLibraryStyle>
       spacings: ReadonlyArray<TeamLibraryStyle>
+      numbers: ReadonlyArray<TeamLibraryStyle>
+      strings: ReadonlyArray<TeamLibraryStyle>
+      bools: ReadonlyArray<TeamLibraryStyle>
+      colors: ReadonlyArray<TeamLibraryStyle>
     }
   }>
 
@@ -1944,6 +2299,12 @@ declare global {
     ? PaddingStyle
     : T extends 'spacing'
     ? SpacingStyle
+    : T extends 'effect'
+    ? EffectStyle
+    : T extends 'text'
+    ? TextStyle
+    : T extends 'grid'
+    ? GridStyle
     : never
 }
 
