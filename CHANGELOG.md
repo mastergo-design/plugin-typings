@@ -1,3 +1,12 @@
+# [2.18.0](https://github.com/mastergo-design/plugin-typings/compare/v2.17.0...v2.18.0) (2026-05-28)
+
+
+### Features
+
+* 增加智能容器类型 ([0e2877e](https://github.com/mastergo-design/plugin-typings/commit/0e2877e09449ec7ab034d65ba9b85331c0ed49a8))
+
+
+
 # [2.17.0](https://github.com/mastergo-design/plugin-typings/compare/v2.16.1...v2.17.0) (2026-05-25)
 
 
