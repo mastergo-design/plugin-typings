@@ -478,7 +478,7 @@ declare global {
     loadFontAsync(fontName: FontName): Promise<boolean>
     createImage(imageData: Uint8Array, isSync?: boolean): Promise<Image>
     getImageByHref(href: string): Image
-    
+
     /**
      * 导出多个图层组成的png图片, 可过滤图层id，设置导出图片的缩放倍率
      */
@@ -514,7 +514,7 @@ declare global {
     ) => void
   }
 
-  interface GlobalExportPngSetting { 
+  interface GlobalExportPngSetting {
     ids?: string[];
     filterIds?: string[];
     scale?: number;
@@ -1034,6 +1034,7 @@ declare global {
     readonly alpha?: number
     readonly blendMode?: BlendMode
     readonly name?: string
+    readonly colorStyleId: string
   }
 
   interface GradientPaint {
@@ -1052,6 +1053,7 @@ declare global {
     readonly alpha?: number
     readonly blendMode?: BlendMode
     readonly name?: string
+    readonly colorStyleId: string
   }
 
   interface ImageFilters {
@@ -1077,6 +1079,7 @@ declare global {
     readonly name?: string
     readonly ratio?: number
     readonly rotation?: number
+    readonly colorStyleId: string
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
