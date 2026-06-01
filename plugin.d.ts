@@ -350,6 +350,8 @@ declare global {
 
     getNodeById<T extends SceneNode>(id: string): T | null
     getNodeByPosition(position: { x: number; y: number }): SceneNode | null
+    getRootNodeById<T extends SceneNode>(id: string): T | null
+    getRootParentLayerId(id: string): string | null
     createRectangle(): RectangleNode
     createLine(): LineNode
     createEllipse(): EllipseNode
