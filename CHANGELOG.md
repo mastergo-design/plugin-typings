@@ -1,3 +1,13 @@
+## [2.18.1](https://github.com/mastergo-design/plugin-typings/compare/v2.18.0...v2.18.1) (2026-06-05)
+
+
+### Features
+
+* add two new utility API methods ([40909a1](https://github.com/mastergo-design/plugin-typings/commit/40909a17095eac821429e8fb061df736c23970ae))
+* **typings:** add resize method to global plugin types ([bedb2bb](https://github.com/mastergo-design/plugin-typings/commit/bedb2bb05ba61013f38c937d57f23a7ad727fddb))
+
+
+
 # [2.18.0](https://github.com/mastergo-design/plugin-typings/compare/v2.17.0...v2.18.0) (2026-05-28)
 
 
