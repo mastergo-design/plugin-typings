@@ -350,6 +350,8 @@ declare global {
 
     getNodeById<T extends SceneNode>(id: string): T | null
     getNodeByPosition(position: { x: number; y: number }): SceneNode | null
+    getRootNodeById<T extends SceneNode>(id: string): T | null
+    getRootParentLayerId(id: string): string | null
     createRectangle(): RectangleNode
     createLine(): LineNode
     createEllipse(): EllipseNode
@@ -1267,6 +1269,7 @@ declare global {
     alignSelf: 'STRETCH' | 'INHERIT' // applicable only inside auto-layout frames
     flexGrow: 0 | 1 // applicable only inside auto-layout frames
     rescale(scale: number, scaleOption?: ScaleOption): void
+    resize(width: number, height: number): void
     scaleFactor: number // The default value is 1
     flip(direction: 'VERTICAL' | 'HORIZONTAL'): void
   }
