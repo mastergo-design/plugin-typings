@@ -1,3 +1,12 @@
+## [2.18.2-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.18.1...v2.18.2-beta.0) (2026-06-11)
+
+
+### Features
+
+* **types:** add WebSocket API type definitions ([9f7ee75](https://github.com/mastergo-design/plugin-typings/commit/9f7ee7543ef4959620cb2f36f39f6ab0df59b8fe))
+
+
+
 ## [2.18.1](https://github.com/mastergo-design/plugin-typings/compare/v2.18.0...v2.18.1) (2026-06-05)
 
 
