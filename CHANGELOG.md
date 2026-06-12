@@ -1,3 +1,14 @@
+## [2.18.4-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.18.1...v2.18.4-beta.0) (2026-06-12)
+
+
+### Features
+
+* add getComponentListVal method and ComponentItemVal type ([a3f3bf4](https://github.com/mastergo-design/plugin-typings/commit/a3f3bf4351fbdd9c50f198753c27ea161996e1b6))
+* **types:** add WebSocket API type definitions ([9f7ee75](https://github.com/mastergo-design/plugin-typings/commit/9f7ee7543ef4959620cb2f36f39f6ab0df59b8fe))
+* 修改版本号 ([d10347e](https://github.com/mastergo-design/plugin-typings/commit/d10347e4acaf7645ddf588d915f293440278fac6))
+
+
+
 ## [2.18.1](https://github.com/mastergo-design/plugin-typings/compare/v2.18.0...v2.18.1) (2026-06-05)
 
 
