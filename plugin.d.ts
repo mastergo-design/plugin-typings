@@ -498,6 +498,7 @@ declare global {
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>
     importStyleByKeyAsync(ukey: string): Promise<Style>
+    getComponentListVal(): ComponentItemVal[]
     /**
      * @deprecated
      *
@@ -1796,7 +1797,6 @@ declare global {
       }
     ): string
     deleteComponentProperty(propertyId: string): void
-    getComponentListVal(): ComponentItemVal[]
   }
 
   type ComponentPropertyValues = Array<ComponentPropertyValue>
