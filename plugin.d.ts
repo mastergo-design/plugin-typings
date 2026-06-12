@@ -1796,6 +1796,7 @@ declare global {
       }
     ): string
     deleteComponentProperty(propertyId: string): void
+    getComponentListVal(): ComponentItemVal[]
   }
 
   type ComponentPropertyValues = Array<ComponentPropertyValue>
@@ -1818,6 +1819,24 @@ declare global {
   }
   type ComponentPropertyOptions = {
     preferredValues?: InstanceSwapPreferredValue[]
+  }
+  type ComponentItemVal = {
+    id: string
+    name: string
+    componentSignature: string
+    cover: string
+    description: string
+    documentationLinks: Array<{ url: string }>
+    height: number
+    width: number
+    isExternal: boolean
+    isHidden: boolean
+    pageId: string
+    pageName: string
+    ukey: string
+    version: number
+    componentNameAlias: string
+    parentId?: string
   }
   type ComponentProperties = {
     name: string
