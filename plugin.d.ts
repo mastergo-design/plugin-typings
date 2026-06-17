@@ -315,6 +315,8 @@ declare global {
 
     readonly clientStorage: ClientStorageAPI
 
+    readonly WebSocket: WebSocketAPI
+
     readonly currentUser: User | null
 
     readonly viewport: ViewportAPI
@@ -496,6 +498,7 @@ declare global {
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>
     importStyleByKeyAsync(ukey: string): Promise<Style>
+    getComponentListVal(): ComponentItemVal[]
     /**
      * @deprecated
      *
@@ -566,6 +569,29 @@ declare global {
     setAsync(key: string, value: any): Promise<void>
     deleteAsync(key: string): Promise<void>
     keysAsync(): Promise<string[]>
+  }
+
+  interface WebSocketHandle {
+    readonly readyState: number
+    readonly url: string
+    readonly protocol: string
+
+    onopen: ((self: WebSocketHandle, event: { type: string }) => void) | undefined
+    onmessage: ((self: WebSocketHandle, data: any) => void) | undefined
+    onclose: ((self: WebSocketHandle, event: { code: number; reason: string; wasClean: boolean }) => void) | undefined
+    onerror: ((self: WebSocketHandle, event: { type: string }) => void) | undefined
+
+    send(data: any): void
+    close(code?: number, reason?: string): void
+  }
+
+  interface WebSocketAPI {
+    CONNECTING: 0
+    OPEN: 1
+    CLOSING: 2
+    CLOSED: 3
+
+    connect(url: string, protocols?: string | string[]): WebSocketHandle
   }
 
   type ShowUIOptions = {
@@ -1793,6 +1819,24 @@ declare global {
   }
   type ComponentPropertyOptions = {
     preferredValues?: InstanceSwapPreferredValue[]
+  }
+  type ComponentItemVal = {
+    id: string
+    name: string
+    componentSignature: string
+    cover: string
+    description: string
+    documentationLinks: Array<{ url: string }>
+    height: number
+    width: number
+    isExternal: boolean
+    isHidden: boolean
+    pageId: string
+    pageName: string
+    ukey: string
+    version: number
+    componentNameAlias: string
+    parentId?: string
   }
   type ComponentProperties = {
     name: string
