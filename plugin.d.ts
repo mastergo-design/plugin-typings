@@ -1063,7 +1063,7 @@ declare global {
     readonly alpha?: number
     readonly blendMode?: BlendMode
     readonly name?: string
-    readonly colorStyleId: string
+    readonly colorStyleId?: string
   }
 
   interface GradientPaint {
@@ -1082,7 +1082,7 @@ declare global {
     readonly alpha?: number
     readonly blendMode?: BlendMode
     readonly name?: string
-    readonly colorStyleId: string
+    readonly colorStyleId?: string
   }
 
   interface ImageFilters {
@@ -1108,7 +1108,7 @@ declare global {
     readonly name?: string
     readonly ratio?: number
     readonly rotation?: number
-    readonly colorStyleId: string
+    readonly colorStyleId?: string
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
