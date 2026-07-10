@@ -697,6 +697,12 @@ declare global {
     readonly visible: boolean
   }
 
+  interface CloseConfirmOptions {
+    /** 是否开启关闭确认（离开挽留） */
+    enabled: boolean
+    /** 可选：自定义确认框文案，不传使用默认文案 */
+    message?: string
+  }
   interface UIAPI {
     show(): void
     hide(): void
@@ -706,6 +712,13 @@ declare global {
     viewport: UIViewport
     postMessage(pluginMessage: any, origin?: string): void
     onmessage: ((pluginMessage: any, origin: string) => void) | undefined
+    /**
+     * 设置关闭插件前的「离开挽留」确认。
+     * enabled 为 true 时，用户点击关闭按钮或调用 mg.closePlugin()，
+     * 宿主会弹出确认框，确认后才真正关闭。
+     * 插件出现未保存内容时开启，保存完成或无需挽留时关闭。
+     */
+    setCloseConfirm(options: CloseConfirmOptions): void
   }
   type PublishStatus = 'UNPUBLISHED' | 'CURRENT' | 'CHANGED'
   interface DocumentationLink {
