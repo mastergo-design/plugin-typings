@@ -2122,6 +2122,10 @@ declare global {
     readonly ukey: string
     readonly description: string
     readonly type: StyleType
+    /** 变量所属集合的 id，仅在变量类型（color/number/string/bool）上存在 */
+    readonly collectionId?: string
+    /** 变量所属集合的名称 */
+    readonly collectionName?: string
   }
 
   type TeamLibrary = ReadonlyArray<{
