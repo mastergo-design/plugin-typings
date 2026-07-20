@@ -1,3 +1,14 @@
+# [2.19.0-beta.0](https://github.com/mastergo-design/plugin-typings/compare/v2.18.5...v2.19.0-beta.0) (2026-07-20)
+
+
+### Features
+
+* add UIAPI.setCloseConfirm for plugin close confirm ([2e800c4](https://github.com/mastergo-design/plugin-typings/commit/2e800c4dee7c83825c0b9cb3ca379528b526c4aa))
+* **plugin.d.ts:** add collectionId and collectionName to style type ([44a455b](https://github.com/mastergo-design/plugin-typings/commit/44a455b4488dd2a1b8360b4d516055d9fb650cd8))
+* **typings:** add layer variable mode related APIs and types ([7196425](https://github.com/mastergo-design/plugin-typings/commit/7196425ed85846bd791809b7213503913e52cee1))
+
+
+
 ## [2.18.4](https://github.com/mastergo-design/plugin-typings/compare/v2.18.1...v2.18.4) (2026-06-17)
 
 
