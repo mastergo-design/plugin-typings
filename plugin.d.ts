@@ -101,6 +101,11 @@ declare global {
       modeId: string,
       pageId?: string
     ): void
+    /**
+     * 获取指定图层上使用的变量集合及其生效模式
+     * @param layerId 图层 id
+     */
+    getLayerVariableModes(layerId: string): LayerVariableMode[]
 
     // --- Group ---
     getGroupList(collectionId?: string): VariableGroupNode[]
@@ -241,6 +246,15 @@ declare global {
       textProperty?: string
       index?: number
     }): Promise<Variable | null>
+    /**
+     * 将已有变量绑定到图层属性。
+     *
+     * `id` 支持两种取值：
+     * - 本地变量 id（如 `getVariables()` 返回的 `Variable.id`）
+     * - 团队库变量 ukey（`getTeamLibraryAsync()` 返回的 `style.colors/numbers/strings/bools` 等条目的 `ukey`）。
+     *   传入 ukey 时会自动将该团队库变量导入当前文件后再绑定；
+     *   需要当前文件已订阅对应团队库，下载失败时 Promise reject。
+     */
     setVariableReferenceInLayer(options: {
       id: string
       layerId: string
@@ -832,6 +846,22 @@ declare global {
     readonly collectionId: string
   }
 
+  interface LayerVariableMode {
+    /** 集合 id */
+    readonly collectionId: string
+    /** 当前实际生效（渲染）的模式 id，为 null 时表示多值 */
+    readonly modeId: string | null
+    /**
+     * 模式名称，从集合的模式列表中按 modeId 解析（团队库集合同样支持）。
+     * modeId 为 null（多值）或模式已被删除等无法解析时缺失。
+     */
+    readonly modeName?: string
+    /** 是否为图层显式指定的模式，false 表示跟随父级（自动） */
+    readonly isExplicit: boolean
+    /** 跟随父级时，父级的模式 id */
+    readonly parentModeId: string | null
+  }
+
   interface VariableGroupNode {
     readonly id: string
     readonly name: string
@@ -1076,7 +1106,7 @@ declare global {
     readonly alpha?: number
     readonly blendMode?: BlendMode
     readonly name?: string
-    readonly colorStyleId: string
+    readonly colorStyleId?: string
   }
 
   interface GradientPaint {
@@ -1095,7 +1125,7 @@ declare global {
     readonly alpha?: number
     readonly blendMode?: BlendMode
     readonly name?: string
-    readonly colorStyleId: string
+    readonly colorStyleId?: string
   }
 
   interface ImageFilters {
@@ -1121,7 +1151,7 @@ declare global {
     readonly name?: string
     readonly ratio?: number
     readonly rotation?: number
-    readonly colorStyleId: string
+    readonly colorStyleId?: string
   }
 
   type Paint = SolidPaint | GradientPaint | ImagePaint
@@ -2135,6 +2165,10 @@ declare global {
     readonly ukey: string
     readonly description: string
     readonly type: StyleType
+    /** 变量所属集合的 id，仅在变量类型（color/number/string/bool）上存在 */
+    readonly collectionId?: string
+    /** 变量所属集合的名称 */
+    readonly collectionName?: string
   }
 
   type TeamLibrary = ReadonlyArray<{
