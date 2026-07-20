@@ -95,7 +95,7 @@ declare global {
     ): Promise<CollectionMode | null>
     renameMode(collectionId: string, modeId: string, name: string): void
     deleteMode(collectionId: string, modeId: string): void
-    setVariableMode(collectionId: string, modeId: string): void
+    setVariableMode(collectionId: string, modeId: string, layerIds?: string[]): void
     setPageVariableMode(
       collectionId: string,
       modeId: string,
