@@ -1840,6 +1840,8 @@ declare global {
     preferredValues?: InstanceSwapPreferredValue[]
     alias?: string
     variantOptionsAlias?: string[]
+    /** 当组件属性绑定到变量时，对应的变量 id（仅 TEXT/BOOLEAN 类型可能存在） */
+    variableId?: string
   }
 
   type ComponentPropertyType = 'BOOLEAN' | 'TEXT' | 'INSTANCE_SWAP' | 'VARIANT'
@@ -2144,6 +2146,10 @@ declare global {
     readonly height: number
     /** 如果 Component 属于某一个 ComponentSet，则 componentSetUkey 为 ComponentSet 的 ukey, 否则为空字符串 */
     readonly componentSetUkey: string
+    /** 组件属性 / 变体属性，对齐 ComponentPropertyValue 结构；老库（该字段上线前发布的）可能缺省 */
+    readonly properties?: ComponentPropertyValue[]
+    /** 组件所有后代 TEXT 图层的名称（去重）；老库可能缺省 */
+    readonly textNodeNames?: string[]
   }
 
   interface TeamLibraryStyle {
@@ -2156,6 +2162,35 @@ declare global {
     readonly collectionId?: string
     /** 变量所属集合的名称 */
     readonly collectionName?: string
+    /**
+     * 各模式下的样式值列表，元素结构为 { modeId, modeName, value }。
+     *
+     * value 形态随 style 类型变化：
+     * - paints / colors: Paint[]（colors 由变量化颜色的 floatData[r,g,b,a] 转换得到）
+     * - effects: Effect[]
+     * - texts: 文本样式对象数组
+     * - grids: LayoutGrid[]
+     * - strokeWidths / numbers / spacings / paddings / cornerRadiuses: number[]
+     * - strings: string
+     * - bools: boolean
+     *
+     * 变量引用项（reference 且样式为变量化）或解析异常时，该 mode 项仍保留，但 value 为 undefined。
+     * 老库（该字段上线前发布的）可能缺省此字段。
+     */
+    readonly values?: ReadonlyArray<TeamLibraryStyleValue>
+  }
+
+  /**
+   * TeamLibraryStyle.values 数组中的单个元素。
+   */
+  interface TeamLibraryStyleValue {
+    readonly modeId: string
+    readonly modeName: string
+    /**
+     * 该模式下的样式值，形态随 style 类型变化，详见 TeamLibraryStyle.values 注释。
+     * 变量引用或解析异常时为 undefined。
+     */
+    readonly value: any
   }
 
   type TeamLibrary = ReadonlyArray<{
