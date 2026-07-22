@@ -2178,6 +2178,8 @@ declare global {
      * 老库（该字段上线前发布的）可能缺省此字段。
      */
     readonly values?: ReadonlyArray<TeamLibraryStyleValue>
+    /** 代码语法（web/android/ios），来自发布时 cover.codeSyntax；老库（该字段上线前发布的）可能缺省 */
+    readonly codeSyntax?: VariableCodeSyntax
   }
 
   /**
