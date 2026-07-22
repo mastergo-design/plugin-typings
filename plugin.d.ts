@@ -1066,7 +1066,22 @@ declare global {
     readonly blendMode: BlendMode
   }
 
-  type Effect = ShadowEffect | BlurEffect | LiquidGlassEffect | MotionBlurEffect
+  /**
+   * 引用型特效：该 effect 引用了另一个特效样式（style 引用 style）。
+   * 当团队库样式的某个 mode 引用了另一个特效样式时返回此类型，
+   * 不携带具体特效值，仅保留引用信息。
+   */
+  interface ReferenceEffect {
+    readonly type: 'REFERENCE'
+    /** 被引用的样式 id */
+    readonly reference: string
+    /** 解析后的源样式 id（可能与 reference 相同） */
+    readonly referenceSource?: string
+    /** 所属模式 id */
+    readonly modeId?: string
+  }
+
+  type Effect = ShadowEffect | BlurEffect | LiquidGlassEffect | MotionBlurEffect | ReferenceEffect
 
   // 待确认
   type ConstraintType = 'START' | 'END' | 'STARTANDEND' | 'CENTER' | 'SCALE'
@@ -1141,7 +1156,22 @@ declare global {
     readonly colorStyleId?: string
   }
 
-  type Paint = SolidPaint | GradientPaint | ImagePaint
+  /**
+   * 引用型填充：该 paint 引用了另一个填充样式（style 引用 style）。
+   * 当团队库样式的某个 mode 引用了另一个填充样式时返回此类型，
+   * 不携带具体填充值，仅保留引用信息。
+   */
+  interface ReferencePaint {
+    readonly type: 'REFERENCE'
+    /** 被引用的样式 id */
+    readonly reference: string
+    /** 解析后的源样式 id（可能与 reference 相同） */
+    readonly referenceSource?: string
+    /** 所属模式 id */
+    readonly modeId?: string
+  }
+
+  type Paint = SolidPaint | GradientPaint | ImagePaint | ReferencePaint
 
   type CSSWidthSetter =
     | number
