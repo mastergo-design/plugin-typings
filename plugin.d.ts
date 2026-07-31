@@ -1897,6 +1897,10 @@ declare global {
      * 已剥离内部默认值标记（如 `$default`），可能为空字符串。
      */
     valueAlias?: string
+    /**
+     * 当前变体取值是否为该属性的默认值，仅当 type 为 VARIANT 时存在。
+     */
+    isDefaultValue?: boolean
   }
 
   interface ComponentNode
