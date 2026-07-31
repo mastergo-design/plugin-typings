@@ -1852,6 +1852,10 @@ declare global {
     variantOptions?: string[]
     preferredValues?: InstanceSwapPreferredValue[]
     alias?: string
+    /**
+     * 变体属性的可选值别名数组，仅当 type 为 VARIANT 时存在。
+     * 已剥离内部默认值标记（如 `$default`），元素可能为空字符串。
+     */
     variantOptionsAlias?: string[]
   }
 
@@ -1888,6 +1892,10 @@ declare global {
     value: boolean | string
     preferredValues?: InstanceSwapPreferredValue[]
     alias?: string
+    /**
+     * 当前变体属性取值的别名，仅当 type 为 VARIANT 时存在。
+     * 已剥离内部默认值标记（如 `$default`），可能为空字符串。
+     */
     valueAlias?: string
   }
 
