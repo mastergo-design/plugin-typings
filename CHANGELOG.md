@@ -1,3 +1,14 @@
+## [2.19.1](https://github.com/mastergo-design/plugin-typings/compare/v2.19.0...v2.19.1) (2026-08-10)
+
+
+### Features
+
+* **typings:** Effect/Paint 新增 ReferenceEffect/ReferencePaint 引用型变体 ([9eb5822](https://github.com/mastergo-design/plugin-typings/commit/9eb58229ef8f14d0b6c31d1fba315a1237109aef))
+* **typings:** TeamLibrary 暴露组件 properties/textNodeNames 与样式 values ([835c76a](https://github.com/mastergo-design/plugin-typings/commit/835c76a84c0222313fa0e9b813aa055977393e66))
+* **typings:** TeamLibraryStyle 新增 codeSyntax 字段 ([755c0bd](https://github.com/mastergo-design/plugin-typings/commit/755c0bde6317252a159c17d497777d8cddcfde10))
+
+
+
 # [2.19.0](https://github.com/mastergo-design/plugin-typings/compare/v2.18.5...v2.19.0) (2026-07-20)
 
 
