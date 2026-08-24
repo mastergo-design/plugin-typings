@@ -1587,6 +1587,11 @@ declare global {
 
     readonly children: ReadonlyArray<PageNode>
 
+    /**
+     * 获取当前文件发布的团队库信息。当前文件未发布团队库时返回 null。
+     */
+    getTeamLibraryInfoAsync(): Promise<TeamLibraryInfo | null>
+
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
     findAllWithCriteria<T extends NodeType[]>(criteria: {
@@ -2269,6 +2274,24 @@ declare global {
       colors: ReadonlyArray<TeamLibraryStyle>
     }
   }>
+
+  interface TeamLibraryInfo {
+    /** 团队库 ID */
+    readonly id: string
+    /** 团队库版本 */
+    readonly version?: number
+    /** 所属企业 ID */
+    readonly organizationId?: string | number
+    /** 所属团队 ID */
+    readonly teamId?: string | number
+    /** 团队库类型 */
+    readonly teamLibType?: number
+    /** 研发模式相关配置 */
+    readonly dsmSettings?: {
+      readonly frameworkType?: string
+      readonly componentTemplate?: string
+    }
+  }
 
   type BaseNode = DocumentNode | PageNode | SceneNode
 
