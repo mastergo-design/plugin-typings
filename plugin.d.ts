@@ -891,6 +891,10 @@ declare global {
   interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks'> {
     readonly id: string
     readonly type: StyleType
+    /** 样式所属集合的 id */
+    readonly collectionId: string
+    /** 样式所属集合的名称 */
+    readonly collectionName: string
     name: string
     remove(): void
   }
