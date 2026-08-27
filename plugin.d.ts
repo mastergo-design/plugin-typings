@@ -2206,6 +2206,8 @@ declare global {
     readonly height: number
     /** 如果 Component 属于某一个 ComponentSet，则 componentSetUkey 为 ComponentSet 的 ukey, 否则为空字符串 */
     readonly componentSetUkey: string
+    /** 组件所在容器的名称；未设置时可能缺省 */
+    readonly frameName?: string
     /** 组件属性 / 变体属性，对齐 ComponentPropertyValue 结构；老库（该字段上线前发布的）可能缺省 */
     readonly properties?: ComponentPropertyValue[]
     /** 组件所有后代 TEXT 图层的名称（去重）；老库可能缺省 */
