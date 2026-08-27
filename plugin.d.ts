@@ -509,6 +509,7 @@ declare global {
     exportSvgByLayerIds(layerIds: string[]): string
 
     getTeamLibraryAsync(): Promise<TeamLibrary>
+    getPublishedTeamLibraryAsync(): Promise<PublishedTeamLibrary | null>
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>
     importStyleByKeyAsync(ukey: string): Promise<Style>
@@ -1591,11 +1592,6 @@ declare global {
 
     readonly children: ReadonlyArray<PageNode>
 
-    /**
-     * 获取当前文件发布的团队库信息。当前文件未发布团队库时返回 null。
-     */
-    getTeamLibraryInfoAsync(): Promise<TeamLibraryInfo | null>
-
     findAll(callback?: (node: SceneNode) => boolean): ReadonlyArray<SceneNode>
     findOne(callback: (node: SceneNode) => boolean): SceneNode | null
     findAllWithCriteria<T extends NodeType[]>(criteria: {
@@ -2259,7 +2255,7 @@ declare global {
     readonly value: any
   }
 
-  type TeamLibrary = ReadonlyArray<{
+  interface TeamLibraryItem {
     readonly name: string
     readonly id: string
     readonly componentList: TeamLibraryComponent[]
@@ -2277,9 +2273,21 @@ declare global {
       bools: ReadonlyArray<TeamLibraryStyle>
       colors: ReadonlyArray<TeamLibraryStyle>
     }
-  }>
+  }
 
-  interface TeamLibraryInfo {
+  type TeamLibrary = ReadonlyArray<TeamLibraryItem>
+
+  interface PublishedTeamLibraryCollection {
+    readonly id: string
+    readonly name: string
+    readonly key?: string
+    readonly modes: ReadonlyArray<{
+      readonly id: string
+      readonly name: string
+    }>
+  }
+
+  interface PublishedTeamLibrary extends TeamLibraryItem {
     /** 团队库 ID */
     readonly id: string
     /** 团队库版本 */
@@ -2289,12 +2297,13 @@ declare global {
     /** 所属团队 ID */
     readonly teamId?: string | number
     /** 团队库类型 */
-    readonly teamLibType?: number
+    readonly teamLibType?: string | number
     /** 研发模式相关配置 */
     readonly dsmSettings?: {
       readonly frameworkType?: string
       readonly componentTemplate?: string
     }
+    readonly collections: ReadonlyArray<PublishedTeamLibraryCollection>
   }
 
   type BaseNode = DocumentNode | PageNode | SceneNode
