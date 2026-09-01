@@ -368,6 +368,7 @@ declare global {
     getNodeByPosition(position: { x: number; y: number }): SceneNode | null
     getRootNodeById<T extends SceneNode>(id: string): T | null
     getRootParentLayerId(id: string): string | null
+    getTopContainerInfoListByPageID(pageID: string): TopContainerInfo[] | null
     createRectangle(): RectangleNode
     createLine(): LineNode
     createEllipse(): EllipseNode
@@ -998,6 +999,14 @@ declare global {
   // Datatypes
 
   type Transform = [[number, number, number], [number, number, number]]
+
+  interface TopContainerInfo {
+    readonly id: string
+    readonly name: string
+    readonly transform: [number, number, number, number, number, number]
+    readonly width: number
+    readonly height: number
+  }
 
   interface Vector {
     readonly x: number
