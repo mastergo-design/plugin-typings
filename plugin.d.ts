@@ -648,6 +648,29 @@ declare global {
     | ExportSettingsSVG
     | ExportSettingsPDF
 
+  interface PageExportItem {
+    /** 导出项 ID */
+    readonly id: string
+    /** 导出项对应的节点 ID；页面导出项对应页面 ID */
+    readonly layerId: string
+    /** 导出项对应的图层名称 */
+    readonly layerName?: string
+    /** 导出的文件名或前后缀 */
+    readonly fileName: string
+    /** 导出文件格式；SOURCE 表示源文件项 */
+    readonly format: ExportSettings['format'] | 'SOURCE'
+    /** 是否为图层导出项；false 表示页面导出项 */
+    readonly isLayer: boolean
+    /** 是否将 fileName 作为后缀 */
+    readonly isSuffix: boolean
+    /** 导出尺寸约束 */
+    readonly constraint?: ExportSettingsConstraints
+    readonly width?: number
+    readonly height?: number
+    readonly quality?: number
+    readonly isBKVisible?: boolean
+  }
+
   interface ExportMixin {
     exportSettings: ReadonlyArray<ExportSettings>
     export(settings?: ExportSettings): Uint8Array | string // Defaults to PNG format
@@ -1613,6 +1636,10 @@ declare global {
      * 背景颜色
      */
     bgColor: RGBA
+    /**
+     * 获取当前页面的所有导出项
+     */
+    getExportList(): ReadonlyArray<PageExportItem>
     /**
      * 原型所有的flow
      */
