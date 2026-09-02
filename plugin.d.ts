@@ -180,7 +180,7 @@ declare global {
       id: string
       value: VariableValue
       modeId: string
-    }): Variable | null
+    }): Promise<Variable | null>
     addVariableValue(options: {
       id: string
       value?: any
