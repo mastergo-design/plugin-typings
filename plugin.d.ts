@@ -836,9 +836,26 @@ declare global {
     readonly modes: Record<string, ReadonlyArray<any>>
   }
 
+  interface TextVariableFeatures {
+    /** 字形连笔 */
+    liga?: number
+    /** 字偶距 */
+    kern?: number
+    /** 全宽 */
+    fwid?: number
+    /** 半宽 */
+    hwid?: number
+    /** 其他 OpenType 字体特性 */
+    [feature: string]: number | undefined
+  }
+
   interface TextVariableValue {
     /** 文字装饰 */
     decoration?: TextDecoration
+    /** 字母大小写 */
+    textCase?: TextCase
+    /** OpenType 字体特性 */
+    features?: TextVariableFeatures
     /** 字号 */
     fontSize?: number
     /** 行高，支持像素值或百分比 */
