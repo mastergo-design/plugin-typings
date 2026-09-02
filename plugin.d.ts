@@ -173,9 +173,12 @@ declare global {
       modeId?: string
     }): Promise<void>
     renameVariable(variableId: string, name: string): void
+    /**
+     * TEXT 变量支持通过 TextVariableValue 更新文字样式属性。
+     */
     setVariableValue(options: {
       id: string
-      value: any
+      value: VariableValue
       modeId: string
     }): Variable | null
     addVariableValue(options: {
@@ -832,6 +835,31 @@ declare global {
     readonly scopes?: ReadonlyArray<ScopeName>
     readonly modes: Record<string, ReadonlyArray<any>>
   }
+
+  interface TextVariableValue {
+    /** 文字装饰 */
+    decoration?: TextDecoration
+    /** 字号 */
+    fontSize?: number
+    /** 行高，支持像素值或百分比 */
+    height?: number | string
+    /** 字间距，支持像素值或百分比 */
+    letterSpacing?: number | string
+    /** 字重 */
+    fontWeight?: number | string
+    /** 字体族 */
+    fontFamily?: string
+  }
+
+  type VariableValue =
+    | boolean
+    | number
+    | string
+    | RGBA
+    | ReadonlyArray<number>
+    | TextVariableValue
+    | Record<string, unknown>
+    | null
 
   interface Collection {
     readonly id: string
