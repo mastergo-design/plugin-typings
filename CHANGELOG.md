@@ -1,3 +1,23 @@
+## [2.19.2](https://github.com/mastergo-design/plugin-typings/compare/v2.19.1...v2.19.2) (2026-09-07)
+
+
+### Bug Fixes
+
+* **plugin:** expose published component frame name ([cb1c8e5](https://github.com/mastergo-design/plugin-typings/commit/cb1c8e5666be194d0fea3064132f3b6ba50f44e6))
+* **typings:** mark setVariableValue as asynchronous ([bdf8b4d](https://github.com/mastergo-design/plugin-typings/commit/bdf8b4d1b536a74a157b4e147dc7bb42fba2905f))
+* **typings:** support text decoration in text variables ([6b1c420](https://github.com/mastergo-design/plugin-typings/commit/6b1c420580c005d9496d470e65a3366751e0eeb1))
+
+
+### Features
+
+* add page root container info API type ([6bd8f57](https://github.com/mastergo-design/plugin-typings/commit/6bd8f57de6054eb6a079c403a4d8a81e2ae26a54))
+* **plugin-api:** add current page export typings ([be9b883](https://github.com/mastergo-design/plugin-typings/commit/be9b883f1b6baf23eaa511ccab6c8828ebda9373))
+* **plugin:** add published team library typings ([00e8795](https://github.com/mastergo-design/plugin-typings/commit/00e87957b3a08f1917406193cb00b6b2b4fb2b7e))
+* **plugin:** expose style collection metadata ([3cfc636](https://github.com/mastergo-design/plugin-typings/commit/3cfc636f5636467c54a9516befd85af2ad13341e))
+* **typings:** support text case and OpenType features in text variables ([10da55b](https://github.com/mastergo-design/plugin-typings/commit/10da55b579bf63a570860f7d59b9e850433aee13))
+
+
+
 ## [2.19.1](https://github.com/mastergo-design/plugin-typings/compare/v2.19.0...v2.19.1) (2026-08-10)
 
 
