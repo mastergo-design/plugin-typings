@@ -368,6 +368,7 @@ declare global {
     getNodeByPosition(position: { x: number; y: number }): SceneNode | null
     getRootNodeById<T extends SceneNode>(id: string): T | null
     getRootParentLayerId(id: string): string | null
+    getTopContainerInfoListByPageID(pageID: string): TopContainerInfo[] | null
     createRectangle(): RectangleNode
     createLine(): LineNode
     createEllipse(): EllipseNode
@@ -509,6 +510,7 @@ declare global {
     exportSvgByLayerIds(layerIds: string[]): string
 
     getTeamLibraryAsync(): Promise<TeamLibrary>
+    getPublishedTeamLibraryAsync(): Promise<PublishedTeamLibrary | null>
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>
     importStyleByKeyAsync(ukey: string): Promise<Style>
@@ -891,6 +893,10 @@ declare global {
   interface BaseStyle extends Omit<PublishableMixin, 'documentationLinks'> {
     readonly id: string
     readonly type: StyleType
+    /** 样式所属集合的 id */
+    readonly collectionId: string
+    /** 样式所属集合的名称 */
+    readonly collectionName: string
     name: string
     remove(): void
   }
@@ -993,6 +999,14 @@ declare global {
   // Datatypes
 
   type Transform = [[number, number, number], [number, number, number]]
+
+  interface TopContainerInfo {
+    readonly id: string
+    readonly name: string
+    readonly transform: [number, number, number, number, number, number]
+    readonly width: number
+    readonly height: number
+  }
 
   interface Vector {
     readonly x: number
@@ -2201,6 +2215,8 @@ declare global {
     readonly height: number
     /** 如果 Component 属于某一个 ComponentSet，则 componentSetUkey 为 ComponentSet 的 ukey, 否则为空字符串 */
     readonly componentSetUkey: string
+    /** 组件所在容器的名称；未设置时可能缺省 */
+    readonly frameName?: string
     /** 组件属性 / 变体属性，对齐 ComponentPropertyValue 结构；老库（该字段上线前发布的）可能缺省 */
     readonly properties?: ComponentPropertyValue[]
     /** 组件所有后代 TEXT 图层的名称（去重）；老库可能缺省 */
@@ -2250,7 +2266,7 @@ declare global {
     readonly value: any
   }
 
-  type TeamLibrary = ReadonlyArray<{
+  interface TeamLibraryItem {
     readonly name: string
     readonly id: string
     readonly componentList: TeamLibraryComponent[]
@@ -2268,7 +2284,38 @@ declare global {
       bools: ReadonlyArray<TeamLibraryStyle>
       colors: ReadonlyArray<TeamLibraryStyle>
     }
-  }>
+  }
+
+  type TeamLibrary = ReadonlyArray<TeamLibraryItem>
+
+  interface PublishedTeamLibraryCollection {
+    readonly id: string
+    readonly name: string
+    readonly key?: string
+    readonly modes: ReadonlyArray<{
+      readonly id: string
+      readonly name: string
+    }>
+  }
+
+  interface PublishedTeamLibrary extends TeamLibraryItem {
+    /** 团队库 ID */
+    readonly id: string
+    /** 团队库版本 */
+    readonly version?: number
+    /** 所属企业 ID */
+    readonly organizationId?: string | number
+    /** 所属团队 ID */
+    readonly teamId?: string | number
+    /** 团队库类型 */
+    readonly teamLibType?: string | number
+    /** 研发模式相关配置 */
+    readonly dsmSettings?: {
+      readonly frameworkType?: string
+      readonly componentTemplate?: string
+    }
+    readonly collections: ReadonlyArray<PublishedTeamLibraryCollection>
+  }
 
   type BaseNode = DocumentNode | PageNode | SceneNode
 
