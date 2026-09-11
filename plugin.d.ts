@@ -1883,6 +1883,17 @@ declare global {
     textAlignVertical: 'TOP' | 'CENTER' | 'BOTTOM'
     textAutoResize: 'NONE' | 'WIDTH_AND_HEIGHT' | 'HEIGHT' | 'TRUNCATE' | 'TRUNCATE_AND_AUTO_WIDTH' | 'TRUNCATE_AND_AUTO_HEIGHT'
     paragraphSpacing: number
+    /**
+     * 文字样式 ID。
+     * 传空字符串可解除引用；传入非法的样式 ID 会抛出异常。
+     */
+    textStyleId: string
+    /**
+     * 文本内容绑定的变量/样式引用 ID，未绑定时为空字符串。
+     * 注意：当前实现仅在图层处于选中状态时能读取到实际值。
+     * 绑定请使用 setVariableReferenceInLayer 的 textProperty: 'textContent'。
+     */
+    readonly textContentStyleId: string
     readonly textStyles: ReadonlyArray<TextSegStyle>
     readonly listStyles: ReadonlyArray<ListStyle>
     clone(): TextNode
