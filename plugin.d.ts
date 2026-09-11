@@ -161,6 +161,10 @@ declare global {
       reference: string | object
       modeId?: string
       index?: string
+      /**
+       * TEXT 变量子属性: 'fontFamily' | 'fontWeight' | 'fontSize' | 'lineHeight' | 'letterSpacing' | 'paragraphSpacing'。
+       * 图层文本内容请改用 setVariableReferenceInLayer 的 textProperty: 'textContent'。
+       */
       textProperty?: string
       strokeProperty?: string
       radiusProperty?: string
@@ -246,6 +250,10 @@ declare global {
       baseProperty?: string
       effectProperty?: string
       gridProperty?: string
+      /**
+       * 文字属性: 'fontFamily' | 'fontWeight' | 'fontSize' | 'lineHeight' | 'letterSpacing' | 'paragraphSpacing' | 'textContent'。
+       * 'textContent' 作用于图层文本内容，需使用 STRING 变量。
+       */
       textProperty?: string
       index?: number
     }): Promise<Variable | null>
@@ -268,6 +276,10 @@ declare global {
       baseProperty?: string
       effectProperty?: string
       gridProperty?: string
+      /**
+       * 文字属性: 'fontFamily' | 'fontWeight' | 'fontSize' | 'lineHeight' | 'letterSpacing' | 'paragraphSpacing' | 'textContent'。
+       * 'textContent' 将 STRING 变量绑定到图层文本内容。
+       */
       textProperty?: string
       index?: number
     }): Promise<void>
@@ -280,6 +292,10 @@ declare global {
       baseProperty?: string
       effectProperty?: string
       gridProperty?: string
+      /**
+       * 文字属性: 'fontFamily' | 'fontWeight' | 'fontSize' | 'lineHeight' | 'letterSpacing' | 'paragraphSpacing' | 'textContent'。
+       * 'textContent' 解除图层文本内容上的 STRING 变量引用。
+       */
       textProperty?: string
       index?: number
     }): Promise<void>
