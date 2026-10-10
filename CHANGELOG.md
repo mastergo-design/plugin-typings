@@ -1,3 +1,12 @@
+## [2.19.4](https://github.com/mastergo-design/plugin-typings/compare/v2.19.3...v2.19.4) (2026-10-10)
+
+
+### Bug Fixes
+
+* **typings:** 修正 textContentStyleId 的选中态说明 ([deb265d](https://github.com/mastergo-design/plugin-typings/commit/deb265d0e81e636d2985c04c9f151cad580a4efe))
+
+
+
 ## [2.19.3](https://github.com/mastergo-design/plugin-typings/compare/v2.19.2...v2.19.3) (2026-10-10)
 
 
