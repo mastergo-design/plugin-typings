@@ -1,6 +1,6 @@
 {
   "name": "@mastergo/plugin-typings",
-  "version": "2.19.3",
+  "version": "2.19.4",
   "description": "MasterGo插件API声明文件",
   "type": "module",
   "main": "",
