@@ -1,3 +1,13 @@
+## [2.19.3](https://github.com/mastergo-design/plugin-typings/compare/v2.19.2...v2.19.3) (2026-10-10)
+
+
+### Features
+
+* **typings:** support textContent in layer text properties ([2bb37a1](https://github.com/mastergo-design/plugin-typings/commit/2bb37a15a72497ee60b07cf62ea58b15ead5f8e9))
+* **typings:** 补充 TextNode 的 textStyleId 与 textContentStyleId ([02687c1](https://github.com/mastergo-design/plugin-typings/commit/02687c139e7c2dc58e87381d8fc1eb30171fff69))
+
+
+
 ## [2.19.2](https://github.com/mastergo-design/plugin-typings/compare/v2.19.1...v2.19.2) (2026-09-07)
 
 
