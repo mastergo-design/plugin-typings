@@ -1906,7 +1906,7 @@ declare global {
     textStyleId: string
     /**
      * 文本内容绑定的变量/样式引用 ID，未绑定时为空字符串。
-     * 注意：当前实现仅在图层处于选中状态时能读取到实际值。
+     * 优先按图层 id 读取引擎真值，不依赖图层的选中状态。
      * 绑定请使用 setVariableReferenceInLayer 的 textProperty: 'textContent'。
      */
     readonly textContentStyleId: string
