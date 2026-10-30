@@ -60,6 +60,11 @@ declare global {
     layoutchange: (layoutInfo: LayoutInfo) => void
     currentpagechange: (pageId: string) => void
     themechange: (theme: ThemeColor) => void
+    /**
+     * 变量模式切换（页面级默认模式，或某个图层的模式覆盖）。
+     * 收到后应重新读取相关变量的最终值（`getVariables({ resolve })` / `getLayerVariableValue`）。
+     */
+    variablemodechange: (event: VariableModeChangeEvent) => void
     drop: (event: DropEvent) => void
     run: (command: { command: string }) => void
     close: () => void
@@ -106,6 +111,22 @@ declare global {
      * @param layerId 图层 id
      */
     getLayerVariableModes(layerId: string): LayerVariableMode[]
+    /**
+     * 获取变量在指定图层上的最终值（图层级「画布真值」）。
+     *
+     * 与 `getVariables({ resolve })` 的区别：
+     * - 模式上下文取自该图层（页面全局模式 → 图层覆盖 / 继承后的生效模式）；
+     * - 跨集合引用优先取「被引用集合在该图层上的生效模式」，取不到才回落「模式 1」；
+     * - 该集合在该图层上是多值（同一集合的不同实例生效了不同模式）时返回 `mixed`。
+     *
+     * 同步读取，不触发团队库下载；未导入的团队库变量返回 `external`。
+     * @param variableId 变量 id
+     * @param layerId 图层 id（不存在时抛错）
+     */
+    getLayerVariableValue(
+      variableId: string,
+      layerId: string
+    ): LayerVariableValue
 
     // --- Group ---
     getGroupList(collectionId?: string): VariableGroupNode[]
@@ -956,6 +977,31 @@ declare global {
   interface VariableWithResolvedValues extends Variable {
     /** key 为模式 id；仅在 `getVariables({ resolve })` 时返回 */
     readonly resolvedValues?: Record<string, ResolvedVariableModeValue>
+  }
+
+  /**
+   * 变量在指定图层上的最终值。
+   * 与 `resolvedValues` 的区别：模式上下文取自该图层，且带回实际生效的模式 id。
+   */
+  interface LayerVariableValue {
+    readonly status: VariableResolveStatus
+    /** 解析成功时的最终值 */
+    readonly value?: ResolvedVariableValue
+    /** 实际生效（渲染）的模式 id；`unresolved` / `external` 时为空串 */
+    readonly resolvedModeId: string
+    /** 引用链上经过的变量 id，便于排查 */
+    readonly resolvedVia?: ReadonlyArray<string>
+    /** `status === 'mixed'` 时，各模式各自的值 */
+    readonly mixed?: ReadonlyArray<{ modeId: string; value: ResolvedVariableValue }>
+  }
+
+  /** 变量模式切换事件负载 */
+  interface VariableModeChangeEvent {
+    readonly collectionId: string
+    /** `page`：页面级（默认）模式切换，无 `layerId`；`layer`：图层级覆盖切换 */
+    readonly scope: 'page' | 'layer'
+    /** 仅 `scope === 'layer'` 时存在 */
+    readonly layerId?: string
   }
 
   interface GetVariablesOptions {
