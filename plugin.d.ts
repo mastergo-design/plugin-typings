@@ -60,6 +60,11 @@ declare global {
     layoutchange: (layoutInfo: LayoutInfo) => void
     currentpagechange: (pageId: string) => void
     themechange: (theme: ThemeColor) => void
+    /**
+     * 变量模式切换（页面级默认模式，或某个图层的模式覆盖）。
+     * 收到后应重新读取相关变量的最终值（`getVariables({ resolve })` / `getLayerVariableValue`）。
+     */
+    variablemodechange: (event: VariableModeChangeEvent) => void
     drop: (event: DropEvent) => void
     run: (command: { command: string }) => void
     close: () => void
@@ -106,6 +111,22 @@ declare global {
      * @param layerId 图层 id
      */
     getLayerVariableModes(layerId: string): LayerVariableMode[]
+    /**
+     * 获取变量在指定图层上的最终值（图层级「画布真值」）。
+     *
+     * 与 `getVariables({ resolve })` 的区别：
+     * - 模式上下文取自该图层（页面全局模式 → 图层覆盖 / 继承后的生效模式）；
+     * - 跨集合引用优先取「被引用集合在该图层上的生效模式」，取不到才回落「模式 1」；
+     * - 该集合在该图层上是多值（同一集合的不同实例生效了不同模式）时返回 `mixed`。
+     *
+     * 同步读取，不触发团队库下载；未导入的团队库变量返回 `external`。
+     * @param variableId 变量 id
+     * @param layerId 图层 id（不存在时抛错）
+     */
+    getLayerVariableValue(
+      variableId: string,
+      layerId: string
+    ): LayerVariableValue
 
     // --- Group ---
     getGroupList(collectionId?: string): VariableGroupNode[]
@@ -150,14 +171,24 @@ declare global {
       collectionId?: string
     }): Promise<Variable | null>
     getVariableById(id: string): Variable | null
-    getVariables(options?: {
-      collectionId?: string
-      groupPath?: string
-      type?: VariableType
-      scopeType?: string
-    }): Variable[]
+    /**
+     * 获取变量列表。
+     *
+     * 传入 `resolve` 后，每个变量额外返回 `resolvedValues`（按模式给出最终解析值，
+     * 引用沿链解开），可直接用于「按指定模式下的实际值筛选变量」。
+     * 不传 `resolve` 时返回结构与旧版本完全一致。
+     */
+    getVariables(options?: GetVariablesOptions): VariableWithResolvedValues[]
     setVariableReference(options: {
       id: string
+      /**
+       * 引用目标。
+       *
+       * 传字符串时是「被引用变量/样式的 id」（老数据也接受变量名 alias）；
+       * 传对象时形如 `{ reference: string }`（可附带类型相关的补充字段），
+       * 表示把该模式的值设为对另一个变量/样式的引用 —— 此时 `modes[modeId]` 里只会留下 `reference`，
+       * 读最终值请用 `getVariables({ resolve })`。
+       */
       reference: string | object
       modeId?: string
       index?: string
@@ -863,6 +894,35 @@ declare global {
     readonly ios?: string
   }
 
+  /**
+   * 变量在某个模式下的原始值（未解析引用）。
+   *
+   * 两种形态：
+   * - 直接赋值：带具体值字段（`floatData` / `stringData` / `bool` / 复合类型字段）；
+   * - 引用赋值：只带 `reference`（本层没有自己的值），需要沿引用链自行递归解析，
+   *   或用 `mg.variable.getVariables({ resolve })` 直接拿到最终解析值。
+   *
+   * 注意：引用赋值时，`modes[modeId]` 里读到的不是最终值。自己解析请遵守与画布一致的规则：
+   * 同集合引用沿用当前模式，跨集合（含团队库变量）取被引用集合的「模式 1」，并自行防环。
+   */
+  interface VariableModeValue {
+    /** 该值所属模式 id */
+    readonly modeId?: string
+    /** 单值变量/颜色/数值类：数值数组，颜色为 `[r, g, b, a]`（0~1） */
+    readonly floatData?: ReadonlyArray<number>
+    /** STRING 变量的值 */
+    readonly stringData?: string
+    /** BOOLEAN 变量的值 */
+    readonly bool?: boolean
+    /**
+     * 引用赋值：被引用变量/样式的 id。
+     * 老数据（早期团队库）这里可能是变量的 `alias`（变量名）而不是 id，需要按 alias 兜底查找。
+     */
+    readonly reference?: string
+    /** 复合类型（PAINT / TEXT / EFFECT / GRID）的其余字段按类型透传 */
+    readonly [field: string]: any
+  }
+
   interface Variable {
     readonly id: string
     readonly name: string
@@ -874,7 +934,93 @@ declare global {
     readonly supportScope: boolean
     readonly codeSyntax?: VariableCodeSyntax
     readonly scopes?: ReadonlyArray<ScopeName>
-    readonly modes: Record<string, ReadonlyArray<any>>
+    /** 各模式下的原始值（引用不解析），key 为模式 id */
+    readonly modes: Record<string, ReadonlyArray<VariableModeValue>>
+  }
+
+  /**
+   * 变量最终解析值的状态：
+   * - `resolved`：解析出唯一最终值；
+   * - `mixed`：同一集合在该上下文上生效了多个模式，画布上的值不唯一（见 `mixed`）；
+   * - `unresolved`：引用成环 / 目标已删除 / 断链，没有可用的最终值；
+   * - `external`：引用了尚未导入到当前文件的团队库变量，值不在本地（不会触发下载）。
+   */
+  type VariableResolveStatus = 'resolved' | 'mixed' | 'unresolved' | 'external'
+
+  /**
+   * 变量最终值（按变量类型归一化）：
+   * - `COLOR` → `RGBA`；
+   * - `NUMBER` / `SPACING` → `number`；
+   * - `STRING` → `string`；
+   * - `BOOLEAN` → `boolean`；
+   * - `CORNER_RADIUS` / `PADDING` / `STROKE_WIDTH` → 4 位 `number[]`（上游不足 4 位时已补齐）；
+   * - `PAINT` / `TEXT` / `EFFECT` / `GRID` → 模式值数组（引用已解开）。
+   */
+  type ResolvedVariableValue =
+    | boolean
+    | number
+    | string
+    | RGBA
+    | ReadonlyArray<number>
+    | ReadonlyArray<Record<string, any>>
+
+  interface ResolvedVariableModeValue {
+    readonly status: VariableResolveStatus
+    /** 解析成功时的最终值；`mixed` / `unresolved` / `external` 时不返回 */
+    readonly value?: ResolvedVariableValue
+    /** 引用链上经过的变量 id（含起点与断点），便于排查 */
+    readonly resolvedVia?: ReadonlyArray<string>
+    /** `status === 'mixed'` 时，各模式各自的值；多值场景不会静默挑一个模式返回 */
+    readonly mixed?: ReadonlyArray<{ modeId: string; value: ResolvedVariableValue }>
+  }
+
+  interface VariableWithResolvedValues extends Variable {
+    /** key 为模式 id；仅在 `getVariables({ resolve })` 时返回 */
+    readonly resolvedValues?: Record<string, ResolvedVariableModeValue>
+  }
+
+  /**
+   * 变量在指定图层上的最终值。
+   * 与 `resolvedValues` 的区别：模式上下文取自该图层，且带回实际生效的模式 id。
+   */
+  interface LayerVariableValue {
+    readonly status: VariableResolveStatus
+    /** 解析成功时的最终值 */
+    readonly value?: ResolvedVariableValue
+    /** 实际生效（渲染）的模式 id；`unresolved` / `external` 时为空串 */
+    readonly resolvedModeId: string
+    /** 引用链上经过的变量 id，便于排查 */
+    readonly resolvedVia?: ReadonlyArray<string>
+    /** `status === 'mixed'` 时，各模式各自的值 */
+    readonly mixed?: ReadonlyArray<{ modeId: string; value: ResolvedVariableValue }>
+  }
+
+  /** 变量模式切换事件负载 */
+  interface VariableModeChangeEvent {
+    readonly collectionId: string
+    /** `page`：页面级（默认）模式切换，无 `layerId`；`layer`：图层级覆盖切换 */
+    readonly scope: 'page' | 'layer'
+    /** 仅 `scope === 'layer'` 时存在 */
+    readonly layerId?: string
+  }
+
+  interface GetVariablesOptions {
+    collectionId?: string
+    groupPath?: string
+    type?: VariableType
+    scopeType?: string
+    /**
+     * 解析变量的最终值（引用沿链解开），结果见返回值的 `resolvedValues`。
+     *
+     * - 不传 `resolve` 时，返回结构与旧版本完全一致，`modes` 中保留未解析的原始引用；
+     * - `resolve.modeId`：只解析该模式；不传则解析变量所属集合的全部模式。
+     *
+     * 语义说明：这是「变量面板语义」（按集合当前模式取值），不是图层级画布真值。
+     * 颜色比较建议带 epsilon（浮点误差），不要直接用 `===` 比较 RGBA。
+     */
+    resolve?: {
+      modeId?: string
+    }
   }
 
   interface TextVariableFeatures {
