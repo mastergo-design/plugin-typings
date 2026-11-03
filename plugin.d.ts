@@ -283,8 +283,10 @@ declare global {
       textProperty?: string
       index?: number
       /**
-       * 渐变色标索引，从 0 开始；仅当 baseProperty 为 'fillColor' 且目标填充项为渐变时有效。
-       * 配合 index 指定填充项，绑定该渐变色标的颜色变量引用。
+       * 渐变色标索引（从 0 开始，按 gradientStops 顺序）。
+       * 传入后颜色变量绑定到「填充项 → 渐变色标」这一层，而非整个填充项。
+       * 必须同时指定 baseProperty: 'fillColor'，且目标填充项为渐变填充；
+       * 参数非法时 Promise reject（不再静默忽略）。
        */
       gradientStopIndex?: number
     }): Promise<void>
@@ -304,8 +306,8 @@ declare global {
       textProperty?: string
       index?: number
       /**
-       * 要解除引用的渐变色标索引，从 0 开始；仅当 baseProperty 为 'fillColor' 且目标填充项为渐变时有效。
-       * 配合 index 指定填充项。省略时保持原有整项属性解绑行为。
+       * 渐变色标索引（从 0 开始）。传入后只解除该色标上的颜色变量引用，
+       * 同一填充项内其它色标的引用保留。必须同时指定 baseProperty: 'fillColor'。
        */
       gradientStopIndex?: number
     }): Promise<void>
