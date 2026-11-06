@@ -67,6 +67,12 @@ declare global {
       sectionLayerId: string,
       callback: (setReady: boolean) => void
     ) => void
+    /**
+     * 变量模式变更（页面级或图层级）。
+     * 页面级：setPageVariableMode 生效；图层级：图层上绑定的模式被切换。
+     * 仅切换选中图层不会触发该事件。
+     */
+    variablemodechange: (event: VariableModeChangeEvent) => void
   }
 
   type PluginEventType = keyof MGEventCallbackMap
@@ -106,6 +112,17 @@ declare global {
      * @param layerId 图层 id
      */
     getLayerVariableModes(layerId: string): LayerVariableMode[]
+    /**
+     * 取某个变量在指定图层上「实际生效」的最终值。
+     *
+     * 与 `getVariables({ resolve })` 的区别：那个按集合的模式逐个解析，
+     * 这个按**图层上下文**解析——图层显式指定的模式优先，否则跟随父级/页面模式。
+     *
+     * @param variableId 变量 id（本地变量）
+     * @param layerId 图层 id
+     * @throws variableId 为空、layerId 为空、或图层不存在时抛错
+     */
+    getLayerVariableValue(variableId: string, layerId: string): LayerVariableValue
 
     // --- Group ---
     getGroupList(collectionId?: string): VariableGroupNode[]
@@ -155,6 +172,16 @@ declare global {
       groupPath?: string
       type?: VariableType
       scopeType?: string
+      /**
+       * 传入后，每个变量会额外带上 `resolvedValues`（各模式的变量最终值，引用已解开）。
+       * 不传则完全不产生该字段，老插件行为不变。
+       *
+       * - `modeId` 省略：对集合的每个模式各解析一次
+       * - `modeId` 指定：只解析该模式
+       */
+      resolve?: {
+        modeId?: string
+      }
     }): Variable[]
     setVariableReference(options: {
       id: string
@@ -875,6 +902,12 @@ declare global {
     readonly codeSyntax?: VariableCodeSyntax
     readonly scopes?: ReadonlyArray<ScopeName>
     readonly modes: Record<string, ReadonlyArray<any>>
+    /**
+     * 各模式下的变量最终值（引用已解开）。
+     * 仅当 getVariables 传入 `resolve` 时存在；键为模式 id。
+     * 老库/旧版本可能缺省。
+     */
+    readonly resolvedValues?: Record<string, VariableResolvedModeValue>
   }
 
   interface TextVariableFeatures {
@@ -946,6 +979,78 @@ declare global {
     readonly isExplicit: boolean
     /** 跟随父级时，父级的模式 id */
     readonly parentModeId: string | null
+  }
+
+  /** 变量最终值的解析状态 */
+  type VariableResolveStatus = 'resolved' | 'mixed' | 'unresolved' | 'external'
+
+  /** COLOR 变量归一化后的值，与 fills 的 color 口径一致 */
+  interface VariableResolvedColor {
+    r: number
+    g: number
+    b: number
+    a: number
+  }
+
+  /**
+   * 变量最终值。按变量类型返回不同形态：
+   * - COLOR → VariableResolvedColor
+   * - FLOAT / 圆角 / 边距 / 描边宽度 → number
+   * - STRING / BOOLEAN → string / boolean
+   * - PAINT / TEXT / EFFECT / GRID → 对象数组（字段口径与该类型 modes 中的一致）
+   */
+  type VariableResolvedValue =
+    | boolean
+    | number
+    | string
+    | VariableResolvedColor
+    | number[]
+    | Array<Record<string, any>>
+
+  /** 单个模式下的变量最终值 */
+  interface VariableResolvedModeValue {
+    /** 解析状态 */
+    readonly status: VariableResolveStatus
+    /** 最终值。status 为 unresolved / external 时可能缺省 */
+    readonly value?: VariableResolvedValue
+    /** 引用链上经过的变量 id，按从起点的顺序；便于调用方审计 */
+    readonly resolvedVia?: string[]
+    /**
+     * 多值场景（同一集合的不同实例生效了不同模式）下的各值。
+     * status 为 mixed 时存在。
+     */
+    readonly mixed?: ReadonlyArray<{ modeId: string; value: VariableResolvedValue }>
+  }
+
+  /** getLayerVariableValue 的返回值：单个最终值 + 实际生效的模式 */
+  interface LayerVariableValue extends VariableResolvedModeValue {
+    /** 该图层上实际生效的模式 id。unresolved / external 时为空串 */
+    readonly resolvedModeId: string
+    /** 引用链上经过的变量 id */
+    readonly resolvedVia: string[]
+    /** 未归一化的原始模式值（引用已解开），画布侧沿用该结构 */
+    readonly rawValues?: ReadonlyArray<any>
+  }
+
+  /**
+   * 变量模式变更事件的参数。
+   *
+   * 注意：事件只告知「哪个集合在哪个作用域换了模式」，**不携带变更后的模式 id**。
+   * 需要新值时请在回调里再用 `getLayerVariableValue` / `getVariables({ resolve })` 读取，
+   * 或读 `getLayerVariableModes` / 页面级模式列表。
+   *
+   * 事件由「状态快照差分」产生，因此：
+   * - 撤销、变体切换、团队库更新等 C++ 侧改动同样能覆盖到；
+   * - 同一集合新旧模式 id 相同（未真正变化）时不派发；
+   * - 新增集合（如切页/首次加载）不算模式变更，不派发。
+   */
+  interface VariableModeChangeEvent {
+    /** 发生变更的变量集合 id，可据此过滤只关心某个集合的场景 */
+    readonly collectionId: string
+    /** 变更作用域：页面级或图层级 */
+    readonly scope: 'page' | 'layer'
+    /** 仅 scope 为 'layer' 时存在：发生变更的图层 id */
+    readonly layerId?: string
   }
 
   interface VariableGroupNode {
