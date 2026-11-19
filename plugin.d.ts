@@ -60,11 +60,6 @@ declare global {
     layoutchange: (layoutInfo: LayoutInfo) => void
     currentpagechange: (pageId: string) => void
     themechange: (theme: ThemeColor) => void
-    /**
-     * 变量模式切换（页面级默认模式，或某个图层的模式覆盖）。
-     * 收到后应重新读取相关变量的最终值（`getVariables({ resolve })` / `getLayerVariableValue`）。
-     */
-    variablemodechange: (event: VariableModeChangeEvent) => void
     drop: (event: DropEvent) => void
     run: (command: { command: string }) => void
     close: () => void
