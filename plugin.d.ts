@@ -545,6 +545,19 @@ declare global {
     importComponentByKeyAsync(ukey: string): Promise<ComponentNode>
     importComponentSetByKeyAsync(ukey: string): Promise<ComponentSetNode>
     importStyleByKeyAsync(ukey: string): Promise<Style>
+    /**
+     * 按团队库组件/样式 ukey 解析其来源信息。
+     *
+     * ukey 格式为 `"<documentId>+<layerId>"`（与 importComponentByKeyAsync 等导入方法所需 ukey 一致）。
+     * 合法 ukey 恒 resolve 一个对象（不抛异常），字段含义：
+     * - isExternal 为 false：ukey 前缀是当前文件的 documentId，组件/样式定义在当前文件中
+     * - isExternal 为 true 且命中 library：ukey 来自该团队库；inPublishedSnapshot 表示它是否在该库当前发布版本中
+     * - isExternal 为 true 且 library 缺省：ukey 前缀不属于当前已加载/已订阅的任何团队库
+     *
+     * 同一源文件被多个团队库使用时取首个匹配的库；样式 ukey 同口径解析（component 仅组件类 ukey 返回）。
+     * ukey 非法（非字符串、为空、缺少 `+`、前后缀为空）时 Promise reject 错误字符串。
+     */
+    getTeamLibraryComponentByKeyAsync(ukey: string): Promise<TeamLibraryComponentResolveResult>
     getComponentListVal(): ComponentItemVal[]
     /**
      * @deprecated
@@ -2380,6 +2393,8 @@ declare global {
   interface TeamLibraryItem {
     readonly name: string
     readonly id: string
+    /** 库源文件的 documentId（组件/样式的 ukey 前缀即该值）；老库或旧版本可能缺省 */
+    readonly documentId?: string
     readonly componentList: TeamLibraryComponent[]
     readonly style: {
       paints: ReadonlyArray<TeamLibraryStyle>
@@ -2398,6 +2413,31 @@ declare global {
   }
 
   type TeamLibrary = ReadonlyArray<TeamLibraryItem>
+
+  /**
+   * getTeamLibraryComponentByKeyAsync 的解析结果。
+   */
+  interface TeamLibraryComponentResolveResult {
+    /** 传入的 ukey（`"<documentId>+<layerId>"`），原样返回 */
+    readonly ukey: string
+    /** ukey 前缀对应的源文件 documentId；无法确定时缺省 */
+    readonly sourceDocumentId?: string
+    /**
+     * ukey 是否来自当前文件之外：
+     * - false：ukey 前缀为当前文件的 documentId，组件/样式定义在当前文件中（此时 library 缺省、inPublishedSnapshot 恒为 false）
+     * - true：来自团队库，或无法归属到任何已加载/已订阅的团队库
+     */
+    readonly isExternal: boolean
+    /** 命中的团队库条目（getTeamLibraryAsync 返回项之一）；isExternal 为 false、未命中或不可用时缺省 */
+    readonly library?: TeamLibraryItem
+    /**
+     * 命中的团队库当前发布版本是否包含此 ukey 对应的组件/样式。
+     * isExternal 为 true 且为 false 时，通常表示该组件/样式曾来自某个团队库，但不在其当前发布内容中。
+     */
+    readonly inPublishedSnapshot: boolean
+    /** 命中的组件条目；仅组件类 ukey 返回，样式类 ukey 或未命中时缺省 */
+    readonly component?: TeamLibraryComponent
+  }
 
   interface PublishedTeamLibraryCollection {
     readonly id: string
