@@ -282,6 +282,13 @@ declare global {
        */
       textProperty?: string
       index?: number
+      /**
+       * 渐变色标索引（从 0 开始，按 gradientStops 顺序）。
+       * 传入后颜色变量绑定到「填充项 → 渐变色标」这一层，而非整个填充项。
+       * 必须同时指定 baseProperty: 'fillColor'，且目标填充项为渐变填充；
+       * 参数非法时 Promise reject（不再静默忽略）。
+       */
+      gradientStopIndex?: number
     }): Promise<void>
     unlinkVariableReferenceInLayer(options: {
       layerId: string
@@ -298,6 +305,11 @@ declare global {
        */
       textProperty?: string
       index?: number
+      /**
+       * 渐变色标索引（从 0 开始）。传入后只解除该色标上的颜色变量引用，
+       * 同一填充项内其它色标的引用保留。必须同时指定 baseProperty: 'fillColor'。
+       */
+      gradientStopIndex?: number
     }): Promise<void>
 
     // --- Variable Code Syntax ---
