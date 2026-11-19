@@ -185,6 +185,14 @@ declare global {
     }): Variable[]
     setVariableReference(options: {
       id: string
+      /**
+       * 引用目标。
+       *
+       * 传字符串时是「被引用变量/样式的 id」（老数据也接受变量名 alias）；
+       * 传对象时形如 `{ reference: string }`（可附带类型相关的补充字段），
+       * 表示把该模式的值设为对另一个变量/样式的引用 —— 此时 `modes[modeId]` 里只会留下 `reference`，
+       * 读最终值请用 `getVariables({ resolve })`。
+       */
       reference: string | object
       modeId?: string
       index?: string
@@ -900,6 +908,35 @@ declare global {
     readonly web?: string
     readonly android?: string
     readonly ios?: string
+  }
+
+  /**
+   * 变量在某个模式下的原始值（未解析引用）。
+   *
+   * 两种形态：
+   * - 直接赋值：带具体值字段（`floatData` / `stringData` / `bool` / 复合类型字段）；
+   * - 引用赋值：只带 `reference`（本层没有自己的值），需要沿引用链自行递归解析，
+   *   或用 `mg.variable.getVariables({ resolve })` 直接拿到最终解析值。
+   *
+   * 注意：引用赋值时，`modes[modeId]` 里读到的不是最终值。自己解析请遵守与画布一致的规则：
+   * 同集合引用沿用当前模式，跨集合（含团队库变量）取被引用集合的「模式 1」，并自行防环。
+   */
+  interface VariableModeValue {
+    /** 该值所属模式 id */
+    readonly modeId?: string
+    /** 单值变量/颜色/数值类：数值数组，颜色为 `[r, g, b, a]`（0~1） */
+    readonly floatData?: ReadonlyArray<number>
+    /** STRING 变量的值 */
+    readonly stringData?: string
+    /** BOOLEAN 变量的值 */
+    readonly bool?: boolean
+    /**
+     * 引用赋值：被引用变量/样式的 id。
+     * 老数据（早期团队库）这里可能是变量的 `alias`（变量名）而不是 id，需要按 alias 兜底查找。
+     */
+    readonly reference?: string
+    /** 复合类型（PAINT / TEXT / EFFECT / GRID）的其余字段按类型透传 */
+    readonly [field: string]: any
   }
 
   interface Variable {
