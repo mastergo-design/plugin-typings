@@ -1,3 +1,20 @@
+## [2.19.5](https://github.com/mastergo-design/plugin-typings/compare/v2.19.4...v2.19.5) (2026-11-19)
+
+
+### Bug Fixes
+
+* remove duplicate variablemodechange declaration from auto-merge ([fe66f79](https://github.com/mastergo-design/plugin-typings/commit/fe66f79df40a98239585820fd98153aee850cf0e))
+
+
+### Features
+
+* **typings:** support gradient stop variable references ([3499bda](https://github.com/mastergo-design/plugin-typings/commit/3499bdab47a9843165e7236c41c3a2f745942265))
+* **typings:** support resolved variable values in getVariables ([e8b4250](https://github.com/mastergo-design/plugin-typings/commit/e8b4250a1ca84e6b27e0ffab3333c407019f6ebf))
+* **typings:** 变量 resolve 一期/二期类型 + variablemodechange 事件 ([d633630](https://github.com/mastergo-design/plugin-typings/commit/d633630387602f4f1bfd66f11092c0ac65c94afb))
+* **typings:** 新增图层级变量最终值与 variablemodechange 事件 ([bd88985](https://github.com/mastergo-design/plugin-typings/commit/bd88985abfd170e6557570ce7b2e02ab2b802bac))
+
+
+
 ## [2.19.4](https://github.com/mastergo-design/plugin-typings/compare/v2.19.3...v2.19.4) (2026-10-10)
 
 
