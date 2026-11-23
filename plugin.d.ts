@@ -1583,6 +1583,11 @@ declare global {
      * 写入：等价于按位重置（与 `resetOverrides({ mask })` 同一通道）。
      * 写入 `'0'` 即清空本层全部覆盖；写入与当前值相同的掩码为 no-op。
      *
+     * 注意：该属性**不可枚举**（`enumerable: false`），不会出现在 `for...in` /
+     * `Object.keys()` 结果中。这是有意为之 —— 避免被遍历型测试/工具当作普通可写属性
+     * 批量回写（e2e 插件包的 testSetProps 即因预设值表不含本字段而必然失败）。
+     * 直接访问 `node.overrideState` 不受影响。
+     *
      * @example
      * const bits = BigInt(node.overrideState)
      * const hasOpacityOverride = (bits & BigInt('0x20')) !== BigInt(0)
