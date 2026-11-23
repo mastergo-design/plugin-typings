@@ -1570,7 +1570,7 @@ declare global {
     } | null
     slotInfo: { slotName: string; slotAlias: string } | null
     /**
-     * 该图层相对其主组件被实例覆盖的属性位掩码，十进制字符串。
+     * 该图层相对其主组件被实例覆盖的属性位掩码，十进制字符串。**可读写**。
      *
      * 语义：实例内图层与主组件对应图层逐属性比较后，引擎按位记录「哪些属性被改过」。
      *   - 非实例内图层（普通图层）无覆盖概念，恒为 `'0'`
@@ -1580,20 +1580,24 @@ declare global {
      *   该值是 64 位量（如 `'0xdd00010020'` 对应的十进制），JS `number` 只能安全表达 53 位，
      *   且 `&` `|` `^` 等位运算仅支持 32 位有符号整数。以字符串返回，用 `BigInt()` 解析即可无损。
      *
+     * 写入：等价于按位重置（与 `resetOverrides({ mask })` 同一通道）。
+     * 写入 `'0'` 即清空本层全部覆盖；写入与当前值相同的掩码为 no-op。
+     *
      * @example
      * const bits = BigInt(node.overrideState)
-     * const hasOpacityOverride = (bits & 0x20n) !== 0n
+     * const hasOpacityOverride = (bits & BigInt('0x20')) !== BigInt(0)
+     * node.overrideState = '0'   // 清空本层覆盖
      */
-    readonly overrideState: string
+    overrideState: string
     /**
-     * 文本级覆盖位掩码，十进制字符串（仅 TEXT 节点有实际含义，其余恒为 `'0'`）。
+     * 文本级覆盖位掩码，十进制字符串。**可读写**（仅 TEXT 节点有实际含义，其余恒为 `'0'`）。
      *
      * 与 `overrideState` 互补：`overrideState` 记录图层级属性（尺寸、填充引用、自动布局等），
      * `textState` 记录文本专属属性（字号、行高、字间距、文本内容、对齐、文本颜色等）。
      *
      * 同样必须用 `BigInt()` 解析，不要用 `number` 位运算。
      */
-    readonly textState: string
+    textState: string
   }
 
   interface ChildrenMixin<ChildrenNode = SceneNode> {
