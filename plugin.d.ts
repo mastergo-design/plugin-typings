@@ -430,6 +430,20 @@ declare global {
 
     showUI(html: string, options?: ShowUIOptions): void
 
+    /**
+     * 批量读取多个图层的指定属性（一次跨 JS/C++ 边界）。
+     *
+     * 性能动机：直接读 `node.width` / `node.fills` 等属性时，每个属性内部都是一次
+     * `getLayerProperties(layerId, [单个key])` 调用。遍历 N 个图层 × M 个属性 = N*M 次跨边界开销，
+     * 在组件实例差异比对、批量导出等场景会明显变慢。本方法一次读完。
+     *
+     * @param layerIds 图层 id 数组
+     * @param keys 属性名数组（与 LayerProperties 字段一致，如 `['width','height','fills']`）
+     * @returns 与 `layerIds` 等长的数组；某个图层不存在或读取失败时该位置为 `null`
+     * @example
+     * const props = mg.getLayersProperties(['1:2', '1:3'], ['width', 'height', 'fills'])
+     */
+    getLayersProperties(layerIds: string[], keys: string[]): Array<Record<string, unknown> | null>
     getNodeById<T extends SceneNode>(id: string): T | null
     getNodeByPosition(position: { x: number; y: number }): SceneNode | null
     getRootNodeById<T extends SceneNode>(id: string): T | null
@@ -1555,6 +1569,40 @@ declare global {
       mainComponent?: string
     } | null
     slotInfo: { slotName: string; slotAlias: string } | null
+    /**
+     * 该图层相对其主组件被实例覆盖的属性位掩码，十进制字符串。**可读写**。
+     *
+     * 语义：实例内图层与主组件对应图层逐属性比较后，引擎按位记录「哪些属性被改过」。
+     *   - 非实例内图层（普通图层）无覆盖概念，恒为 `'0'`
+     *   - 实例本身及其子图层被覆盖时返回非 0
+     *
+     * 为什么是 string 而不是 number：
+     *   该值是 64 位量（如 `'0xdd00010020'` 对应的十进制），JS `number` 只能安全表达 53 位，
+     *   且 `&` `|` `^` 等位运算仅支持 32 位有符号整数。以字符串返回，用 `BigInt()` 解析即可无损。
+     *
+     * 写入：等价于按位重置（与 `resetOverrides({ mask })` 同一通道）。
+     * 写入 `'0'` 即清空本层全部覆盖；写入与当前值相同的掩码为 no-op。
+     *
+     * 注意：该属性**不可枚举**（`enumerable: false`），不会出现在 `for...in` /
+     * `Object.keys()` 结果中。这是有意为之 —— 避免被遍历型测试/工具当作普通可写属性
+     * 批量回写（e2e 插件包的 testSetProps 即因预设值表不含本字段而必然失败）。
+     * 直接访问 `node.overrideState` 不受影响。
+     *
+     * @example
+     * const bits = BigInt(node.overrideState)
+     * const hasOpacityOverride = (bits & BigInt('0x20')) !== BigInt(0)
+     * node.overrideState = '0'   // 清空本层覆盖
+     */
+    overrideState: string
+    /**
+     * 文本级覆盖位掩码，十进制字符串。**可读写**（仅 TEXT 节点有实际含义，其余恒为 `'0'`）。
+     *
+     * 与 `overrideState` 互补：`overrideState` 记录图层级属性（尺寸、填充引用、自动布局等），
+     * `textState` 记录文本专属属性（字号、行高、字间距、文本内容、对齐、文本颜色等）。
+     *
+     * 同样必须用 `BigInt()` 解析，不要用 `number` 位运算。
+     */
+    textState: string
   }
 
   interface ChildrenMixin<ChildrenNode = SceneNode> {
@@ -2240,6 +2288,36 @@ declare global {
     resizeToFit(): void
   }
 
+  /**
+   * resetOverrides 的可选参数。
+   *
+   * 不传任何参数时行为与旧版一致（全量重置）。
+   */
+  interface ResetOverridesOptions {
+    /**
+     * 要重置的位掩码，十进制或 `0x` 前缀十六进制字符串。
+     *
+     * 按位指定要重置哪些属性，常见用法是传入 `node.overrideState` 或它的子集。
+     * 使用该字段时不再区分图层级/文本级，两个通道会同时下发同一掩码。
+     */
+    mask?: string
+    /**
+     * 便捷分类，与 `mask` 二选一（同时传时 `mask` 优先）。
+     *
+     * 图层级：`name` `locked` `visible` `opacity` `blendMode` `size`
+     *        `cornerRadius` `fill` `stroke` `effect` `grids` `autolayout`
+     * 文本级：`fontSize` `lineHeight` `letterSpacing` `textCase`
+     *        `textContent` `textAlign` `textColor`
+     */
+    categories?: string[]
+    /**
+     * 排除项，在 `mask`/`categories`/全量的结果上做位清除（优先级最高）。
+     *
+     * 典型用法：`{ exclude: ['fill', 'stroke', 'effect'] }` = 重置除颜色外的所有改动。
+     */
+    exclude?: string[]
+  }
+
   interface InstanceNode
     extends Omit<DefaultContainerMixin, 'appendChild' | 'insertChild'>,
       GeometryMixin,
@@ -2255,7 +2333,17 @@ declare global {
     readonly exposedInstances: InstanceNode[]
     isExposedInstance: boolean
 
-    resetOverrides(): void
+    /**
+     * 重置此实例上的所有直接变动（子实例的变动不算在内）。
+     *
+     * @param options 不传 = 全量重置（与旧行为一致）；传参可精确控制重置范围。
+     * @example
+     * instance.resetOverrides()                                        // 全量
+     * instance.resetOverrides({ exclude: ['fill', 'stroke', 'effect'] }) // 除颜色外全部
+     * instance.resetOverrides({ categories: ['autolayout'] })           // 仅自动布局
+     * instance.resetOverrides({ mask: '949187837984' })                 // 精确按位
+     */
+    resetOverrides(options?: ResetOverridesOptions): void
 
     clone(): InstanceNode
     /**
